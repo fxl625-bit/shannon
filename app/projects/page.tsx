@@ -13,7 +13,7 @@ export default function ProjectsPage() {
       <section className="py-12 sm:py-16">
         <div className="hero-enter">
           <div className="max-w-2xl">
-            <p className="text-base leading-8 text-[color:var(--muted)] sm:text-lg">
+            <p className="text-base leading-8 text-[color:var(--text-secondary)] sm:text-lg">
               {site.appsPage.intro[locale]}
             </p>
           </div>

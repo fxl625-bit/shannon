@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #07080d;
-  --bg-soft: #0b0d13;
-  --text: #eef1f9;
-  --muted: rgba(238, 241, 249, 0.68);
-  --line: rgba(255, 255, 255, 0.1);
-  --accent: #8fa7ff;
-  --accent-strong: #b5c2ff;
-  --panel: rgba(255, 255, 255, 0.04);
-  --font-display: var(--font-body);
+  --bg: #050505;
+  --surface: #0b0b0b;
+  --surface-soft: #111111;
+  --text-primary: #f5f5f5;
+  --text-secondary: rgba(255, 255, 255, 0.58);
+  --text-muted: rgba(255, 255, 255, 0.38);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --radius-xl: 24px;
+  --max-width: 1040px;
 }
 
 * {
@@ -18,19 +19,18 @@
 
 html {
   background: var(--bg);
-  color: var(--text);
+  color: var(--text-primary);
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  color: var(--text);
+  color: var(--text-primary);
   background:
-    radial-gradient(circle at 20% 20%, rgba(100, 120, 255, 0.18), transparent 35%),
-    radial-gradient(circle at 80% 30%, rgba(0, 220, 255, 0.1), transparent 30%),
-    radial-gradient(circle at 50% 90%, rgba(180, 90, 255, 0.12), transparent 35%),
-    linear-gradient(180deg, #0b0d13 0%, #07080d 100%);
+    radial-gradient(circle at 22% 14%, rgba(255, 255, 255, 0.045), transparent 34%),
+    radial-gradient(circle at 84% 22%, rgba(255, 255, 255, 0.03), transparent 34%),
+    var(--bg);
   font-family:
     var(--font-body),
     Inter,
@@ -47,73 +47,58 @@ a {
 }
 
 ::selection {
-  background: rgba(143, 167, 255, 0.34);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .ambient-layer {
   position: fixed;
-  inset: -12%;
+  inset: -20%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.85;
+  opacity: 0.45;
   background:
-    radial-gradient(circle at 12% 16%, rgba(126, 143, 255, 0.2), transparent 38%),
-    radial-gradient(circle at 86% 26%, rgba(90, 228, 250, 0.11), transparent 32%),
-    radial-gradient(circle at 52% 92%, rgba(183, 119, 255, 0.14), transparent 42%);
-  animation: ambientDrift 34s ease-in-out infinite alternate;
+    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.06), transparent 36%),
+    radial-gradient(circle at 82% 24%, rgba(255, 255, 255, 0.04), transparent 34%);
 }
 
 .glass-surface {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
 }
 
 .hero-enter {
   opacity: 0;
-  transform: translateY(16px);
-  animation: heroIn 720ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  transform: translateY(8px);
+  animation: heroIn 520ms ease forwards;
 }
 
 .focus-card {
   transition:
-    transform 220ms ease,
-    border-color 220ms ease,
-    box-shadow 220ms ease;
+    border-color 180ms ease,
+    background-color 180ms ease;
 }
 
 .focus-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(165, 187, 255, 0.3);
-  box-shadow: 0 14px 36px rgba(7, 10, 20, 0.42);
+  border-color: var(--border-strong);
+  background: var(--surface-soft);
 }
 
 .cta-button {
   transition:
-    transform 220ms ease,
-    box-shadow 220ms ease,
-    border-color 220ms ease,
-    background-color 220ms ease;
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
 }
 
 .cta-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 0 0 1px rgba(160, 183, 255, 0.45), 0 14px 36px rgba(86, 113, 219, 0.34);
-}
-
-@keyframes ambientDrift {
-  0% {
-    transform: translate3d(-1.6%, -1.2%, 0) scale(1);
-  }
-  100% {
-    transform: translate3d(1.8%, 1.4%, 0) scale(1.03);
-  }
+  border-color: var(--border-strong);
 }
 
 @keyframes heroIn {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
