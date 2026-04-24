@@ -16,6 +16,7 @@ export function SiteShell({
   eyebrow?: Localized;
 }) {
   const { locale, setLocale } = useLanguage();
+
   const navItems = [
     { href: "/", label: site.nav.home[locale] },
     { href: "/projects", label: site.nav.projects[locale] },
@@ -23,33 +24,35 @@ export function SiteShell({
   ];
 
   return (
-    <div className="relative min-h-screen">
-      <div className="grain" />
-      <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 pb-16 pt-6 sm:px-10 lg:px-12">
-        <header className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-6">
-          <Link
-            href="/"
-            className="font-[family-name:var(--font-display)] text-xl tracking-[0.18em] text-white"
-          >
-            SF
-          </Link>
-          <div className="flex items-center gap-4">
-            <nav className="flex items-center gap-5 text-sm text-[color:var(--muted)]">
+    <div className="relative min-h-screen overflow-x-clip">
+      <div className="ambient-layer" />
+      <main className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1100px] flex-col px-5 pb-20 pt-4 sm:px-8 lg:px-10">
+        <header className="sticky top-3 z-40">
+          <div className="glass-surface flex items-center justify-between gap-3 rounded-2xl px-4 py-3 sm:px-5">
+            <Link
+              href="/"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/[0.03] text-sm font-semibold tracking-[0.08em] text-white"
+            >
+              SF
+            </Link>
+
+            <nav className="flex items-center gap-3 text-xs text-[color:var(--muted)] sm:gap-5 sm:text-sm">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="transition-colors duration-150 hover:text-white"
+                  className="transition-colors duration-150 hover:text-[color:var(--accent-strong)]"
                 >
                   {item.label}
                 </Link>
               ))}
             </nav>
-            <div className="inline-flex rounded-full border border-white/10 bg-white/[0.04] p-1">
+
+            <div className="inline-flex rounded-full border border-white/12 bg-white/[0.03] p-1">
               <button
                 type="button"
                 onClick={() => setLocale("en")}
-                className={`rounded-full px-3 py-1 text-xs transition-colors duration-150 ${
+                className={`rounded-full px-2.5 py-1 text-[11px] transition-colors duration-150 sm:px-3 ${
                   locale === "en"
                     ? "bg-white text-black"
                     : "text-[color:var(--muted)] hover:text-white"
@@ -61,7 +64,7 @@ export function SiteShell({
               <button
                 type="button"
                 onClick={() => setLocale("zh")}
-                className={`rounded-full px-3 py-1 text-xs transition-colors duration-150 ${
+                className={`rounded-full px-2.5 py-1 text-[11px] transition-colors duration-150 sm:px-3 ${
                   locale === "zh"
                     ? "bg-white text-black"
                     : "text-[color:var(--muted)] hover:text-white"
@@ -75,14 +78,14 @@ export function SiteShell({
         </header>
 
         {(title || eyebrow) ? (
-          <div className="pt-16 sm:pt-24">
+          <div className="pt-14 sm:pt-20">
             {eyebrow ? (
-              <p className="text-xs uppercase tracking-[0.32em] text-[color:var(--accent)]">
+              <p className="inline-flex rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[color:var(--accent-strong)]">
                 {eyebrow[locale]}
               </p>
             ) : null}
             {title ? (
-              <h1 className="mt-4 max-w-2xl font-[family-name:var(--font-display)] text-5xl leading-none tracking-tight text-white sm:text-6xl">
+              <h1 className="mt-6 max-w-3xl text-[42px] leading-[1.03] tracking-tight text-white sm:text-[56px] lg:text-[64px]">
                 {title[locale]}
               </h1>
             ) : null}

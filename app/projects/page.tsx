@@ -10,17 +10,19 @@ export default function ProjectsPage() {
 
   return (
     <SiteShell title={site.projectsSection.title} eyebrow={site.projectsSection.eyebrow}>
-      <section className="py-16 sm:py-20">
-        <div className="mb-14 max-w-2xl">
-          <p className="text-base leading-8 text-[color:var(--muted)]">
-            {site.projectsSection.intro[locale]}
-          </p>
-        </div>
+      <section className="py-12 sm:py-16">
+        <div className="hero-enter">
+          <div className="max-w-2xl">
+            <p className="text-base leading-8 text-[color:var(--muted)] sm:text-lg">
+              {site.projectsSection.intro[locale]}
+            </p>
+          </div>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {site.projects.map((project) => (
-            <ProjectCard key={project.name.en} project={project} />
-          ))}
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:gap-5">
+            {site.projects.map((project) => (
+              <ProjectCard key={project.name.en} project={project} />
+            ))}
+          </div>
         </div>
       </section>
     </SiteShell>

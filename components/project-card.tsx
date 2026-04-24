@@ -9,25 +9,34 @@ export function ProjectCard({ project }: { project: Project }) {
   const { locale } = useLanguage();
 
   return (
-    <article className="group flex min-h-64 flex-col justify-between rounded-[2rem] border border-white/10 bg-[color:var(--panel)] p-8">
-      <div className="space-y-5">
-        <p className="text-xs uppercase tracking-[0.28em] text-[color:var(--accent)]">
+    <article className="glass-surface focus-card flex min-h-[320px] flex-col justify-between rounded-2xl p-6 sm:p-7">
+      <div>
+        <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--accent-strong)]">
           {site.projectsSection.cardLabel[locale]}
         </p>
-        <h2 className="font-[family-name:var(--font-display)] text-3xl leading-tight text-white">
-          {project.name[locale]}
-        </h2>
-        <p className="max-w-sm text-base leading-7 text-[color:var(--muted)]">
+        <h2 className="mt-3 text-3xl leading-tight text-white">{project.name[locale]}</h2>
+        <p className="mt-4 text-sm leading-7 text-[color:var(--muted)] sm:text-base">
           {project.summary[locale]}
         </p>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          {project.tags[locale].map((tag) => (
+            <span
+              key={`${project.name.en}-${tag}`}
+              className="rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-xs text-[color:var(--muted)]"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
       </div>
 
-      <div className="pt-10">
+      <div className="mt-8">
         <Link
           href={project.demoUrl}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center rounded-full border border-white/15 px-5 py-2.5 text-sm text-white transition-colors duration-150 hover:border-[color:var(--accent)] hover:text-[color:var(--accent)]"
+          className="cta-button inline-flex items-center rounded-full border border-white/20 bg-white/[0.03] px-5 py-2.5 text-sm text-white hover:border-[color:var(--accent)]"
         >
           {site.projectsSection.liveDemo[locale]}
         </Link>

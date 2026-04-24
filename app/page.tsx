@@ -11,45 +11,50 @@ export default function HomePage() {
 
   return (
     <SiteShell>
-      <section className="flex flex-1 items-center py-20 sm:py-28">
-        <div className="grid w-full gap-14 lg:grid-cols-[minmax(0,1.2fr)_minmax(260px,0.8fr)] lg:items-end">
+      <section className="flex flex-1 items-center py-12 sm:py-16 lg:py-20">
+        <div className="hero-enter w-full">
           <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.34em] text-[color:var(--accent)]">
+            <p className="inline-flex rounded-full border border-white/12 bg-white/[0.04] px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[color:var(--accent-strong)]">
               {site.home.eyebrow[locale]}
             </p>
-            <h1 className="mt-8 font-[family-name:var(--font-display)] text-6xl leading-[0.92] tracking-tight text-white sm:text-7xl lg:text-[6.5rem]">
+
+            <h1 className="mt-7 text-[42px] leading-[1.02] tracking-tight text-white sm:text-[56px] lg:text-[64px]">
               {site.name}
             </h1>
-            <p className="mt-6 max-w-2xl text-xl leading-8 text-[color:var(--muted)] sm:text-2xl">
+
+            <p className="mt-5 max-w-2xl text-[20px] leading-8 text-white/92 sm:text-[26px] sm:leading-9">
               {site.home.tagline[locale]}
             </p>
-            <p className="mt-10 max-w-xl text-base leading-8 text-[color:var(--muted)]">
+
+            <p className="mt-7 max-w-2xl text-base leading-8 text-[color:var(--muted)] sm:text-lg">
               {site.home.intro[locale]}
             </p>
-            <div className="mt-14">
+
+            <div className="mt-10">
               <Link
                 href="/projects"
-                className="inline-flex items-center rounded-full border border-[color:var(--accent)] bg-[color:var(--accent)] px-6 py-3 text-sm font-medium text-[#1f170f] shadow-[0_8px_24px_rgba(215,195,161,0.22)] transition-colors duration-150 hover:bg-[#e8cfac]"
+                className="cta-button inline-flex items-center rounded-full border border-[color:var(--accent)] bg-[rgba(143,167,255,0.2)] px-6 py-3 text-sm font-medium text-[#eef1ff]"
               >
                 {site.home.cta[locale]}
               </Link>
             </div>
           </div>
 
-          <div className="border-l border-white/10 pl-0 lg:pl-10">
-            <p className="text-sm uppercase tracking-[0.3em] text-[color:var(--muted)]">
+          <div className="mt-14">
+            <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--muted)]">
               {site.home.focusLabel[locale]}
             </p>
-            <div className="mt-8 space-y-10">
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {site.home.focusItems.map((item) => (
-                <div key={item.title.en}>
-                  <p className="font-[family-name:var(--font-display)] text-2xl text-white">
-                    {item.title[locale]}
-                  </p>
-                  <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">
+                <article
+                  key={item.title.en}
+                  className="glass-surface focus-card rounded-2xl p-6 sm:p-7"
+                >
+                  <h2 className="text-2xl leading-tight text-white">{item.title[locale]}</h2>
+                  <p className="mt-3 text-sm leading-7 text-[color:var(--muted)] sm:text-base">
                     {item.body[locale]}
                   </p>
-                </div>
+                </article>
               ))}
             </div>
           </div>
