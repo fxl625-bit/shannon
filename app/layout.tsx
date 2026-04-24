@@ -13,7 +13,8 @@ const body = Inter({
 
 export const metadata: Metadata = {
   title: "Shannon Fu",
-  description: "A minimal personal site for AI products and thoughtful ideas.",
+  description:
+    "Exploring how AI extends human capability through practical workflows, knowledge systems, and lightweight tools.",
 };
 
 export default function RootLayout({

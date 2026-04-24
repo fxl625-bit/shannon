@@ -9,18 +9,18 @@ export default function ProjectsPage() {
   const { locale } = useLanguage();
 
   return (
-    <SiteShell title={site.experimentsPage.title} eyebrow={site.experimentsPage.eyebrow}>
+    <SiteShell title={site.appsPage.title} eyebrow={site.appsPage.eyebrow}>
       <section className="py-12 sm:py-16">
         <div className="hero-enter">
           <div className="max-w-2xl">
             <p className="text-base leading-8 text-[color:var(--muted)] sm:text-lg">
-              {site.experimentsPage.intro[locale]}
+              {site.appsPage.intro[locale]}
             </p>
           </div>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:gap-5">
-            {site.experiments.map((project) => (
-              <ProjectCard key={project.name.en} project={project} />
+            {site.apps.map((app) => (
+              <ProjectCard key={app.name.en} app={app} />
             ))}
           </div>
         </div>
