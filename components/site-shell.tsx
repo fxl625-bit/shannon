@@ -19,8 +19,9 @@ export function SiteShell({
 
   const navItems = [
     { href: "/", label: site.nav.home[locale] },
-    { href: "/projects", label: site.nav.projects[locale] },
-    { href: "/thoughts", label: site.nav.thoughts[locale] },
+    { href: "/projects", label: site.nav.experiments[locale] },
+    { href: "/skills", label: site.nav.skills[locale] },
+    { href: "/thoughts", label: site.nav.notes[locale] },
   ];
 
   return (
@@ -28,7 +29,7 @@ export function SiteShell({
       <div className="ambient-layer" />
       <main className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1100px] flex-col px-5 pb-20 pt-4 sm:px-8 lg:px-10">
         <header className="sticky top-3 z-40">
-          <div className="glass-surface flex items-center justify-between gap-3 rounded-2xl px-4 py-3 sm:px-5">
+          <div className="glass-surface flex items-center justify-between gap-3 rounded-2xl px-3 py-3 sm:px-5">
             <Link
               href="/"
               className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/[0.03] text-sm font-semibold tracking-[0.08em] text-white"
@@ -59,7 +60,7 @@ export function SiteShell({
                 }`}
                 aria-label="Switch language to English"
               >
-                EN
+                {site.languageSwitch.en.current}
               </button>
               <button
                 type="button"
@@ -69,9 +70,9 @@ export function SiteShell({
                     ? "bg-white text-black"
                     : "text-[color:var(--muted)] hover:text-white"
                 }`}
-                aria-label="切换到中文"
+                aria-label="Switch language to Chinese"
               >
-                中
+                {site.languageSwitch.zh.current}
               </button>
             </div>
           </div>
