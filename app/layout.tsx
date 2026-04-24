@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, IBM_Plex_Sans } from "next/font/google";
 
+import { LanguageProvider } from "@/components/language-provider";
+
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -27,7 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
-      <body>{children}</body>
+      <body>
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }
