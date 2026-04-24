@@ -10,6 +10,9 @@ const basePath = isProjectPages ? `/${repositoryName}` : "";
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   images: {
     unoptimized: true,
   },

@@ -9,6 +9,7 @@ import { site } from "@/data/site";
 
 export default function HomePage() {
   const { locale } = useLanguage();
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (
     <SiteShell>
@@ -149,7 +150,7 @@ export default function HomePage() {
                 {app.previewImage ? (
                   <div className="overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
                     <Image
-                      src={app.previewImage}
+                      src={`${basePath}${app.previewImage}`}
                       alt={app.name[locale]}
                       width={1536}
                       height={864}

@@ -8,6 +8,7 @@ import { site, type AppTool } from "@/data/site";
 
 export function ProjectCard({ app }: { app: AppTool }) {
   const { locale } = useLanguage();
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (
     <article className="glass-surface focus-card rounded-2xl p-6 sm:p-7">
@@ -53,7 +54,7 @@ export function ProjectCard({ app }: { app: AppTool }) {
         {app.previewImage ? (
           <div className="overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
             <Image
-              src={app.previewImage}
+              src={`${basePath}${app.previewImage}`}
               alt={app.name[locale]}
               width={1536}
               height={864}
