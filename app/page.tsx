@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { useLanguage } from "@/components/language-provider";
@@ -145,9 +146,21 @@ export default function HomePage() {
                   ) : null}
                 </div>
 
-                <div className="flex min-h-[140px] items-center justify-center rounded-xl border border-white/10 bg-[linear-gradient(145deg,rgba(143,167,255,0.18),rgba(78,112,180,0.06)_50%,rgba(255,255,255,0.02))] px-4 text-center text-xs uppercase tracking-[0.16em] text-white/70 sm:min-h-[160px]">
-                  {app.previewLabel[locale]}
-                </div>
+                {app.previewImage ? (
+                  <div className="overflow-hidden rounded-xl border border-white/10 bg-white/[0.02]">
+                    <Image
+                      src={app.previewImage}
+                      alt={app.name[locale]}
+                      width={1536}
+                      height={864}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex min-h-[140px] items-center justify-center rounded-xl border border-white/10 bg-[linear-gradient(145deg,rgba(143,167,255,0.18),rgba(78,112,180,0.06)_50%,rgba(255,255,255,0.02))] px-4 text-center text-xs uppercase tracking-[0.16em] text-white/70 sm:min-h-[160px]">
+                    {app.previewLabel[locale]}
+                  </div>
+                )}
               </div>
             </article>
           ))}

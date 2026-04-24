@@ -14,6 +14,7 @@ export type AppTool = {
   typeLabel: Localized;
   summary: Localized;
   previewLabel: Localized;
+  previewImage?: string;
   demoUrl?: string;
   githubUrl?: string;
 };
@@ -232,6 +233,7 @@ export const site = {
         en: "Screenshot placeholder",
         zh: "\u622a\u56fe\u5360\u4f4d",
       },
+      previewImage: "/images/yishiyuanman-overview.png",
       demoUrl: undefined,
       githubUrl: undefined,
     },
