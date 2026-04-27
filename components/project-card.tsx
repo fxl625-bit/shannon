@@ -52,13 +52,13 @@ export function ProjectCard({ app }: { app: AppTool }) {
         </div>
 
         {app.previewImage ? (
-          <div className="overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-soft)]">
+          <div className="flex h-[220px] items-center justify-center overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-3">
             <Image
               src={`${basePath}${app.previewImage}`}
               alt={app.name[locale]}
               width={1536}
               height={864}
-              className="h-full w-full object-cover"
+              className="max-h-full w-full object-contain"
             />
           </div>
         ) : (

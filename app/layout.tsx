@@ -14,7 +14,7 @@ const body = Inter({
 export const metadata: Metadata = {
   title: "Shannon Fu",
   description:
-    "Exploring how AI extends human capability through practical workflows, knowledge systems, and lightweight tools.",
+    "A personal record of AI skills, Obsidian notes, and lightweight apps that stayed useful after real use.",
 };
 
 export default function RootLayout({

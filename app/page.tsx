@@ -15,13 +15,20 @@ export default function HomePage() {
     <SiteShell>
       <section className="flex min-h-[calc(100vh-86px)] items-center py-12 sm:py-20">
         <div className="hero-enter w-full max-w-5xl">
-          <p className="text-xs uppercase tracking-[0.22em] text-[color:var(--text-secondary)]">
+          <p className="text-sm font-medium text-[color:var(--text-primary)] sm:text-base">
+            {site.name}
+          </p>
+          <p className="mt-5 text-xs uppercase tracking-[0.22em] text-[color:var(--text-secondary)]">
             {site.home.badge[locale]}
           </p>
-          <h1 className="mt-5 text-[48px] leading-[0.98] tracking-tight text-[color:var(--text-primary)] sm:text-[72px] lg:text-[88px]">
+          <h1
+            className={`mt-5 max-w-4xl text-balance leading-[1.02] tracking-tight text-[color:var(--text-primary)] ${
+              locale === "zh" ? "text-[42px] sm:text-[62px] lg:text-[74px]" : "text-[48px] sm:text-[72px] lg:text-[88px]"
+            }`}
+          >
             {site.home.title[locale]}
           </h1>
-          <p className="mt-8 max-w-3xl text-base leading-8 text-[color:var(--text-secondary)] sm:text-lg">
+          <p className="mt-8 max-w-[34ch] text-base leading-8 text-[color:var(--text-secondary)] sm:max-w-3xl sm:text-lg">
             {site.home.description[locale]}
           </p>
 
@@ -91,14 +98,14 @@ export default function HomePage() {
               <h3 className="mt-2 text-2xl tracking-tight text-[color:var(--text-primary)]">{app.name[locale]}</h3>
               <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)]">{app.summary[locale]}</p>
 
-              <div className="mt-5 overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-soft)]">
+              <div className="mt-5 flex h-[220px] items-center justify-center overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-3">
                 {app.previewImage ? (
                   <Image
                     src={`${basePath}${app.previewImage}`}
                     alt={app.name[locale]}
                     width={1536}
                     height={864}
-                    className="h-full w-full object-cover"
+                    className="max-h-full w-full object-contain"
                   />
                 ) : (
                   <div className="flex min-h-[140px] items-center justify-center px-4 text-center text-xs uppercase tracking-[0.16em] text-[color:var(--text-muted)]">

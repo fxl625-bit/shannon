@@ -30,7 +30,7 @@ export function SiteShell({
       <main className="relative z-10 mx-auto flex min-h-screen w-full max-w-[var(--max-width)] flex-col px-5 pb-24 pt-5 sm:px-8">
         <header className="sticky top-3 z-40">
           <div className="relative rounded-[var(--radius-xl)] border border-[color:var(--border)] bg-[color:var(--surface)] px-3 py-3 sm:px-5">
-            <div className="flex items-center justify-between">
+            <div className="grid items-center gap-3 sm:grid-cols-[1fr_auto_1fr]">
               <Link
                 href="/"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-[color:var(--border)] bg-[color:var(--surface-soft)] text-sm font-semibold tracking-[0.08em] text-[color:var(--text-primary)]"
@@ -38,7 +38,19 @@ export function SiteShell({
                 SF
               </Link>
 
-              <div className="hidden rounded-full border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-1 sm:inline-flex">
+              <nav className="flex items-center justify-center gap-4 text-xs text-[color:var(--text-muted)] sm:gap-5 sm:text-sm">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="transition-colors duration-150 hover:text-[color:var(--text-primary)]"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="hidden justify-self-end rounded-full border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-1 sm:inline-flex">
                 <button
                   type="button"
                   onClick={() => setLocale("en")}
@@ -72,20 +84,8 @@ export function SiteShell({
               className="absolute right-3 top-3 rounded-full border border-transparent bg-[color:var(--text-primary)] px-3 py-1 text-[11px] text-black sm:hidden"
               aria-label="Toggle language"
             >
-              {locale === "en" ? "中" : "EN"}
+              {locale === "en" ? "\u4e2d" : "EN"}
             </button>
-
-            <nav className="mt-3 flex items-center justify-center gap-4 text-xs text-[color:var(--text-muted)] sm:mt-0 sm:justify-start sm:gap-5 sm:text-sm">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="transition-colors duration-150 hover:text-[color:var(--text-primary)]"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
           </div>
         </header>
 

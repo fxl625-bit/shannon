@@ -47,12 +47,12 @@ export const site = {
       zh: "AI x \u4eba\u7684\u80fd\u529b",
     },
     title: {
-      en: "Exploring how AI extends human capability",
-      zh: "\u63a2\u7d22 AI \u5982\u4f55\u63d0\u5347\u4eba\u7684\u80fd\u529b",
+      en: "AI skills, notes, and small tools I actually use",
+      zh: "\u6211\u5728\u7528\u7684 AI \u6280\u80fd\u3001\u7b14\u8bb0\u548c\u5c0f\u5de5\u5177",
     },
     description: {
-      en: "I build AI workflows, knowledge systems, and lightweight tools for writing, decisions, and execution.",
-      zh: "\u6211\u7528 AI \u505a\u5de5\u4f5c\u6d41\u3001\u77e5\u8bc6\u5e93\u548c\u8f7b\u91cf\u5de5\u5177\uff0c\u670d\u52a1\u5199\u4f5c\u3001\u51b3\u7b56\u548c\u6267\u884c\u3002",
+      en: "A personal record of the workflows, Obsidian notes, and lightweight apps that stayed useful after real use.",
+      zh: "\u8fd9\u91cc\u8bb0\u5f55\u6211\u771f\u6b63\u7528\u4e0b\u6765\u7684\u5de5\u4f5c\u6d41\u3001Obsidian \u7b14\u8bb0\u548c\u8f7b\u91cf\u5e94\u7528\u3002",
     },
     ctaPrimary: {
       en: "View AI Skills",
@@ -69,8 +69,8 @@ export const site = {
       zh: "AI \u6280\u80fd",
     },
     subtitle: {
-      en: "Core workflows I reuse every week.",
-      zh: "\u6211\u6bcf\u5468\u53cd\u590d\u4f7f\u7528\u7684\u6838\u5fc3\u5de5\u4f5c\u6d41\u3002",
+      en: "Workflows that stayed useful after repeated use.",
+      zh: "\u53cd\u590d\u7528\u4e0b\u6765\u8fd8\u503c\u5f97\u4fdd\u7559\u7684\u6d41\u7a0b\u3002",
     },
     cta: { en: "View AI Skills", zh: "\u67e5\u770b AI \u6280\u80fd" },
   },
@@ -203,13 +203,14 @@ export const site = {
       name: { en: "FlowMate \u4e50\u4f34", zh: "FlowMate \u4e50\u4f34" },
       typeLabel: { en: "AI Lightweight Tool", zh: "AI \u8f7b\u91cf\u5de5\u5177" },
       summary: {
-        en: "Private AI DJ tool focused on playback, queue control, and fallback sources.",
-        zh: "\u79c1\u4eba AI DJ \u5de5\u5177\uff0c\u91cd\u70b9\u662f\u64ad\u653e\u3001\u961f\u5217\u548c\u97f3\u6e90 fallback\u3002",
+        en: "A small music companion shaped around listening flow: enter, play, and adjust the mood.",
+        zh: "\u4e00\u4e2a\u56f4\u7ed5\u6536\u542c\u8282\u594f\u505a\u7684\u5c0f\u5e94\u7528\uff1a\u8fdb\u5165\u9891\u9053\u3001\u5f00\u59cb\u64ad\u653e\uff0c\u518d\u6309\u5f53\u4e0b\u72b6\u6001\u5fae\u8c03\u6c1b\u56f4\u3002",
       },
       previewLabel: {
         en: "Screenshot placeholder",
         zh: "\u622a\u56fe\u5360\u4f4d",
       },
+      previewImage: "/images/flowmate-overview.png",
       demoUrl: undefined,
       githubUrl: undefined,
     },
@@ -218,7 +219,7 @@ export const site = {
     {
       name: { en: "Xiaohongshu Sources", zh: "\u5c0f\u7ea2\u4e66\u6765\u6e90" },
       detail: {
-        en: "Source page at `wiki/sources/小红书.md`, built from inbox and raw notes.",
+        en: "Source page at `wiki/sources/\u5c0f\u7ea2\u4e66.md`, built from inbox and raw notes.",
         zh: "\u5728 `wiki/sources/\u5c0f\u7ea2\u4e66.md` \u7ef4\u62a4\u6765\u6e90\u7d22\u5f15\uff0c\u6765\u6e90\u4e8e inbox \u5bfc\u5165\u548c raw \u7b14\u8bb0\u6d41\u7a0b\u3002",
       },
     },
