@@ -47,11 +47,11 @@ export const site = {
       zh: "AI x \u4eba\u7684\u80fd\u529b",
     },
     title: {
-      en: "AI skills, notes, and small tools I actually use",
-      zh: "\u6211\u5728\u7528\u7684 AI \u6280\u80fd\u3001\u7b14\u8bb0\u548c\u5c0f\u5de5\u5177",
+      en: "Exploring how AI extends human capability",
+      zh: "\u63a2\u7d22 AI \u5982\u4f55\u63d0\u5347\u4eba\u7684\u80fd\u529b",
     },
     description: {
-      en: "A personal record of the workflows, Obsidian notes, and lightweight apps that stayed useful after real use.",
+      en: "A personal record of workflows, Obsidian notes, and lightweight apps that stayed useful after real use.",
       zh: "\u8fd9\u91cc\u8bb0\u5f55\u6211\u771f\u6b63\u7528\u4e0b\u6765\u7684\u5de5\u4f5c\u6d41\u3001Obsidian \u7b14\u8bb0\u548c\u8f7b\u91cf\u5e94\u7528\u3002",
     },
     ctaPrimary: {

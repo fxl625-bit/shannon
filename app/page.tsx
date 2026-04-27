@@ -23,10 +23,17 @@ export default function HomePage() {
           </p>
           <h1
             className={`mt-5 max-w-4xl text-balance leading-[1.02] tracking-tight text-[color:var(--text-primary)] ${
-              locale === "zh" ? "text-[42px] sm:text-[62px] lg:text-[74px]" : "text-[48px] sm:text-[72px] lg:text-[88px]"
+              locale === "zh" ? "text-[40px] sm:text-[58px] lg:text-[72px]" : "text-[48px] sm:text-[72px] lg:text-[88px]"
             }`}
           >
-            {site.home.title[locale]}
+            {locale === "zh" ? (
+              <>
+                <span className="block">探索 AI 如何提升</span>
+                <span className="block whitespace-nowrap">人的能力</span>
+              </>
+            ) : (
+              site.home.title[locale]
+            )}
           </h1>
           <p className="mt-8 max-w-[34ch] text-base leading-8 text-[color:var(--text-secondary)] sm:max-w-3xl sm:text-lg">
             {site.home.description[locale]}
