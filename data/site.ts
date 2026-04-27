@@ -48,11 +48,11 @@ export const site = {
     },
     title: {
       en: "Exploring how AI extends human capability",
-      zh: "\u63a2\u7d22 AI \u5982\u4f55\u63d0\u5347\u4eba\u7684\u80fd\u529b\u8fb9\u754c",
+      zh: "\u63a2\u7d22 AI \u5982\u4f55\u63d0\u5347\u4eba\u7684\u80fd\u529b",
     },
     description: {
-      en: "Workflows, Obsidian notes, and lightweight apps.",
-      zh: "\u5de5\u4f5c\u6d41\u3001Obsidian \u7b14\u8bb0\u548c\u8f7b\u91cf\u5e94\u7528\u3002",
+      en: "I use AI to build practical workflows, personal knowledge systems, and lightweight tools for writing, decision-making, and daily execution.",
+      zh: "\u6211\u7528 AI \u505a\u5b9e\u7528\u5de5\u4f5c\u6d41\u3001\u4e2a\u4eba\u77e5\u8bc6\u7cfb\u7edf\u548c\u8f7b\u91cf\u5de5\u5177\uff0c\u7528\u5728\u5199\u4f5c\u3001\u51b3\u7b56\u548c\u65e5\u5e38\u6267\u884c\u3002",
     },
     ctaPrimary: {
       en: "View AI Skills",
