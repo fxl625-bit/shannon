@@ -22,18 +22,13 @@ export default function HomePage() {
             {site.home.badge[locale]}
           </p>
           <h1
-            className={`mt-5 max-w-4xl text-balance leading-[1.02] tracking-tight text-[color:var(--text-primary)] ${
-              locale === "zh" ? "text-[40px] sm:text-[58px] lg:text-[72px]" : "text-[48px] sm:text-[72px] lg:text-[88px]"
+            className={`mt-5 leading-[1.02] tracking-normal text-[color:var(--text-primary)] ${
+              locale === "zh"
+                ? "max-w-none whitespace-nowrap text-[24px] sm:text-[44px] lg:text-[60px]"
+                : "max-w-4xl text-balance text-[48px] sm:text-[72px] lg:text-[88px]"
             }`}
           >
-            {locale === "zh" ? (
-              <>
-                <span className="block">探索 AI 如何提升</span>
-                <span className="block whitespace-nowrap">人的能力</span>
-              </>
-            ) : (
-              site.home.title[locale]
-            )}
+            {site.home.title[locale]}
           </h1>
           <p className="mt-8 max-w-[34ch] text-base leading-8 text-[color:var(--text-secondary)] sm:max-w-3xl sm:text-lg">
             {site.home.description[locale]}
