@@ -48,11 +48,11 @@ export const site = {
     },
     title: {
       en: "Exploring how AI extends human capability",
-      zh: "\u63a2\u7d22 AI \u5982\u4f55\u63d0\u5347\u4eba\u7684\u80fd\u529b",
+      zh: "\u63a2\u7d22 AI \u5982\u4f55\u63d0\u5347\u4eba\u7684\u80fd\u529b\u8fb9\u754c",
     },
     description: {
-      en: "I use AI to build practical workflows, personal knowledge systems, and lightweight tools for writing, decision-making, and daily execution.",
-      zh: "\u6211\u7528 AI \u505a\u5b9e\u7528\u5de5\u4f5c\u6d41\u3001\u4e2a\u4eba\u77e5\u8bc6\u7cfb\u7edf\u548c\u8f7b\u91cf\u5de5\u5177\uff0c\u7528\u5728\u5199\u4f5c\u3001\u51b3\u7b56\u548c\u65e5\u5e38\u6267\u884c\u3002",
+      en: "Notes on AI tools and workflows in practice.",
+      zh: "\u4e00\u4e9b AI \u5de5\u5177\u548c\u5de5\u4f5c\u6d41\u7684\u5b9e\u8df5\u8bb0\u5f55\u3002",
     },
     ctaPrimary: {
       en: "View AI Skills",
@@ -69,8 +69,8 @@ export const site = {
       zh: "AI \u6280\u80fd",
     },
     subtitle: {
-      en: "Workflows that stayed useful after repeated use.",
-      zh: "\u53cd\u590d\u7528\u4e0b\u6765\u8fd8\u503c\u5f97\u4fdd\u7559\u7684\u6d41\u7a0b\u3002",
+      en: "Reusable flows I still use.",
+      zh: "\u73b0\u5728\u8fd8\u5728\u7528\u7684\u53ef\u590d\u7528\u6d41\u7a0b\u3002",
     },
     cta: { en: "View AI Skills", zh: "\u67e5\u770b AI \u6280\u80fd" },
   },
@@ -80,8 +80,8 @@ export const site = {
       zh: "Apps \u4e0e\u8f7b\u91cf AI \u5de5\u5177",
     },
     subtitle: {
-      en: "Small tools from real builds.",
-      zh: "\u6765\u81ea\u771f\u5b9e\u9879\u76ee\u7684\u5c0f\u5de5\u5177\u3002",
+      en: "Two small tools built for real use.",
+      zh: "\u81ea\u5df1\u505a\u6765\u81ea\u5df1\u7528\u7684\u4e24\u4e2a\u5c0f\u5de5\u5177\u3002",
     },
     cta: { en: "View Apps", zh: "\u67e5\u770b\u8f7b\u91cf\u5e94\u7528" },
   },
@@ -159,8 +159,8 @@ export const site = {
       name: { en: "AI BOSS Skill", zh: "AI BOSS Skill" },
       label: { en: "AI Skill / Workflow", zh: "AI Skill / Workflow" },
       summary: {
-        en: "Second-brain command flow with stable routing and response patterns.",
-        zh: "\u4e2a\u4eba second brain \u603b\u63a7\u6d41\uff0c\u56fa\u5b9a\u8def\u7531\u548c\u8f93\u51fa\u6a21\u5f0f\u3002",
+        en: "A second-brain command flow for goals, tasks, memory, and decision support.",
+        zh: "\u7528\u6765\u7ba1\u7406\u76ee\u6807\u3001\u4efb\u52a1\u3001\u8bb0\u5fc6\u548c\u51b3\u7b56\u8f85\u52a9\u7684 second-brain \u6d41\u7a0b\u3002",
       },
       githubUrl: undefined,
     },
@@ -168,8 +168,8 @@ export const site = {
       name: { en: "Video Translation Skill", zh: "\u89c6\u9891\u7ffb\u8bd1 Skill" },
       label: { en: "AI Skill / Workflow", zh: "AI Skill / Workflow" },
       summary: {
-        en: "Local video translation flow for subtitles, dubbing, and remux.",
-        zh: "\u672c\u5730\u89c6\u9891\u7ffb\u8bd1\u6d41\uff0c\u652f\u6301\u5b57\u5e55\u3001\u914d\u97f3\u548c\u91cd\u5c01\u88c5\u3002",
+        en: "A local video translation flow for subtitles, dubbing, and remux.",
+        zh: "\u7528\u4e8e\u5b57\u5e55\u3001\u914d\u97f3\u548c\u91cd\u65b0\u5c01\u88c5\u7684\u672c\u5730\u89c6\u9891\u7ffb\u8bd1\u6d41\u7a0b\u3002",
       },
       githubUrl: undefined,
     },
@@ -177,8 +177,8 @@ export const site = {
       name: { en: "Weekly Report Skill", zh: "\u5468\u62a5 Skill" },
       label: { en: "AI Skill / Workflow", zh: "AI Skill / Workflow" },
       summary: {
-        en: "Turn Dida or TickTick CSV tasks into structured weekly reports.",
-        zh: "\u628a\u6ef4\u7b54\u6216 TickTick CSV \u4efb\u52a1\u8f6c\u4e3a\u7ed3\u6784\u5316\u5468\u62a5\u3002",
+        en: "Turns task exports into structured weekly reports.",
+        zh: "\u628a\u4efb\u52a1\u5bfc\u51fa\u6574\u7406\u6210\u7ed3\u6784\u5316\u5468\u62a5\u3002",
       },
       githubUrl: undefined,
     },
