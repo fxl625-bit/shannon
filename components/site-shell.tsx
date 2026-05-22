@@ -19,6 +19,7 @@ export function SiteShell({
 
   const navItems = [
     { href: "/", label: site.nav.home[locale] },
+    { href: "/cases", label: site.nav.cases[locale] },
     { href: "/skills", label: site.nav.skills[locale] },
     { href: "/apps", label: site.nav.apps[locale] },
     { href: "/obsidian", label: site.nav.obsidian[locale] },

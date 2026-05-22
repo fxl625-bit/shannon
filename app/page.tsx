@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { useLanguage } from "@/components/language-provider";
 import { SiteShell } from "@/components/site-shell";
 import { site, type AppTool, type Locale } from "@/data/site";
+import { cases } from "@/data/cases";
 
 type DiagramGroup = {
   label: string;
@@ -29,6 +29,7 @@ const diagramGroups: DiagramGroup[] = [
 
 export default function HomePage() {
   const { locale } = useLanguage();
+  const featuredCases = cases.filter((c) => ["content-ops", "feishu-mobile-dev", "research-report"].includes(c.slug));
 
   return (
     <SiteShell>
@@ -50,13 +51,13 @@ export default function HomePage() {
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
             <Link
-              href="#skills"
+              href="/cases"
               className="cta-button inline-flex items-center rounded-full border border-[color:var(--text-primary)] bg-[color:var(--text-primary)] px-6 py-3 text-sm font-medium !text-[#050505]"
             >
-              {site.home.ctaPrimary[locale]}
+              {locale === "zh" ? "查看案例" : "View Cases"}
             </Link>
             <Link
-              href="#apps"
+              href="/skills"
               className="cta-button inline-flex items-center rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-6 py-3 text-sm font-medium text-[color:var(--text-primary)]"
             >
               {site.home.ctaSecondary[locale]}
@@ -69,17 +70,53 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="skills" className="border-t border-[color:var(--border)] py-18 sm:py-24">
-        <SectionHeader
-          title={site.skillsSection.title[locale]}
-          description={site.skillsSection.subtitle[locale]}
-        />
-        <ul className="mt-9 divide-y divide-[color:var(--border)] border-y border-[color:var(--border)]">
+      {/* Featured cases strip */}
+      <section className="border-t border-[color:var(--border)] py-16 sm:py-20">
+        <div className="flex items-end justify-between gap-4 mb-8">
+          <div className="max-w-xl">
+            <h2 className="text-[28px] leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[36px]">
+              {locale === "zh" ? "AI-Native 工作流案例" : "AI-Native Workflow Cases"}
+            </h2>
+            <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
+              {locale === "zh"
+                ? "把重复劳动、经验判断和跨工具操作沉淀成可复用 Agent。"
+                : "Turning repetitive labor, judgment, and cross-tool operations into reusable Agent workflows."}
+            </p>
+          </div>
+          <Link
+            href="/cases"
+            className="cta-button shrink-0 inline-flex items-center rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-5 py-2.5 text-sm text-[color:var(--text-primary)]"
+          >
+            {locale === "zh" ? "全部 9 个案例 →" : "All 9 Cases →"}
+          </Link>
+        </div>
+        <div className="home-case-showcase">
+          {featuredCases.map((c) => (
+            <Link key={c.slug} href={`/cases/${c.slug}`} className="case-wall-card">
+              <span className="num">{c.number}</span>
+              <h2>{c.title[locale]}</h2>
+              <p>{c.valueStatement[locale].slice(0, locale === "zh" ? 60 : 100)}…</p>
+              <span className="output-type">{c.metrics[2].value[locale]}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section id="skills" className="border-t border-[color:var(--border)] py-16 sm:py-20">
+        <div className="max-w-2xl">
+          <h2 className="text-[28px] leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[36px]">
+            {site.skillsSection.title[locale]}
+          </h2>
+          <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
+            {site.skillsSection.subtitle[locale]}
+          </p>
+        </div>
+        <ul className="mt-8 divide-y divide-[color:var(--border)] border-y border-[color:var(--border)]">
           {site.skills.map((skill) => (
             <li key={skill.name.en} className="grid gap-3 py-6 md:grid-cols-[0.78fr_1.22fr] md:gap-8">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">{skill.label[locale]}</p>
-                <h2 className="mt-2 text-[24px] leading-tight text-[color:var(--text-primary)]">{skill.name[locale]}</h2>
+                <h3 className="mt-2 text-[22px] leading-tight text-[color:var(--text-primary)]">{skill.name[locale]}</h3>
               </div>
               <p className="max-w-[56ch] text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
                 {skill.summary[locale]}
@@ -89,24 +126,32 @@ export default function HomePage() {
         </ul>
       </section>
 
-      <section id="apps" className="py-18 sm:py-24">
-        <SectionHeader
-          title={site.appsSection.title[locale]}
-          description={site.appsSection.subtitle[locale]}
-        />
-        <div className="mt-9 grid gap-5 lg:grid-cols-2">
+      <section id="apps" className="py-16 sm:py-20">
+        <div className="max-w-2xl">
+          <h2 className="text-[28px] leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[36px]">
+            {site.appsSection.title[locale]}
+          </h2>
+          <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
+            {site.appsSection.subtitle[locale]}
+          </p>
+        </div>
+        <div className="mt-8 grid gap-5 lg:grid-cols-2">
           {site.apps.map((app) => (
             <AppCard key={app.name.en} app={app} locale={locale} />
           ))}
         </div>
       </section>
 
-      <section id="obsidian" className="border-t border-[color:var(--border)] py-18 sm:py-24">
-        <SectionHeader
-          title={site.obsidianPage.title[locale]}
-          description={site.obsidianPage.intro[locale]}
-        />
-        <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section id="obsidian" className="border-t border-[color:var(--border)] py-16 sm:py-20">
+        <div className="max-w-2xl">
+          <h2 className="text-[28px] leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[36px]">
+            {site.obsidianPage.title[locale]}
+          </h2>
+          <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
+            {site.obsidianPage.intro[locale]}
+          </p>
+        </div>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {site.obsidianPage.cards.map((card, index) => (
             <article
               key={card.title.en}
@@ -115,7 +160,7 @@ export default function HomePage() {
               <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-[color:var(--border)] text-[11px] text-[color:var(--text-muted)]">
                 {String(index + 1).padStart(2, "0")}
               </div>
-              <h2 className="text-lg leading-tight text-[color:var(--text-primary)]">{card.title[locale]}</h2>
+              <h3 className="text-lg leading-tight text-[color:var(--text-primary)]">{card.title[locale]}</h3>
               <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)]">{card.body[locale]}</p>
             </article>
           ))}
@@ -173,11 +218,9 @@ function AppCard({ app, locale }: { app: AppTool; locale: Locale }) {
         <div className="overflow-hidden rounded-[18px] border border-[color:var(--border)] bg-[#080808] p-3">
           {app.previewImage ? (
             <div className="flex h-[220px] items-center justify-center overflow-hidden rounded-[14px] border border-[color:var(--border)] bg-black/60">
-              <Image
+              <img
                 src={`${basePath}${app.previewImage}`}
                 alt={app.name[locale]}
-                width={1536}
-                height={864}
                 className="max-h-full w-full object-contain"
               />
             </div>
@@ -191,7 +234,7 @@ function AppCard({ app, locale }: { app: AppTool; locale: Locale }) {
 
       <div className="p-6 sm:p-7">
         <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">{app.typeLabel[locale]}</p>
-        <h2 className="mt-3 text-[28px] leading-tight text-[color:var(--text-primary)]">{app.name[locale]}</h2>
+        <h3 className="mt-3 text-[28px] leading-tight text-[color:var(--text-primary)]">{app.name[locale]}</h3>
         <p className="mt-4 max-w-[34ch] text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
           {app.summary[locale]}
         </p>
@@ -216,17 +259,6 @@ function DeviceMock() {
           <div className="h-16 rounded-[14px] border border-[color:var(--border)] bg-white/5" />
         </div>
       </div>
-    </div>
-  );
-}
-
-function SectionHeader({ title, description }: { title: string; description?: string }) {
-  return (
-    <div className="max-w-2xl">
-      <h2 className="text-[30px] leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[40px]">
-        {title}
-      </h2>
-      {description ? <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">{description}</p> : null}
     </div>
   );
 }
