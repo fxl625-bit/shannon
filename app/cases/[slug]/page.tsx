@@ -8,15 +8,15 @@ export function generateStaticParams() {
   return cases.map((c) => ({ slug: c.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Metadata {
-  const { slug } = params as unknown as { slug: string };
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
   const c = getCaseBySlug(slug);
   if (!c) return {};
   return { title: `${c.number} ${c.title.en}` };
 }
 
-export default function CasePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = params as unknown as { slug: string };
+export default async function CasePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const c = getCaseBySlug(slug);
   if (!c) notFound();
 
