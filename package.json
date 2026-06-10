@@ -4,14 +4,30 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:local": "next dev -p 4003",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "frames:extract": "node scripts/extract-video-frames.js",
+    "frames:optimize": "node scripts/optimize-frames.js",
+    "visual:scroll": "node scripts/scroll-runner.js",
+    "visual:check": "node scripts/visual-check-static.js",
+    "visual:video": "node scripts/visual-scroll-video-check.js",
+    "visual:sequence": "node scripts/visual-sequence-check.js",
+    "check:scroll": "node scripts/scroll-reachability-check.js",
+    "check:scroll-roundtrip": "node scripts/scroll-roundtrip-check.js"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@types/three": "^0.184.1",
+    "framer-motion": "^12.40.0",
+    "gsap": "^3.15.0",
     "next": "16.2.4",
+    "playwright": "^1.60.0",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.15",

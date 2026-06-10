@@ -4,6 +4,7 @@ import {
   createContext,
   useContext,
   useState,
+  useEffect,
   type ReactNode,
 } from "react";
 
@@ -20,13 +21,21 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 const STORAGE_KEY = "shannon-fu-site-locale";
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(() => {
-    if (typeof window === "undefined") {
-      return "en";
-    }
+  // Always start with "en" during SSR to avoid hydration mismatch.
+  // Hydrate from localStorage after mount — this synchronizes React state
+  // with an external system (localStorage), which is the documented purpose of useEffect.
+  const [locale, setLocaleState] = useState<Locale>("en");
+
+  useEffect(() => {
     const storedValue = window.localStorage.getItem(STORAGE_KEY);
-    return storedValue === "zh" ? "zh" : "en";
-  });
+    if (storedValue === "zh" || storedValue === "en") {
+      // Hydrate from localStorage after mount to fix hydration mismatch.
+      // This is the documented use case for useEffect: synchronizing React
+      // state with an external system (localStorage).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLocaleState(storedValue);
+    }
+  }, []);
 
   const setLocale = (nextLocale: Locale) => {
     setLocaleState(nextLocale);

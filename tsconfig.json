@@ -33,7 +33,17 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    "out-dist/types/**/*.ts",
+    "out-dist/dev/types/**/*.ts",
+    "out/types/**/*.ts",
+    "out/dev/types/**/*.ts",
+    "out-v3/types/**/*.ts",
+    "out-v3/dev/types/**/*.ts",
+    "out-v4/types/**/*.ts",
+    "out-v4/dev/types/**/*.ts",
+    "out-v5/types/**/*.ts",
+    "out-v5/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

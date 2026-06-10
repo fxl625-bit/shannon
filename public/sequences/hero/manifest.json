@@ -1,0 +1,36 @@
+{
+  "source": "douyin_video.mp4",
+  "sourceSize": 5079320,
+  "sourceWidth": 1258,
+  "sourceHeight": 720,
+  "sourceFps": 30,
+  "sourceDuration": 37.66,
+  "segmentStart": "00:00:03",
+  "segmentDuration": "00:00:11",
+  "extractedAt": "2026-06-09T10:42:00.000Z",
+  "desktop": {
+    "totalFrames": 165,
+    "fps": 15,
+    "width": 1600,
+    "height": 916,
+    "format": "webp",
+    "quality": 75,
+    "avgSizeBytes": 48000,
+    "totalSizeBytes": 7900000,
+    "prefix": "frame_",
+    "basePath": "/sequences/hero"
+  },
+  "mobile": {
+    "totalFrames": 83,
+    "fps": 7.5,
+    "width": 720,
+    "height": 412,
+    "format": "webp",
+    "quality": 75,
+    "avgSizeBytes": 24000,
+    "totalSizeBytes": 1900000,
+    "prefix": "frame_",
+    "basePath": "/sequences/hero-mobile"
+  },
+  "frameFiles": []
+}

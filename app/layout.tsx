@@ -12,9 +12,16 @@ const body = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Shannon Fu",
+  title: "Shannon Fu — AI x Human Potential",
   description:
-    "Workflows, Obsidian notes, and lightweight apps.",
+    "A personal interface for exploring how AI expands memory, expression, judgment, and creativity.",
+  keywords: ["AI", "Human Potential", "Knowledge System", "Second Brain", "Workflow"],
+  openGraph: {
+    title: "Shannon Fu — AI x Human Potential",
+    description:
+      "A personal interface for exploring how AI expands memory, expression, judgment, and creativity.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -23,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={body.variable}>
-      <body>
+    <html lang="en" className={body.variable} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
