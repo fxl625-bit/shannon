@@ -31,14 +31,16 @@ const PHASES: PhaseDef[] = [
     name: "hero", start: 0, end: 0.22,
     en: (
       <div className="text-center max-w-[640px]">
-        <h1 className="text-[52px] leading-[1.08] font-semibold tracking-tight text-white sm:text-[72px] lg:text-[90px]">
-          Shannon Fu
-        </h1>
-        <p className="mt-3 text-[32px] sm:text-[40px] lg:text-[48px] leading-[1.15] font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[color:var(--cyan)] via-cyan-200 to-[color:var(--violet)]">
-          AI × Human Potential
-        </p>
-        <p className="mt-6 text-base leading-relaxed text-[color:var(--text-secondary)] sm:text-lg max-w-[44ch] mx-auto">
-          I use this space to collect the systems, apps, knowledge structures, and workflows behind my AI-native work.
+        <div className="space-y-1">
+          <h1 className="text-[52px] leading-[1.08] font-semibold tracking-tight text-white sm:text-[72px] lg:text-[90px]">
+            Shannon Fu
+          </h1>
+          <p className="text-[36px] sm:text-[44px] lg:text-[56px] leading-[1.1] font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[color:var(--cyan)] via-cyan-200 to-[color:var(--violet)]">
+            AI × Human Potential
+          </p>
+        </div>
+        <p className="mt-6 text-base leading-relaxed text-[color:var(--text-secondary)] sm:text-lg max-w-[48ch] mx-auto">
+          Tools, knowledge, and a few AI-assisted ways of working.
         </p>
         <div className="mt-10 flex items-center justify-center gap-3">
           <div className="h-px w-8 bg-[color:var(--text-muted)]/40" />
@@ -51,14 +53,16 @@ const PHASES: PhaseDef[] = [
     ),
     zh: (
       <div className="text-center max-w-[640px]">
-        <h1 className="text-[52px] leading-[1.08] font-semibold tracking-tight text-white sm:text-[72px] lg:text-[90px]">
-          Shannon Fu
-        </h1>
-        <p className="mt-3 text-[32px] sm:text-[40px] lg:text-[48px] leading-[1.15] font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[color:var(--cyan)] via-cyan-200 to-[color:var(--violet)]">
-          AI × 人类潜能
-        </p>
-        <p className="mt-6 text-base leading-relaxed text-[color:var(--text-secondary)] sm:text-lg max-w-[44ch] mx-auto">
-          我把这里当作一个公开空间，记录自己如何把 AI 用进工作流、知识系统和个人应用。
+        <div className="space-y-1">
+          <h1 className="text-[52px] leading-[1.08] font-semibold tracking-tight text-white sm:text-[72px] lg:text-[90px]">
+            Shannon Fu
+          </h1>
+          <p className="text-[36px] sm:text-[44px] lg:text-[56px] leading-[1.1] font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[color:var(--cyan)] via-cyan-200 to-[color:var(--violet)]">
+            AI × 人类潜能
+          </p>
+        </div>
+        <p className="mt-6 text-base leading-relaxed text-[color:var(--text-secondary)] sm:text-lg max-w-[48ch] mx-auto">
+          工具、知识库，以及一些常用的 AI 工作方法。
         </p>
         <div className="mt-10 flex items-center justify-center gap-3">
           <div className="h-px w-8 bg-[color:var(--text-muted)]/40" />
@@ -153,21 +157,20 @@ const PHASES: PhaseDef[] = [
     en: (
       <div className="text-center">
         <p className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight text-[color:var(--text-primary)]">
-          The future is{" "}
-          <span className="bg-gradient-to-r from-[color:var(--cyan)] to-[color:var(--violet)] bg-clip-text text-transparent">
-            augmented humanity
-          </span>
-          .
+          The future is not only AI,
+        </p>
+        <p className="mt-3 text-xl sm:text-2xl lg:text-3xl font-light tracking-tight text-[color:var(--text-secondary)]">
+          but also augmented people.
         </p>
       </div>
     ),
     zh: (
       <div className="text-center">
         <p className="text-3xl sm:text-4xl leading-tight font-semibold tracking-tight text-[color:var(--text-primary)]">
-          未来不只是人工智能，<br />
-          <span className="bg-gradient-to-r from-[color:var(--cyan)] to-[color:var(--violet)] bg-clip-text text-transparent">
-            也是被增强的人。
-          </span>
+          未来不止有人工智能，
+        </p>
+        <p className="mt-2 text-xl sm:text-2xl font-light leading-relaxed text-[color:var(--text-secondary)]">
+          也有被增强的人。
         </p>
       </div>
     ),

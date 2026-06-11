@@ -272,12 +272,12 @@ function SVGConnections({
       {/* Connection dots at end points when hovered */}
       <AnimatePresence>
         {hoveredNode &&
-          visibleConnections.map((conn) => {
+          visibleConnections.map((conn, idx) => {
             const toPos = nodePositions.get(conn.to);
             if (!toPos) return null;
             return (
               <motion.circle
-                key={`dot-${conn.to}`}
+                key={`dot-${conn.from}-${conn.to}-${idx}`}
                 cx={toPos.x}
                 cy={toPos.y}
                 r={3}
@@ -335,17 +335,17 @@ export function PotentialMapSection() {
         <Reveal>
           <div className="mb-16 max-w-2xl">
             <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]">
-              {locale === "zh" ? "认知扩展图谱" : "Cognitive Extension Map"}
+              {locale === "zh" ? "从输入到输出" : "From Input to Output"}
             </span>
             <h2 className="mt-4 text-[32px] font-semibold leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[42px]">
               {locale === "zh"
-                ? "人输入，AI 处理，人输出"
-                : "Human Input, AI Process, Human Output"}
+                ? "信息如何变成成果"
+                : "How Information Becomes Output"}
             </h2>
             <p className="mt-4 text-base leading-7 text-[color:var(--text-secondary)]">
               {locale === "zh"
-                ? "这不是一个系统架构图，而是一个认知被 AI 扩展后的结构图。"
-                : "Not a system architecture diagram, but a map of cognition extended by AI."}
+                ? "有些内容先被记录下来，再被整理、检索、加工，最后变成文章、报告、工具或决策。"
+                : "Some things get captured first, then organized, searched, and turned into writing, reports, tools, or decisions."}
             </p>
           </div>
         </Reveal>

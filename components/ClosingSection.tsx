@@ -49,7 +49,7 @@ export function ClosingSection() {
               href="mailto:fxl625@gmail.com"
               className="text-sm text-[color:var(--text-muted)] transition-colors hover:text-[color:var(--text-primary)] tracking-wider"
             >
-              {locale === "zh" ? "fxl625@gmail.com" : "fxl625@gmail.com"}
+              {locale === "zh" ? "E-Mail" : "E-Mail"}
             </a>
             <span className="text-[color:var(--text-muted)]/30">·</span>
             <a

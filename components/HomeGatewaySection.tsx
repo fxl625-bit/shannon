@@ -22,35 +22,35 @@ const ENTRIES: { href: string; icon: string; key: EntryKey }[] = [
 
 const COPY = {
   en: {
-    title: "My AI-native workbench",
-    subtitle: "Apps, AI-Agent knowledge, and workflows shaped by real work.",
+    title: "Things I work on",
+    subtitle: "Projects, knowledge, and ways of working I keep coming back to.",
     apps: {
       name: "Apps",
-      desc: "Local-first tools and personal products, including a family health app published on Google Play.",
+      desc: "Small tools and personal projects I built and use, including a health app published on Google Play.",
     },
     "ai-agent-knowledge-base": {
       name: "AI-Agent Knowledge Base",
-      desc: "An Obsidian-based knowledge base structured for AI agents, long-term context, and reusable working rules.",
+      desc: "An Obsidian-based knowledge base organized so I — and AI agents — can find and reuse information easily.",
     },
     workflows: {
       name: "Workflows",
-      desc: "How I use AI in real work: research, communication, publishing, coding, public-opinion tracking, and decision support.",
+      desc: "How I use AI in real work: research, writing, coding, tracking public opinion, and making decisions.",
     },
   },
   zh: {
-    title: "我的 AI 原生工作台",
-    subtitle: "由真实工作塑造的应用、AI-Agent 知识库与工作流。",
+    title: "我在做的事",
+    subtitle: "项目、知识库，以及我经常使用的工作方式。",
     apps: {
       name: "应用",
-      desc: "本地优先的工具和个人产品，包括已上架 Google Play 的家庭健康 App。",
+      desc: "自己做来自己用的小工具和个人项目，包括已上架 Google Play 的健康记录 App。",
     },
     "ai-agent-knowledge-base": {
       name: "AI-Agent 知识库",
-      desc: "以 Obsidian 为核心，为 AI-Agent 提供长期上下文、结构化资料与可复用工作规则的知识库。",
+      desc: "以 Obsidian 整理的知识库，方便自己和 AI 快速找到和复用信息。",
     },
     workflows: {
       name: "工作流",
-      desc: "我在真实工作中使用 AI 的方式：研究、传播、内容生产、编程、舆情追踪与决策辅助。",
+      desc: "我在真实工作中使用 AI 的方式：研究、写作、编程、舆情追踪与决策辅助。",
     },
   },
 };

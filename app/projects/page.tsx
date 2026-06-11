@@ -18,7 +18,7 @@ export default function ProjectsPage() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:gap-5">
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:gap-5 items-stretch">
             {site.apps.map((app) => (
               <ProjectCard key={app.name.en} app={app} />
             ))}

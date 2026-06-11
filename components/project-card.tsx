@@ -11,9 +11,9 @@ export function ProjectCard({ app }: { app: AppTool }) {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (
-    <article className="focus-card rounded-[var(--radius-xl)] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 sm:p-7">
-      <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-        <div>
+    <article className="focus-card flex flex-col rounded-[var(--radius-xl)] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 sm:p-7 h-full min-h-[420px]">
+      <div className="flex flex-col flex-1 gap-5">
+        <div className="flex flex-col flex-1">
           <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
             {site.appsPage.cardLabel[locale]}
           </p>
@@ -21,12 +21,12 @@ export function ProjectCard({ app }: { app: AppTool }) {
             {app.typeLabel[locale]}
           </p>
           <h2 className="mt-3 text-3xl leading-tight text-[color:var(--text-primary)]">{app.name[locale]}</h2>
-          <p className="mt-4 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
+          <p className="mt-4 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base flex-1">
             {app.summary[locale]}
           </p>
 
           {app.demoUrl || app.githubUrl ? (
-            <div className="mt-7 flex flex-wrap gap-2">
+            <div className="mt-auto pt-4 flex flex-wrap gap-2">
               {app.demoUrl ? (
                 <Link
                   href={app.demoUrl}
@@ -52,17 +52,17 @@ export function ProjectCard({ app }: { app: AppTool }) {
         </div>
 
         {app.previewImage ? (
-          <div className="flex h-[220px] items-center justify-center overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-3">
+          <div className="flex h-[220px] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-soft)]">
             <Image
               src={`${basePath}${app.previewImage}`}
               alt={app.name[locale]}
               width={1536}
               height={864}
-              className="max-h-full w-full object-contain"
+              className="h-full w-full object-cover"
             />
           </div>
         ) : (
-          <div className="flex min-h-[140px] items-center justify-center rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] px-4 text-center text-xs uppercase tracking-[0.16em] text-[color:var(--text-muted)] sm:min-h-[160px]">
+          <div className="flex h-[220px] shrink-0 items-center justify-center rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] px-4 text-center text-xs uppercase tracking-[0.16em] text-[color:var(--text-muted)]">
             {app.previewLabel[locale]}
           </div>
         )}

@@ -8,8 +8,8 @@ import type { Localized } from "@/data/site";
 const pageTitle: Localized = { en: "AI-Agent Knowledge Base", zh: "AI-Agent 知识库" };
 
 const pageEyebrow: Localized = {
-  en: "Knowledge System for AI Agents",
-  zh: "面向 AI-Agent 的知识系统",
+  en: "How I organize information",
+  zh: "我的信息组织方式",
 };
 
 type Section = {
@@ -26,52 +26,41 @@ const sections: Section[] = [
       zh: "概览",
     },
     body: {
-      en: "My AI-Agent Knowledge Base is built around Obsidian and kept consistent across devices through cloud sync. The vault follows a clear folder structure: raw/ for unprocessed captures, inbox/ for items waiting to be classified, wiki/ for curated and interlinked knowledge entries, and config/ for rules that guide how AI assistants interact with the knowledge base. It is not just a notebook; it is a knowledge layer for long-term context, reusable references, and working rules for AI agents. Regular reviews keep the system clean and prevent long-term digital clutter.",
-      zh: "我的 AI-Agent 知识库以 Obsidian 为核心，通过云同步在多设备之间保持一致。知识库遵循清晰的文件夹规范：raw/ 存放未经处理的捕捉内容，inbox/ 存放待分类条目，wiki/ 存放经过策展和相互链接的知识条目，config/ 存放管理 AI 助手与知识库交互的规则。它不是普通笔记本，而是为 AI-Agent 提供长期上下文、可复用资料和工作规则的知识底座。定期回顾让系统保持清洁，避免长期积累数字杂乱。",
+      en: "My Obsidian vault is not only for notes. It also keeps rules, scripts, outputs, and skills. So whenever I look something up, write something, or ask AI to help with materials, I don't have to start from scratch.",
+      zh: "我的 Obsidian 不只是放笔记，也放规则、脚本、输出结果和 Skills。这样我以后查资料、写东西，或者让 AI 帮我处理材料时，不用每次从零开始。",
     },
   },
   {
     key: "vault-structure",
     title: {
-      en: "Vault Structure",
-      zh: "知识库结构",
+      en: "How It's Organized",
+      zh: "目录说明",
     },
     body: {
-      en: "The vault is organized into four top-level directories. raw/ captures incoming content at full fidelity, preserving original form. inbox/ holds items awaiting classification and processing. wiki/ contains curated, interlinked knowledge entries that have been reviewed and connected. config/ stores rule files that define how AI agents should operate within the vault — classification standards, conflict resolution rules, and query conventions.",
-      zh: "知识库分为四个顶层目录。raw/ 以完整保真度捕捉收入的内容，保留原始形态。inbox/ 存放等待分类和处理的条目。wiki/ 存放经过策展和相互链接的知识条目。config/ 存储定义 AI-Agent 如何在知识库中运作的规则文件——包括分类标准、冲突解决规则和查询约定。",
+      en: "raw/ keeps raw captures as they come in. wiki/ holds organized entries that have been reviewed and linked. config/ stores rule files — classification standards, conflict resolution, query conventions. skills/ holds reusable capabilities. scripts/ and outputs/ handle automation and generated results.",
+      zh: "raw/ 放原始内容，wiki/ 放整理过的条目，config/ 放规则，skills/ 放可复用能力，scripts/ 和 outputs/ 分别放脚本和输出结果。",
     },
   },
   {
-    key: "agent-context",
+    key: "ai-collaboration",
     title: {
-      en: "Agent Context",
-      zh: "Agent 上下文",
+      en: "Working with AI",
+      zh: "与 AI 协作",
     },
     body: {
-      en: "The knowledge base is designed to serve as long-term context for AI agents. Instead of treating notes as isolated documents, the vault uses structured frontmatter, consistent tagging, and interlinked wikilinks so agents can navigate the graph and retrieve relevant context efficiently. The config/ directory contains explicit rules that agents read at startup to understand how to classify, summarize, and cross-reference entries.",
-      zh: "知识库设计为 AI-Agent 提供长期上下文。笔记不是孤立的文档，而是通过结构化 frontmatter、一致标签和互联的 wikilinks 组织，使 Agent 能够高效导航图谱并检索相关内容。config/ 目录包含 Agent 启动时读取的明确规则，定义如何分类、摘要和交叉引用条目。",
-    },
-  },
-  {
-    key: "working-rules",
-    title: {
-      en: "Working Rules",
-      zh: "工作规则",
-    },
-    body: {
-      en: "Rules in config/ govern every AI interaction with the vault. AI-generated summaries must compress information, not copy full text. Classifications allow multiple tags but the main category count stays restrained. When sources conflict, the rule is to log the conflict into wiki/reviews/ — never adjudicate privately. These rules are enforced at the config level and read by every agent before operating on the vault.",
-      zh: "config/ 中的规则管理着每个 AI 与知识库的交互方式。AI 生成的摘要必须压缩信息而非照抄全文。分类允许多标签但主类别数目保持克制。来源冲突时，规则是记录到 wiki/reviews/ 而非私下裁断。这些规则在 config 层强制执行，每个 Agent 在操作知识库前都会读取。",
+      en: "The vault uses consistent tags and internal links, so both I and AI agents can find things quickly. Rules in config/ tell AI how to classify entries, summarize without copying full text, and where to log conflicting information. The AI helps with processing, but I keep the decisions.",
+      zh: "知识库使用一致的标签和内部链接，人和 AI 都能快速找到内容。config/ 里的规则告诉 AI 如何分类、如何做摘要、来源冲突时记录到哪里。AI 帮我处理，判断还是我来做。",
     },
   },
   {
     key: "review-loop",
     title: {
-      en: "Review Loop",
-      zh: "回顾机制",
+      en: "Keeping It Clean",
+      zh: "保持整洁",
     },
     body: {
-      en: "Regular reviews prevent digital clutter and keep the knowledge base healthy. Unprocessed items in inbox/ are triaged periodically. Stale wiki entries are flagged for review. Orphan nodes and broken wikilinks are detected through full-vault scans. Weekly reports surface what has been added, what needs attention, and what can be archived.",
-      zh: "定期回顾防止数字杂乱，保持知识库健康。inbox/ 中的未处理条目定期分类。过时的 wiki 条目被标记待审。孤立的节点和损坏的 wikilinks 通过全库扫描检测。周报展示新增内容、待处理事项和可归档内容。",
+      en: "I review the vault regularly. raw/ items get sorted. Old wiki entries get reviewed or archived. Orphan notes and broken links are detected through full scans. A recurring summary shows what's new and what needs attention.",
+      zh: "定期回顾知识库。raw/ 里的内容会被归类。过时的 wiki 条目会被审查或归档。孤立笔记和断链通过全库扫描发现。定期总结告诉我都新增了什么、哪些需要处理。",
     },
   },
   {
@@ -81,15 +70,15 @@ const sections: Section[] = [
       zh: "同步",
     },
     body: {
-      en: "The entire vault is kept consistent across devices through cloud sync. No iCloud is involved. This ensures the same folder structure, rules, and knowledge entries are available whether working from desktop or mobile, and that AI agents always reference the latest version of the knowledge base.",
-      zh: "整个知识库通过云同步在多设备之间保持一致。不涉及 iCloud。这确保了无论从桌面端还是移动端工作，相同的文件夹结构、规则和知识条目始终可用，AI-Agent 始终引用最新版本的知识库。",
+      en: "The vault stays consistent across devices through cloud sync. Files, rules, and outputs follow the same structure, so the work can continue from different machines.",
+      zh: "知识库通过云同步在多台设备之间保持一致。文件、规则和输出结果保持同一套结构，方便在不同设备上继续工作。",
     },
   },
 ];
 
 const closingThought: Localized = {
-  en: "A knowledge base for AI agents is not about storing everything — it is about making the right context findable when it matters.",
-  zh: "AI-Agent 知识库不是为了存储一切——而是在关键时刻让正确的上下文变得可发现。",
+  en: "A knowledge base that works is one you keep coming back to.",
+  zh: "好的知识库是你愿意反复回来用的那个。",
 };
 
 export default function AiAgentKnowledgeBasePage() {
@@ -113,6 +102,62 @@ export default function AiAgentKnowledgeBasePage() {
               </div>
             </Reveal>
           ))}
+
+          {/* Vault Structure Diagram — based on real vault scan */}
+          <Reveal delay={0.25}>
+            <div className="section-block">
+              <h2 className="text-[24px] leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[30px]">
+                {locale === "zh" ? "结构图" : "Vault Diagram"}
+              </h2>
+              <div className="mt-6">
+                {/* Flow diagram */}
+                <div className="flex flex-col items-center gap-3 sm:gap-4">
+                  {/* Raw -> Wiki (main flow) */}
+                  <div className="w-full max-w-xs rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4 text-center">
+                    <p className="text-sm font-semibold text-[color:var(--cyan)]">raw/</p>
+                    <p className="mt-1 text-[11px] text-[color:var(--text-muted)]">
+                      {locale === "zh" ? "来自 Douyin、微信、小红书等平台的原始内容" : "Raw captures from Douyin, WeChat, Xiaohongshu, and more"}
+                    </p>
+                  </div>
+                  <div className="h-6 w-px bg-gradient-to-b from-[color:var(--border)] to-transparent" />
+                  <div className="w-full max-w-xs rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4 text-center">
+                    <p className="text-sm font-semibold text-[color:var(--violet)]">wiki/</p>
+                    <p className="mt-1 text-[11px] text-[color:var(--text-muted)]">
+                      {locale === "zh" ? "按集合、来源、主题整理的策展条目" : "Curated entries in collections, sources, and topics"}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Support layers */}
+                <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-3 text-center">
+                    <p className="text-xs font-semibold text-[color:var(--blue)]">config/</p>
+                    <p className="mt-1 text-[10px] text-[color:var(--text-muted)]">
+                      {locale === "zh" ? "规则与分类标准" : "Rules and classification"}
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-3 text-center">
+                    <p className="text-xs font-semibold text-[color:var(--warm)]">skills/</p>
+                    <p className="mt-1 text-[10px] text-[color:var(--text-muted)]">
+                      {locale === "zh" ? "Workflows · Atomic · Bridge · Orchestrator" : "Workflows · Atomic · Bridge · Orchestrator"}
+                    </p>
+                  </div>
+                  <div className="rounded-xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-3 text-center">
+                    <p className="text-xs font-semibold text-[color:var(--green)]">scripts/ + outputs/</p>
+                    <p className="mt-1 text-[10px] text-[color:var(--text-muted)]">
+                      {locale === "zh" ? "自动化脚本与生成结果" : "Automation scripts and generated outputs"}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="mt-6 text-sm leading-relaxed text-[color:var(--text-muted)] text-center max-w-2xl mx-auto">
+                  {locale === "zh"
+                    ? "内容从多个平台流入 raw/，整理后进入 wiki/。config/ 和 skills/ 提供规则和可复用能力，scripts/ 负责自动化处理，outputs/ 存放最终结果。"
+                    : "Content flows in from various platforms into raw/, then into wiki/ after processing. config/ and skills/ provide rules and reusable capabilities, scripts/ handle automation, and outputs/ store the results."}
+                </p>
+              </div>
+            </div>
+          </Reveal>
 
           <Reveal delay={0.4}>
             <div className="glass-surface-strong px-6 py-8 text-center sm:px-10 sm:py-10">

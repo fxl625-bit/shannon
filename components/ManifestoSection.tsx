@@ -59,20 +59,8 @@ export function ManifestoSection() {
             <Reveal delay={0.3}>
               <p className="text-lg leading-8 text-[color:var(--text-secondary)] sm:text-xl">
                 {locale === "zh"
-                  ? "AI 不只是自动化工具，它也可以成为记忆、感知、表达与判断的新层。"
-                  : "AI is not only about automation. It can become a new layer of memory, perception, expression, and decision-making."}
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.45}>
-              <div className="h-px w-16 bg-gradient-to-r from-[color:var(--cyan)] to-transparent" />
-            </Reveal>
-
-            <Reveal delay={0.5}>
-              <p className="text-sm leading-7 text-[color:var(--text-muted)]">
-                {locale === "zh"
-                  ? "这个网站是一个实验界面，记录我如何用 AI 扩展人的能力边界——不是展示技术本身，而是展示被技术增强后的人能做什么。"
-                  : "This site is an experimental interface documenting how I use AI to expand human capability — not showcasing technology itself, but what augmented humans can do."}
+                  ? "AI 不光是自动化工具，也可以在记忆、表达、判断和创造这些方面帮上忙。"
+                  : "AI is more than automation. It can also help with memory, expression, judgment, and creativity."}
               </p>
             </Reveal>
           </div>

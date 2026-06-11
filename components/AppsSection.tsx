@@ -18,10 +18,10 @@ function AppPreviewCard({
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (
-    <Reveal delay={index * 0.1}>
-      <div className="group relative overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] transition-all duration-300 hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-hover)]">
+    <Reveal delay={index * 0.1} className="h-full">
+      <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] transition-all duration-300 hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-hover)]">
         {/* Preview area */}
-        <div className="relative h-48 overflow-hidden border-b border-[color:var(--border)] bg-[color:var(--surface-soft)] sm:h-56">
+        <div className="relative h-48 shrink-0 overflow-hidden border-b border-[color:var(--border)] bg-[color:var(--surface-soft)] sm:h-56">
           {app.previewImage ? (
             <Image
               src={`${basePath}${app.previewImage}`}
@@ -48,14 +48,14 @@ function AppPreviewCard({
         </div>
 
         {/* Info */}
-        <div className="p-5 sm:p-6">
+        <div className="flex flex-1 flex-col p-5 sm:p-6">
           <p className="text-[11px] uppercase tracking-[0.15em] text-[color:var(--text-muted)]">
             {app.typeLabel[locale]}
           </p>
           <h3 className="mt-2 text-lg font-semibold text-[color:var(--text-primary)]">
             {app.name[locale]}
           </h3>
-          <p className="mt-2 text-sm leading-6 text-[color:var(--text-secondary)]">
+          <p className="mt-2 flex-1 text-sm leading-6 text-[color:var(--text-secondary)]">
             {app.summary[locale]}
           </p>
         </div>
@@ -83,7 +83,7 @@ export function AppsSection() {
           </div>
         </Reveal>
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid gap-5 sm:grid-cols-2 items-stretch">
           {site.apps.map((app, i) => (
             <AppPreviewCard key={app.name.en} app={app} index={i} />
           ))}
