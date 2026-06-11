@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useLanguage } from "@/components/language-provider";
 import { Reveal } from "@/components/animation/Reveal";
 
@@ -17,64 +16,58 @@ export function ClosingSection() {
 
       <div className="relative mx-auto max-w-[var(--max-width)] px-5 text-center sm:px-8">
         <Reveal>
-          <h2
-            className={`mx-auto max-w-[16ch] font-semibold tracking-tight text-[color:var(--text-primary)] ${
-              locale === "zh"
-                ? "text-[36px] leading-[1.15] sm:text-[52px] lg:text-[64px]"
-                : "text-[40px] leading-[1.05] sm:text-[56px] lg:text-[68px]"
-            }`}
-          >
-            {locale === "zh" ? (
-              <>
-                未来不只是
-                <br />
-                <span className="bg-gradient-to-r from-[color:var(--cyan)] to-[color:var(--violet)] bg-clip-text text-transparent">
-                  人工智能
-                </span>
-                ，
-                <br />
-                也是被增强的
-                <span className="bg-gradient-to-r from-[color:var(--warm)] to-[color:var(--cyan)] bg-clip-text text-transparent">
-                  人
-                </span>
-                。
-              </>
-            ) : (
-              <>
-                The future is not
-                <br />
-                only{" "}
-                <span className="bg-gradient-to-r from-[color:var(--cyan)] to-[color:var(--violet)] bg-clip-text text-transparent">
-                  artificial intelligence
-                </span>
-                .
-                <br />
-                It is{" "}
-                <span className="bg-gradient-to-r from-[color:var(--warm)] to-[color:var(--cyan)] bg-clip-text text-transparent">
-                  augmented humanity
-                </span>
-                .
-              </>
-            )}
-          </h2>
+          {locale === "zh" ? (
+            <div className="space-y-3">
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-[color:var(--text-primary)] leading-relaxed">
+                还在继续搭建。
+              </p>
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-[color:var(--text-primary)] leading-relaxed">
+                还在继续记录。
+              </p>
+              <p className="mt-4 text-lg sm:text-xl leading-relaxed text-[color:var(--text-secondary)] max-w-[32ch] mx-auto">
+                也还在继续测试 AI 如何改变我的思考和工作方式。
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-[color:var(--text-primary)] leading-relaxed">
+                Still building.
+              </p>
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-[color:var(--text-primary)] leading-relaxed">
+                Still taking notes.
+              </p>
+              <p className="mt-4 text-lg sm:text-xl leading-relaxed text-[color:var(--text-secondary)] max-w-[36ch] mx-auto">
+                Still testing how AI changes the way I think and work.
+              </p>
+            </div>
+          )}
         </Reveal>
 
-        <Reveal delay={0.2}>
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/cases"
-              className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-6 py-3 text-sm text-[color:var(--text-secondary)] transition-all hover:border-[color:var(--border-strong)] hover:text-[color:var(--text-primary)]"
+        <Reveal delay={0.3}>
+          <div className="mt-14 flex flex-wrap items-center justify-center gap-6">
+            <a
+              href="mailto:fxl625@gmail.com"
+              className="text-sm text-[color:var(--text-muted)] transition-colors hover:text-[color:var(--text-primary)] tracking-wider"
             >
-              {locale === "zh" ? "探索案例" : "Explore Cases"}
-            </Link>
+              {locale === "zh" ? "fxl625@gmail.com" : "fxl625@gmail.com"}
+            </a>
+            <span className="text-[color:var(--text-muted)]/30">·</span>
             <a
               href="https://github.com/fxl625-bit"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-6 py-3 text-sm text-[color:var(--text-secondary)] transition-all hover:border-[color:var(--border-strong)] hover:text-[color:var(--text-primary)]"
+              className="text-sm text-[color:var(--text-muted)] transition-colors hover:text-[color:var(--text-primary)] tracking-wider"
             >
               GitHub
             </a>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.45}>
+          <div className="mt-10 flex items-center justify-center gap-3">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-[color:var(--text-muted)]/30" />
+            <div className="h-1.5 w-1.5 rotate-45 border border-[color:var(--text-muted)]/40" />
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-[color:var(--text-muted)]/30" />
           </div>
         </Reveal>
       </div>

@@ -8,7 +8,6 @@ import { ScrollSequenceHero } from "@/components/ScrollSequenceHero";
 import { HomeGatewaySection } from "@/components/HomeGatewaySection";
 import { ManifestoSection } from "@/components/ManifestoSection";
 import { PotentialMapSection } from "@/components/PotentialMapSection";
-import { ExperimentsSection } from "@/components/ExperimentsSection";
 import { WorkflowSection } from "@/components/WorkflowSection";
 import { AppsSection } from "@/components/AppsSection";
 import { ClosingSection } from "@/components/ClosingSection";
@@ -64,11 +63,6 @@ export default function HomePage() {
         <PotentialMapSection />
 
         {/* ═══════════════════════════════════════════════
-            Experiments — feature projects
-            ═══════════════════════════════════════════════ */}
-        <ExperimentsSection />
-
-        {/* ═══════════════════════════════════════════════
             Workflow — process showcase
             ═══════════════════════════════════════════════ */}
         <WorkflowSection />
@@ -98,12 +92,6 @@ export default function HomePage() {
               >
                 GitHub
               </a>
-              <Link
-                href="/cases"
-                className="transition-colors hover:text-[color:var(--text-secondary)]"
-              >
-                Cases
-              </Link>
             </div>
           </div>
         </footer>

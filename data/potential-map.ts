@@ -52,9 +52,9 @@ export const potentialMap: MapGroup[] = [
     title: { en: "AI Systems", zh: "AI 系统" },
     nodes: [
       {
-        id: "second-brain",
-        label: { en: "Second Brain", zh: "第二大脑" },
-        description: { en: "Structured knowledge repository", zh: "结构化知识库" },
+        id: "ai-agent-knowledge-base",
+        label: { en: "AI-Agent Knowledge Base", zh: "AI-Agent 知识库" },
+        description: { en: "Structured knowledge for agents", zh: "面向 Agent 的结构化知识" },
       },
       {
         id: "knowledge-base",
@@ -134,17 +134,17 @@ export type Connection = {
 
 export const connections: Connection[] = [
   // Inputs → Systems
-  { from: "notes", to: "second-brain" },
+  { from: "notes", to: "ai-agent-knowledge-base" },
   { from: "notes", to: "knowledge-base" },
   { from: "questions", to: "agents" },
   { from: "experiences", to: "skills" },
   { from: "signals", to: "retrieval" },
   { from: "signals", to: "agents" },
   { from: "fragments", to: "knowledge-base" },
-  { from: "memory", to: "second-brain" },
+  { from: "memory", to: "ai-agent-knowledge-base" },
   { from: "memory", to: "rules" },
   // Systems → Outputs
-  { from: "second-brain", to: "narratives" },
+  { from: "ai-agent-knowledge-base", to: "narratives" },
   { from: "knowledge-base", to: "reports" },
   { from: "skills", to: "apps" },
   { from: "agents", to: "decisions" },

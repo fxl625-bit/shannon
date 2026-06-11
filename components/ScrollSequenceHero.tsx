@@ -30,25 +30,15 @@ const PHASES: PhaseDef[] = [
   {
     name: "hero", start: 0, end: 0.22,
     en: (
-      <div className="text-center max-w-[580px]">
-        <div className="text-[13px] tracking-[0.2em] text-[color:var(--text-muted)]/70 mb-3 font-mono">
+      <div className="text-center max-w-[640px]">
+        <h1 className="text-[52px] leading-[1.08] font-semibold tracking-tight text-white sm:text-[72px] lg:text-[90px]">
           Shannon Fu
-        </div>
-        <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-black/30 backdrop-blur-sm px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[color:var(--cyan)] mb-5">
-          <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--cyan)]" />
-          AI × HUMAN POTENTIAL
-        </div>
-        <h1 className="text-[44px] leading-[1.02] font-semibold tracking-tight text-white sm:text-[64px] lg:text-[80px]">
-          AI ×
-          <br />
-          <span className="bg-gradient-to-r from-[color:var(--cyan)] via-cyan-300 to-[color:var(--violet)] bg-clip-text text-transparent">
-            HUMAN
-            <br />
-            POTENTIAL
-          </span>
         </h1>
-        <p className="mt-5 text-base leading-relaxed text-[color:var(--text-secondary)] sm:text-lg max-w-[44ch] mx-auto">
-          Exploring how AI expands memory, expression, judgment, and creativity.
+        <p className="mt-3 text-[32px] sm:text-[40px] lg:text-[48px] leading-[1.15] font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[color:var(--cyan)] via-cyan-200 to-[color:var(--violet)]">
+          AI × Human Potential
+        </p>
+        <p className="mt-6 text-base leading-relaxed text-[color:var(--text-secondary)] sm:text-lg max-w-[44ch] mx-auto">
+          I use this space to collect the systems, apps, knowledge structures, and workflows behind my AI-native work.
         </p>
         <div className="mt-10 flex items-center justify-center gap-3">
           <div className="h-px w-8 bg-[color:var(--text-muted)]/40" />
@@ -60,25 +50,15 @@ const PHASES: PhaseDef[] = [
       </div>
     ),
     zh: (
-      <div className="text-center max-w-[580px]">
-        <div className="text-[13px] tracking-[0.2em] text-[color:var(--text-muted)]/70 mb-3 font-mono">
+      <div className="text-center max-w-[640px]">
+        <h1 className="text-[52px] leading-[1.08] font-semibold tracking-tight text-white sm:text-[72px] lg:text-[90px]">
           Shannon Fu
-        </div>
-        <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-black/30 backdrop-blur-sm px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] text-[color:var(--cyan)] mb-5">
-          <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--cyan)]" />
-          AI × 人类潜能
-        </div>
-        <h1 className="text-[44px] leading-[1.02] font-semibold tracking-tight text-white sm:text-[56px] lg:text-[72px]">
-          AI ×
-          <br />
-          <span className="bg-gradient-to-r from-[color:var(--cyan)] via-cyan-300 to-[color:var(--violet)] bg-clip-text text-transparent">
-            人类
-            <br />
-            潜能
-          </span>
         </h1>
-        <p className="mt-5 text-base leading-relaxed text-[color:var(--text-secondary)] sm:text-lg max-w-[44ch] mx-auto">
-          探索 AI 如何扩展人的记忆、表达、判断与创造力。
+        <p className="mt-3 text-[32px] sm:text-[40px] lg:text-[48px] leading-[1.15] font-light tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[color:var(--cyan)] via-cyan-200 to-[color:var(--violet)]">
+          AI × 人类潜能
+        </p>
+        <p className="mt-6 text-base leading-relaxed text-[color:var(--text-secondary)] sm:text-lg max-w-[44ch] mx-auto">
+          我把这里当作一个公开空间，记录自己如何把 AI 用进工作流、知识系统和个人应用。
         </p>
         <div className="mt-10 flex items-center justify-center gap-3">
           <div className="h-px w-8 bg-[color:var(--text-muted)]/40" />

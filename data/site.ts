@@ -34,9 +34,9 @@ export const site = {
   nav: {
     home: { en: "Home", zh: "\u9996\u9875" },
     cases: { en: "Cases", zh: "\u6848\u4f8b" },
-    skills: { en: "Skills", zh: "AI \u6280\u80fd" },
-    apps: { en: "Apps", zh: "\u8f7b\u91cf\u5e94\u7528" },
-    obsidian: { en: "Obsidian", zh: "Obsidian \u77e5\u8bc6\u5e93" },
+    skills: { en: "Workflows", zh: "\u5de5\u4f5c\u6d41" },
+    apps: { en: "Apps", zh: "\u5e94\u7528" },
+    "ai-agent-knowledge-base": { en: "AI-Agent Knowledge Base", zh: "AI-Agent \u77e5\u8bc6\u5e93" },
   },
   languageSwitch: {
     en: { current: "EN", target: "\u4e2d" },
@@ -234,8 +234,8 @@ export const site = {
       name: { en: "\u4e00\u4e16\u5706\u6ee1", zh: "\u4e00\u4e16\u5706\u6ee1" },
       typeLabel: { en: "Health Record App", zh: "\u5065\u5eb7\u8bb0\u5f55 App" },
       summary: {
-        en: "Local-first health app for glucose and blood pressure records, trends, and OCR.",
-        zh: "\u672c\u5730\u4f18\u5148\u7684\u5065\u5eb7\u8bb0\u5f55 App\uff0c\u652f\u6301\u8840\u7cd6/\u8840\u538b\u8d8b\u52bf\u4e0e OCR\u3002",
+        en: "A local-first family health recording app, now published on Google Play.",
+        zh: "\u4e00\u6b3e\u672c\u5730\u4f18\u5148\u7684\u5bb6\u5ead\u5065\u5eb7\u8bb0\u5f55\u5e94\u7528\uff0c\u5df2\u4e0a\u67b6 Google Play\u3002",
       },
       previewLabel: {
         en: "Screenshot placeholder",

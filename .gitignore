@@ -21,3 +21,5 @@ out-v5/
 *.log
 verification-screenshots/
 .env.local
+
+.vercel

@@ -42,7 +42,7 @@ async function main() {
   // Find gateway position
   const gwPos = await page.evaluate(() => {
     const el = Array.from(document.querySelectorAll("section")).find(s =>
-      s.textContent?.includes("A personal system")
+      s.textContent?.includes("My AI-native workbench")
     );
     return el ? Math.round(el.getBoundingClientRect().top + window.scrollY) : -1;
   });
@@ -55,7 +55,7 @@ async function main() {
   scrollY = down1.y;
   const visible1 = await page.evaluate(() => {
     const el = Array.from(document.querySelectorAll("section")).find(s =>
-      s.textContent?.includes("A personal system")
+      s.textContent?.includes("My AI-native workbench")
     );
     if (!el) return false;
     const r = el.getBoundingClientRect();
@@ -80,7 +80,7 @@ async function main() {
   scrollY = down2.y;
   const visible2 = await page.evaluate(() => {
     const el = Array.from(document.querySelectorAll("section")).find(s =>
-      s.textContent?.includes("A personal system")
+      s.textContent?.includes("My AI-native workbench")
     );
     if (!el) return false;
     const r = el.getBoundingClientRect();

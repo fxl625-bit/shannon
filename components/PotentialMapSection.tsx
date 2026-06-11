@@ -4,7 +4,7 @@ import { useLanguage } from "@/components/language-provider";
 import { Reveal } from "@/components/animation/Reveal";
 import { potentialMap, connections, type MapNode } from "@/data/potential-map";
 import { useState, useRef, useEffect, useMemo, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function NodeItem({
   node,
@@ -257,10 +257,10 @@ function SVGConnections({
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{
               pathLength: 1,
-              opacity: isHighlighted ? 1 : 0.6,
+              opacity: isHighlighted ? 1 : 0.3,
             }}
             transition={{
-              duration: 0.8,
+              duration: isHighlighted ? 0.4 : 0.6,
               delay: i * 0.03,
               ease: [0.22, 1, 0.36, 1],
             }}
@@ -270,24 +270,27 @@ function SVGConnections({
       })}
 
       {/* Connection dots at end points when hovered */}
-      {hoveredNode &&
-        visibleConnections.map((conn) => {
-          const toPos = nodePositions.get(conn.to);
-          if (!toPos) return null;
-          return (
-            <motion.circle
-              key={`dot-${conn.to}`}
-              cx={toPos.x}
-              cy={toPos.y}
-              r={3}
-              fill="#67E8F9"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 0.8, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              filter="url(#glow)"
-            />
-          );
-        })}
+      <AnimatePresence>
+        {hoveredNode &&
+          visibleConnections.map((conn) => {
+            const toPos = nodePositions.get(conn.to);
+            if (!toPos) return null;
+            return (
+              <motion.circle
+                key={`dot-${conn.to}`}
+                cx={toPos.x}
+                cy={toPos.y}
+                r={3}
+                fill="#67E8F9"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 0.8, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                transition={{ duration: 0.3 }}
+                filter="url(#glow)"
+              />
+            );
+          })}
+      </AnimatePresence>
     </svg>
   );
 }
@@ -347,7 +350,7 @@ export function PotentialMapSection() {
           </div>
         </Reveal>
 
-        <div className="relative" ref={containerRef}>
+        <div className="relative" ref={containerRef} onMouseLeave={() => setHoveredNode(null)}>
           <SVGConnections hoveredNode={hoveredNode} containerRef={containerRef} />
 
           <div className="grid gap-8 lg:grid-cols-3">

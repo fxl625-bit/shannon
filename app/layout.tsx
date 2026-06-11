@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "Shannon Fu — AI x Human Potential",
   description:
     "A personal interface for exploring how AI expands memory, expression, judgment, and creativity.",
-  keywords: ["AI", "Human Potential", "Knowledge System", "Second Brain", "Workflow"],
+  keywords: ["AI", "Human Potential", "Knowledge Base", "AI Agent", "Workflow"],
   openGraph: {
     title: "Shannon Fu — AI x Human Potential",
     description:

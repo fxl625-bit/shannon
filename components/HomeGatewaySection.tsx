@@ -1,7 +1,8 @@
 /**
- * HomeGatewaySection — 滚动动画结束后展示的个人系统入口区。
+ * HomeGatewaySection — 滚动动画结束后展示的个人工作台入口区。
  *
- * 紧凑设计，包含一句话定位 + 四个内容入口卡片。
+ * 三个入口：Apps / AI-Agent Knowledge Base / Workflows
+ * 无 Experiments，无 Notes，无 Cases。
  */
 
 "use client";
@@ -11,27 +12,46 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "@/components/animation/Reveal";
 import { useLanguage } from "@/components/language-provider";
 
-const ENTRIES = [
+type EntryKey = "apps" | "ai-agent-knowledge-base" | "workflows";
+
+const ENTRIES: { href: string; icon: string; key: EntryKey }[] = [
   { href: "/apps", icon: "◈", key: "apps" },
-  { href: "/lab", icon: "◇", key: "experiments" },
-  { href: "/obsidian", icon: "◎", key: "notes" },
-  { href: "/second-brain", icon: "○", key: "second-brain" },
+  { href: "/second-brain", icon: "◎", key: "ai-agent-knowledge-base" },
+  { href: "/skills", icon: "○", key: "workflows" },
 ];
 
 const COPY = {
   en: {
-    title: "A personal system for thinking, building, and expressing with AI.",
-    apps: { name: "Apps", desc: "Local-first tools and personal products, including a family health app published on Google Play." },
-    experiments: { name: "Experiments", desc: "Small AI-native workflows, prototypes, and interface experiments." },
-    notes: { name: "Notes", desc: "Selected thinking, writing, and structured knowledge." },
-    "second-brain": { name: "Second Brain", desc: "An Obsidian-based knowledge system kept consistent through cloud sync." },
+    title: "My AI-native workbench",
+    subtitle: "Apps, AI-Agent knowledge, and workflows shaped by real work.",
+    apps: {
+      name: "Apps",
+      desc: "Local-first tools and personal products, including a family health app published on Google Play.",
+    },
+    "ai-agent-knowledge-base": {
+      name: "AI-Agent Knowledge Base",
+      desc: "An Obsidian-based knowledge base structured for AI agents, long-term context, and reusable working rules.",
+    },
+    workflows: {
+      name: "Workflows",
+      desc: "How I use AI in real work: research, communication, publishing, coding, public-opinion tracking, and decision support.",
+    },
   },
   zh: {
-    title: "一个围绕 AI 进行思考、创造与表达的个人系统。",
-    apps: { name: "应用", desc: "本地优先的工具和个人产品，包括已上架 Google Play 的家庭健康 App。" },
-    experiments: { name: "实验", desc: "围绕 AI 原生工作流、原型和界面的实验。" },
-    notes: { name: "笔记", desc: "经过整理的思考、写作与结构化知识。" },
-    "second-brain": { name: "第二大脑", desc: "以 Obsidian 为核心、通过云同步保持一致的知识系统。" },
+    title: "我的 AI 原生工作台",
+    subtitle: "由真实工作塑造的应用、AI-Agent 知识库与工作流。",
+    apps: {
+      name: "应用",
+      desc: "本地优先的工具和个人产品，包括已上架 Google Play 的家庭健康 App。",
+    },
+    "ai-agent-knowledge-base": {
+      name: "AI-Agent 知识库",
+      desc: "以 Obsidian 为核心，为 AI-Agent 提供长期上下文、结构化资料与可复用工作规则的知识库。",
+    },
+    workflows: {
+      name: "工作流",
+      desc: "我在真实工作中使用 AI 的方式：研究、传播、内容生产、编程、舆情追踪与决策辅助。",
+    },
   },
 };
 
@@ -59,18 +79,25 @@ export function HomeGatewaySection() {
       <div className="pointer-events-none absolute -right-1/4 top-1/2 h-[500px] w-[500px] rounded-full bg-[color:var(--violet)] opacity-[0.03] blur-[120px]" />
       <div className="pointer-events-none absolute -left-1/4 bottom-1/3 h-[400px] w-[400px] rounded-full bg-[color:var(--cyan)] opacity-[0.02] blur-[100px]" />
 
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-5xl">
+        {/* Title */}
         <div className="text-center">
           <Reveal>
-            <p className="text-xl sm:text-2xl leading-relaxed text-[color:var(--text-primary)] max-w-[40ch] mx-auto font-medium">
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[color:var(--text-primary)]">
               {copy.title}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="mt-3 text-sm sm:text-base leading-relaxed text-[color:var(--text-muted)] max-w-[48ch] mx-auto">
+              {copy.subtitle}
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Cards grid — 3 columns */}
+        <div className="mt-12 grid gap-5 sm:grid-cols-3">
           {ENTRIES.map((entry, i) => {
-            const item = copy[entry.key as keyof typeof copy] as { name: string; desc: string };
+            const item = copy[entry.key] as { name: string; desc: string };
             return (
               <Reveal key={entry.key} delay={i * 0.08}>
                 <a

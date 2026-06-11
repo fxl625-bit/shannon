@@ -25,12 +25,9 @@ export function Navigation() {
 
   const navItems = [
     { href: "/", label: site.nav.home[locale] },
-    { href: "/cases", label: site.nav.cases[locale] },
-    { href: "/skills", label: site.nav.skills[locale] },
     { href: "/apps", label: site.nav.apps[locale] },
-    { href: "/lab", label: locale === "zh" ? "实验" : "Experiments" },
-    { href: "/second-brain", label: locale === "zh" ? "第二大脑" : "Second Brain" },
-    { href: "/obsidian", label: site.nav.obsidian[locale] },
+    { href: "/second-brain", label: locale === "zh" ? "AI-Agent 知识库" : "AI-Agent Knowledge Base" },
+    { href: "/skills", label: locale === "zh" ? "工作流" : "Workflows" },
   ];
 
   return (
