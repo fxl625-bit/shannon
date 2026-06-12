@@ -20,6 +20,9 @@ export function ProjectCard({ app }: { app: AppTool }) {
           <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
             {app.typeLabel[locale]}
           </p>
+          <p className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-[color:var(--border)] bg-[color:var(--surface-soft)] px-3 py-1 text-[11px] uppercase tracking-[0.12em] text-[color:var(--text-secondary)]">
+            {app.status[locale]}
+          </p>
           <h2 className="mt-3 text-3xl leading-tight text-[color:var(--text-primary)]">{app.name[locale]}</h2>
           <p className="mt-4 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base flex-1">
             {app.summary[locale]}

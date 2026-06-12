@@ -17,6 +17,7 @@ export type AppTool = {
   previewImage?: string;
   demoUrl?: string;
   githubUrl?: string;
+  status: Localized;
 };
 
 export type ObsidianCard = {
@@ -234,8 +235,12 @@ export const site = {
       name: { en: "\u4e00\u4e16\u5706\u6ee1", zh: "\u4e00\u4e16\u5706\u6ee1" },
       typeLabel: { en: "Health Record App", zh: "\u5065\u5eb7\u8bb0\u5f55 App" },
       summary: {
-        en: "It started as a simple way to track blood pressure and blood glucose for my family. I later turned it into a standalone app and published it on Google Play.",
-        zh: "\u6700\u5f00\u59cb\u53ea\u662f\u4e3a\u4e86\u5bb6\u91cc\u4eba\u8bb0\u5f55\u8840\u538b\u548c\u8840\u7cd6\uff0c\u540e\u6765\u6574\u7406\u6210\u4e86\u4e00\u4e2a\u72ec\u7acb App\uff0c\u73b0\u5728\u5df2\u7ecf\u53d1\u5e03\u5230 Google Play\u3002",
+        en: "It started as a simple way to track blood pressure and blood glucose for my family, and later became a standalone app published on Google Play.",
+        zh: "\u6700\u5f00\u59cb\u53ea\u662f\u4e3a\u4e86\u5bb6\u91cc\u4eba\u8bb0\u5f55\u8840\u538b\u548c\u8840\u7cd6\uff0c\u540e\u6765\u6574\u7406\u6210\u72ec\u7acb App\uff0c\u5e76\u5df2\u53d1\u5e03\u5230 Google Play\u3002",
+      },
+      status: {
+        en: "Published on Google Play",
+        zh: "\u5df2\u4e0a\u67b6 Google Play",
       },
       previewLabel: {
         en: "Screenshot placeholder",
@@ -252,6 +257,10 @@ export const site = {
         en: "A small tool for helping children read math word problems, with a focus on spotting numbers and understanding the question.",
         zh: "\u7ed9\u5b69\u5b50\u7ec3\u6570\u5b66\u8bfb\u9898\u7528\u7684\u5c0f\u5de5\u5177\uff0c\u91cd\u70b9\u653e\u5728\u627e\u6570\u5b57\u548c\u8bfb\u61c2\u9898\u610f\u4e0a\u3002",
       },
+      status: {
+        en: "Live on Vercel / Iterating",
+        zh: "\u5df2\u4e0a\u7ebf Vercel / \u6301\u7eed\u8fed\u4ee3\u4e2d",
+      },
       previewLabel: {
         en: "Screenshot placeholder",
         zh: "\u622a\u56fe\u5360\u4f4d",
@@ -264,8 +273,12 @@ export const site = {
       name: { en: "RentTracker", zh: "\u6536\u79df\u8bb0\u5f55\u5668" },
       typeLabel: { en: "Property Management Tool", zh: "\u623f\u4ea7\u7ba1\u7406\u5de5\u5177" },
       summary: {
-        en: "A small tool for tracking rental properties, rent, and payment status. Still in development.",
-        zh: "\u7528\u6765\u8bb0\u5f55\u623f\u6e90\u3001\u79df\u91d1\u548c\u6536\u6b3e\u72b6\u6001\u7684\u5c0f\u5de5\u5177\u3002\u8fd8\u5728\u5f00\u53d1\u4e2d\u3002",
+        en: "A small tool for tracking rental properties, rent, and payment status, currently used internally.",
+        zh: "\u7528\u6765\u8bb0\u5f55\u623f\u6e90\u3001\u79df\u91d1\u548c\u6536\u6b3e\u72b6\u6001\u7684\u5c0f\u5de5\u5177\uff0c\u76ee\u524d\u5728\u5185\u90e8\u4f7f\u7528\u3002",
+      },
+      status: {
+        en: "In internal use",
+        zh: "\u5185\u90e8\u4f7f\u7528\u4e2d",
       },
       previewLabel: {
         en: "Screenshot placeholder",
@@ -279,8 +292,12 @@ export const site = {
       name: { en: "long-fm", zh: "long-fm" },
       typeLabel: { en: "AI Music Companion", zh: "AI \u97f3\u4e50\u4f34\u4fa3" },
       summary: {
-        en: "An AI-powered music streaming companion. Still in development.",
-        zh: "\u4e00\u4e2a AI \u97f3\u4e50\u6d41\u64ad\u653e\u4f34\u4fa3\uff0c\u8fd8\u5728\u5f00\u53d1\u4e2d\u3002",
+        en: "An AI music companion, live on Vercel.",
+        zh: "\u4e00\u4e2a AI \u97f3\u4e50\u966a\u4f34\u5de5\u5177\uff0c\u5df2\u4e0a\u7ebf Vercel\u3002",
+      },
+      status: {
+        en: "Live on Vercel",
+        zh: "\u5df2\u4e0a\u7ebf Vercel",
       },
       previewLabel: {
         en: "Screenshot placeholder",

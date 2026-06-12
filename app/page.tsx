@@ -9,6 +9,7 @@ import { HomeGatewaySection } from "@/components/HomeGatewaySection";
 import { ManifestoSection } from "@/components/ManifestoSection";
 import { PotentialMapSection } from "@/components/PotentialMapSection";
 import { WorkflowSection } from "@/components/WorkflowSection";
+import { BrandCapabilitySection } from "@/components/BrandCapabilitySection";
 import { AppsSection } from "@/components/AppsSection";
 import { ClosingSection } from "@/components/ClosingSection";
 import { MouseGlow } from "@/components/animation/MouseGlow";
@@ -66,6 +67,11 @@ export default function HomePage() {
             Workflow — process showcase
             ═══════════════════════════════════════════════ */}
         <WorkflowSection />
+
+        {/* ═══════════════════════════════════════════════
+            Brand Capability Upgrade — capability showcase
+            ═══════════════════════════════════════════════ */}
+        <BrandCapabilitySection />
 
         {/* ═══════════════════════════════════════════════
             Apps — integrated tools
