@@ -43,7 +43,9 @@
     "out-v4/types/**/*.ts",
     "out-v4/dev/types/**/*.ts",
     "out-v5/types/**/*.ts",
-    "out-v5/dev/types/**/*.ts"
+    "out-v5/dev/types/**/*.ts",
+    ".next-dev/types/**/*.ts",
+    ".next-dev/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

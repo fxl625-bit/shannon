@@ -1,72 +1,252 @@
 "use client";
 
+import { Reveal } from "@/components/animation/Reveal";
 import { useLanguage } from "@/components/language-provider";
 import { SiteShell } from "@/components/site-shell";
-import { Reveal } from "@/components/animation/Reveal";
+import { SkillOS, type SkillOsItem, type SkillOsStat } from "@/components/skills/SkillOS";
 import type { Localized } from "@/data/site";
 
-const pageTitle: Localized = { en: "Workflows", zh: "工作流" };
+const pageTitle: Localized = { en: "Workflows", zh: "\u5de5\u4f5c\u6d41" };
 
 const pageEyebrow: Localized = {
   en: "How I work",
-  zh: "我的工作方式",
+  zh: "\u6211\u7684\u5de5\u4f5c\u65b9\u5f0f",
 };
 
 const pageIntro: Localized = {
   en: "Most of these routines came from everyday work. The ones I kept using gradually turned into reusable skills.",
-  zh: "这些流程都是从日常工作里长出来的。用得多了，就慢慢沉淀成可以复用的 Skill。",
+  zh: "\u8fd9\u4e9b\u6d41\u7a0b\u591a\u534a\u662f\u4ece\u65e5\u5e38\u5de5\u4f5c\u91cc\u957f\u51fa\u6765\u7684\u3002\u7528\u5f97\u8db3\u591f\u591a\uff0c\u5c31\u6162\u6162\u6c89\u6dc0\u6210\u53ef\u590d\u7528\u7684 Skill\u3002",
 };
 
-type SkillCategory = {
-  count: string;
-  label: Localized;
-  desc: Localized;
-  badges: { en: string[]; zh: string[] };
-};
-
-const skillCounts: SkillCategory[] = [
+const skillStats: SkillOsStat[] = [
   {
     count: "12",
-    label: { en: "Workflows", zh: "工作流" },
-    desc: { en: "End-to-end routines for research, writing, video processing, meeting review, and reports.", zh: "从资料收集到写作、视频处理、会议整理和报告生成的完整流程。" },
-    badges: { en: ["Research Reports", "Viral Breakdown", "Video Localization", "Brand Content Ops", "Meeting Replay", "Weekly Reports"], zh: ["深度研报", "爆款拆解", "本地视频翻译", "品牌内容运营", "会议回放整理", "周报生成"] },
+    label: { en: "Workflows", zh: "\u5de5\u4f5c\u6d41" },
+    description: {
+      en: "End-to-end routines for research, writing, video processing, meeting review, and reports.",
+      zh: "\u4ece\u8d44\u6599\u6536\u96c6\u5230\u5199\u4f5c\u3001\u89c6\u9891\u5904\u7406\u3001\u4f1a\u8bae\u6574\u7406\u548c\u62a5\u544a\u751f\u6210\u7684\u5b8c\u6574\u6d41\u7a0b\u3002",
+    },
+    category: "workflow",
   },
   {
     count: "16",
-    label: { en: "Atomic Skills", zh: "原子能力" },
-    desc: { en: "Small focused tools for verification, scraping, documents, testing, and cleanup.", zh: "小而具体的能力，用来处理核验、抓取、文档、测试和清理任务。" },
-    badges: { en: ["Fact Checking", "Evidence Grading", "Multi-platform Scraping", "Web E2E Testing", "Document Handling", "Privacy Audit"], zh: ["事实核查", "证据分级", "多平台抓取", "网页 E2E 测试", "文档处理", "隐私审计"] },
+    label: { en: "Atomic Skills", zh: "\u539f\u5b50\u80fd\u529b" },
+    description: {
+      en: "Focused capabilities for verification, scraping, documents, testing, and cleanup.",
+      zh: "\u7528\u4e8e\u6838\u9a8c\u3001\u6293\u53d6\u3001\u6587\u6863\u3001\u6d4b\u8bd5\u548c\u6e05\u7406\u7684\u805a\u7126\u80fd\u529b\u5355\u5143\u3002",
+    },
+    category: "atomic",
   },
   {
     count: "12",
-    label: { en: "Bridges", zh: "桥接能力" },
-    desc: { en: "Connectors between AI, Obsidian, local tools, status hardware, and publishing channels.", zh: "把 AI、Obsidian、本地工具、硬件状态灯和发布渠道连接起来。" },
-    badges: { en: ["Status Light", "Obsidian Archive", "Knowledge Routing", "Social Sync", "Local Proxy", "Publish Tracking"], zh: ["状态灯联动", "Obsidian 自动归档", "知识库路由", "社交平台同步", "本地代理桥接", "发布状态追踪"] },
+    label: { en: "Bridges", zh: "\u6865\u63a5\u80fd\u529b" },
+    description: {
+      en: "The connectors between AI, local tools, hardware signals, archives, and publishing.",
+      zh: "\u628a AI\u3001\u672c\u5730\u5de5\u5177\u3001\u786c\u4ef6\u4fe1\u53f7\u3001\u5f52\u6863\u4e0e\u53d1\u5e03\u6e20\u9053\u4e32\u8d77\u6765\u7684\u8fde\u63a5\u5c42\u3002",
+    },
+    category: "bridge",
   },
   {
     count: "1",
-    label: { en: "Orchestrator", zh: "编排器" },
-    desc: { en: "Coordinates multiple skills and routes work across longer tasks.", zh: "负责把多个步骤串起来，决定任务应该交给哪个 Skill 处理。" },
-    badges: { en: ["Content Ops Orchestrator", "Task Routing", "Step Coordination", "Archive Review"], zh: ["内容运营编排器", "任务路由", "步骤协调", "归档复盘"] },
+    label: { en: "Orchestrator", zh: "\u7f16\u6392\u5668" },
+    description: {
+      en: "The routing layer that coordinates longer tasks across multiple skills.",
+      zh: "\u8d1f\u8d23\u5728\u591a\u4e2a Skill \u4e4b\u95f4\u8def\u7531\u3001\u8c03\u5ea6\u548c\u4e32\u8054\u7684\u6838\u5fc3\u5c42\u3002",
+    },
+    category: "orchestrator",
   },
 ];
 
-const workflows: { title: Localized; body: Localized }[] = [
+const skillItems: SkillOsItem[] = [
   {
-    title: { en: "Content Production", zh: "内容生产" },
-    body: { en: "From gathering information, organizing materials, writing drafts, publishing, and archiving — a continuous pipeline for content creation.", zh: "从信息收集开始，到整理资料、写稿、发布和归档。" },
+    id: "content-production",
+    name: { en: "Content Production", zh: "\u5185\u5bb9\u751f\u4ea7" },
+    category: "workflow",
+    description: {
+      en: "From gathering information to drafting, publishing, and archiving in one continuous content pipeline.",
+      zh: "\u4ece\u4fe1\u606f\u6536\u96c6\u5230\u5199\u7a3f\u3001\u53d1\u5e03\u548c\u5f52\u6863\uff0c\u7ec4\u6210\u4e00\u6761\u8fde\u7eed\u8fd0\u884c\u7684\u5185\u5bb9\u751f\u4ea7\u7ebf\u3002",
+    },
+    status: "active",
+    outputs: {
+      en: ["Reports", "Published Content"],
+      zh: ["\u62a5\u544a", "\u53d1\u5e03\u5185\u5bb9"],
+    },
   },
   {
-    title: { en: "Research & Analysis", zh: "研究与分析" },
-    body: { en: "Collecting materials on a topic, verifying sources, structuring findings, and producing reports.", zh: "对一个主题做资料收集、来源验证、结构整理和报告产出。" },
+    id: "research-analysis",
+    name: { en: "Research & Analysis", zh: "\u7814\u7a76\u4e0e\u5206\u6790" },
+    category: "workflow",
+    description: {
+      en: "A workflow for collecting sources, verifying them, structuring findings, and producing reports.",
+      zh: "\u7528\u4e8e\u6536\u96c6\u6765\u6e90\u3001\u9a8c\u8bc1\u3001\u6574\u7406\u4e0e\u751f\u6210\u62a5\u544a\u7684\u5b8c\u6574\u6d41\u7a0b\u3002",
+    },
+    status: "active",
+    outputs: {
+      en: ["Research Memos", "Evidence Maps"],
+      zh: ["\u7814\u62a5", "\u8bc1\u636e\u5730\u56fe"],
+    },
   },
   {
-    title: { en: "Monitoring & Intelligence", zh: "监测与情报" },
-    body: { en: "Multi-platform scraping, competitive analysis, public opinion tracking, and trend discovery.", zh: "多平台抓取、竞品分析、舆情监测和热点发现。" },
+    id: "monitoring-intelligence",
+    name: { en: "Monitoring & Intelligence", zh: "\u76d1\u6d4b\u4e0e\u60c5\u62a5" },
+    category: "workflow",
+    description: {
+      en: "Multi-platform tracking, competitive scanning, and public-signal collection for ongoing situational awareness.",
+      zh: "\u7528\u4e8e\u591a\u5e73\u53f0\u76d1\u6d4b\u3001\u7ade\u54c1\u626b\u63cf\u4e0e\u516c\u5f00\u4fe1\u53f7\u6536\u96c6\u7684\u6301\u7eed\u6027\u60c5\u62a5\u6d41\u3002",
+    },
+    status: "active",
+    outputs: {
+      en: ["Trend Notes", "Competitive Snapshots"],
+      zh: ["\u8d8b\u52bf\u7b14\u8bb0", "\u7ade\u54c1\u5feb\u7167"],
+    },
   },
   {
-    title: { en: "Knowledge Management", zh: "知识管理" },
-    body: { en: "Sinking content into Obsidian for future retrieval and reuse, with automated archiving and review loops.", zh: "把内容沉淀进 Obsidian，方便以后检索和复用，配合自动归档和回顾机制。" },
+    id: "knowledge-management",
+    name: { en: "Knowledge Management", zh: "\u77e5\u8bc6\u7ba1\u7406" },
+    category: "workflow",
+    description: {
+      en: "Archive-first routines that sink content into Obsidian for future retrieval, reuse, and review.",
+      zh: "\u4ee5\u5f52\u6863\u4e3a\u5148\u7684\u77e5\u8bc6\u6d41\u7a0b\uff0c\u628a\u5185\u5bb9\u6c89\u6dc0\u5230 Obsidian \u4ee5\u4fbf\u540e\u7eed\u68c0\u7d22\u548c\u590d\u7528\u3002",
+    },
+    status: "active",
+    outputs: {
+      en: ["Archive Pages", "Review Loops"],
+      zh: ["\u5f52\u6863\u9875", "\u590d\u76d8\u95ed\u73af"],
+    },
+  },
+  {
+    id: "fact-checking",
+    name: { en: "Fact Checking", zh: "\u4e8b\u5b9e\u6838\u67e5" },
+    category: "atomic",
+    description: {
+      en: "A focused verification unit for validating claims before they move downstream.",
+      zh: "\u5728\u4fe1\u606f\u7ee7\u7eed\u5f80\u4e0b\u6e38\u6d41\u52a8\u4e4b\u524d\uff0c\u5148\u5bf9\u5173\u952e\u65ad\u8a00\u8fdb\u884c\u6838\u67e5\u3002",
+    },
+    status: "active",
+  },
+  {
+    id: "evidence-grading",
+    name: { en: "Evidence Grading", zh: "\u8bc1\u636e\u5206\u7ea7" },
+    category: "atomic",
+    description: {
+      en: "Separates strong sources from weak ones so downstream outputs inherit confidence, not noise.",
+      zh: "\u628a\u5f3a\u8bc1\u636e\u548c\u5f31\u8bc1\u636e\u5206\u5f00\uff0c\u8ba9\u540e\u7eed\u8f93\u51fa\u627f\u63a5\u7684\u662f\u786e\u4fe1\u5ea6\uff0c\u800c\u4e0d\u662f\u566a\u97f3\u3002",
+    },
+    status: "active",
+  },
+  {
+    id: "multi-platform-scraping",
+    name: { en: "Multi-platform Scraping", zh: "\u591a\u5e73\u53f0\u6293\u53d6" },
+    category: "atomic",
+    description: {
+      en: "A small but reusable ingestion unit for gathering material from multiple public sources.",
+      zh: "\u4e00\u4e2a\u7528\u4e8e\u4ece\u591a\u4e2a\u516c\u5f00\u5e73\u53f0\u6536\u6750\u7684\u53ef\u590d\u7528\u8f93\u5165\u5355\u5143\u3002",
+    },
+    status: "active",
+  },
+  {
+    id: "web-e2e",
+    name: { en: "Web E2E Testing", zh: "\u7f51\u9875 E2E \u6d4b\u8bd5" },
+    category: "atomic",
+    description: {
+      en: "Verification steps for making sure flows work end to end instead of only in isolated states.",
+      zh: "\u7528\u4e8e\u786e\u8ba4\u6574\u6761\u4ea4\u4e92\u94fe\u8def\u662f\u5426\u771f\u6b63\u901a\u987a\uff0c\u800c\u4e0d\u53ea\u662f\u5c40\u90e8\u72b6\u6001\u53ef\u7528\u3002",
+    },
+    status: "active",
+  },
+  {
+    id: "document-handling",
+    name: { en: "Document Handling", zh: "\u6587\u6863\u5904\u7406" },
+    category: "atomic",
+    description: {
+      en: "Reusable handling for structured documents, formatting, and extraction work.",
+      zh: "\u56f4\u7ed5\u7ed3\u6784\u5316\u6587\u6863\u3001\u683c\u5f0f\u5316\u548c\u62bd\u53d6\u4efb\u52a1\u7684\u901a\u7528\u80fd\u529b\u3002",
+    },
+    status: "active",
+  },
+  {
+    id: "privacy-audit",
+    name: { en: "Privacy Audit", zh: "\u9690\u79c1\u5ba1\u8ba1" },
+    category: "atomic",
+    description: {
+      en: "A cleanup and inspection unit for spotting sensitive material before publishing or sharing.",
+      zh: "\u5728\u53d1\u5e03\u548c\u5171\u4eab\u4e4b\u524d\uff0c\u7528\u6765\u68c0\u67e5\u654f\u611f\u5185\u5bb9\u7684\u6e05\u7406\u5ba1\u8ba1\u5355\u5143\u3002",
+    },
+    status: "active",
+  },
+  {
+    id: "status-light",
+    name: { en: "Status Light", zh: "\u72b6\u6001\u706f" },
+    category: "bridge",
+    description: {
+      en: "Connects system state to physical status signals so workflows stay legible at a glance.",
+      zh: "\u628a\u7cfb\u7edf\u72b6\u6001\u4e0e\u7269\u7406\u706f\u53f7\u8fde\u63a5\u8d77\u6765\uff0c\u8ba9\u5de5\u4f5c\u6d41\u7684\u8fd0\u884c\u72b6\u6001\u53ef\u4ee5\u88ab\u4e00\u773c\u770b\u61c2\u3002",
+    },
+    status: "local",
+  },
+  {
+    id: "obsidian-archive",
+    name: { en: "Obsidian Archive", zh: "Obsidian \u5f52\u6863" },
+    category: "bridge",
+    description: {
+      en: "Moves outputs back into the knowledge base so future work starts from memory, not from zero.",
+      zh: "\u628a\u8f93\u51fa\u56de\u6d41\u5230\u77e5\u8bc6\u5e93\uff0c\u8ba9\u540e\u7eed\u5de5\u4f5c\u4ece\u8bb0\u5fc6\u51fa\u53d1\uff0c\u800c\u4e0d\u662f\u6bcf\u6b21\u91cd\u5934\u5f00\u59cb\u3002",
+    },
+    status: "active",
+  },
+  {
+    id: "knowledge-routing",
+    name: { en: "Knowledge Routing", zh: "\u77e5\u8bc6\u8def\u7531" },
+    category: "bridge",
+    description: {
+      en: "Directs new material to the right archive, review, or execution surface.",
+      zh: "\u628a\u65b0\u5185\u5bb9\u8def\u7531\u5230\u6b63\u786e\u7684\u5f52\u6863\u3001\u590d\u76d8\u6216\u6267\u884c\u754c\u9762\u3002",
+    },
+    status: "active",
+  },
+  {
+    id: "social-sync",
+    name: { en: "Social Sync", zh: "\u793e\u4ea4\u540c\u6b65" },
+    category: "bridge",
+    description: {
+      en: "Keeps public-platform inputs and derived outputs connected instead of fragmenting across tools.",
+      zh: "\u8ba9\u516c\u5f00\u5e73\u53f0\u8f93\u5165\u4e0e\u540e\u7eed\u8f93\u51fa\u4fdd\u6301\u8fde\u63a5\uff0c\u800c\u4e0d\u662f\u6563\u5728\u4e0d\u540c\u5de5\u5177\u91cc\u3002",
+    },
+    status: "active",
+  },
+  {
+    id: "local-proxy",
+    name: { en: "Local Proxy", zh: "\u672c\u5730\u4ee3\u7406" },
+    category: "bridge",
+    description: {
+      en: "A bridge layer for keeping local tools, scripts, and workflows coordinated.",
+      zh: "\u7528\u4e8e\u534f\u8c03\u672c\u5730\u5de5\u5177\u3001\u811a\u672c\u548c\u6d41\u7a0b\u7684\u6865\u63a5\u5c42\u3002",
+    },
+    status: "local",
+  },
+  {
+    id: "publish-tracking",
+    name: { en: "Publish Tracking", zh: "\u53d1\u5e03\u8ddf\u8e2a" },
+    category: "bridge",
+    description: {
+      en: "Tracks where outputs went and what still needs review after publishing.",
+      zh: "\u5728\u53d1\u5e03\u4e4b\u540e\u8ddf\u8e2a\u8f93\u51fa\u53bb\u5411\u4e0e\u4ecd\u5f85\u590d\u76d8\u7684\u73af\u8282\u3002",
+    },
+    status: "active",
+  },
+  {
+    id: "content-ops-orchestrator",
+    name: { en: "Content Ops Orchestrator", zh: "\u5185\u5bb9\u8fd0\u8425\u7f16\u6392\u5668" },
+    category: "orchestrator",
+    description: {
+      en: "The coordination layer that decides which workflow, bridge, or atomic skill should take over next.",
+      zh: "\u51b3\u5b9a\u63a5\u4e0b\u6765\u7531\u54ea\u4e2a workflow\u3001bridge \u6216 atomic skill \u63a5\u624b\u7684\u8c03\u5ea6\u5c42\u3002",
+    },
+    status: "active",
+    outputs: {
+      en: ["Task Routing", "Step Coordination", "Archive Review"],
+      zh: ["\u4efb\u52a1\u8def\u7531", "\u6b65\u9aa4\u534f\u8c03", "\u5f52\u6863\u590d\u76d8"],
+    },
   },
 ];
 
@@ -84,55 +264,20 @@ export default function WorkflowsPage() {
           </div>
         </Reveal>
 
-        {/* Skills overview with badges */}
-        <Reveal delay={0.1}>
-          <div className="mt-14">
-            <p className="text-[28px] font-semibold tracking-tight text-[color:var(--text-primary)] sm:text-[36px]">
-              41 Active Skills
+        <Reveal delay={0.08}>
+          <div className="mt-12 max-w-3xl rounded-[28px] border border-[color:var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02))] p-5 sm:p-6">
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
+              {locale === "zh" ? "\u9875\u9762\u89c6\u89d2" : "Viewpoint"}
             </p>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {skillCounts.map((item) => (
-                <div key={item.label.en} className="section-block flex flex-col">
-                  <p className="text-[32px] font-semibold tracking-tight text-[color:var(--cyan)]">
-                    {item.count}
-                  </p>
-                  <p className="mt-1 text-sm font-medium text-[color:var(--text-primary)]">
-                    {item.label[locale]}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-[color:var(--text-muted)]">
-                    {item.desc[locale]}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {(locale === "zh" ? item.badges.zh : item.badges.en).map((badge) => (
-                      <span
-                        key={badge}
-                        className="inline-block rounded-full border border-[color:var(--border)] px-2.5 py-0.5 text-[10px] text-[color:var(--text-muted)]"
-                      >
-                        {badge}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
+              {locale === "zh"
+                ? "\u8fd9\u4e2a\u9875\u9762\u60f3\u8868\u8fbe\u7684\u4e0d\u662f\u201c\u6211\u4f1a\u5f88\u591a\u5de5\u5177\u201d\uff0c\u800c\u662f\u201c\u6211\u5df2\u7ecf\u628a\u5de5\u4f5c\u65b9\u6cd5\u6c89\u6dc0\u6210\u4e86\u4e00\u5957\u53ef\u590d\u7528\u7684\u4e2a\u4eba Skill OS\u201d\u3002"
+                : "The point of this page is not \"I know many tools.\" It is \"I have turned recurring work into a reusable personal Skill OS.\""}
+            </p>
           </div>
         </Reveal>
 
-        {/* Workflow descriptions */}
-        <div className="mt-16 space-y-8">
-          {workflows.map((wf, i) => (
-            <Reveal key={wf.title.en} delay={i * 0.08}>
-              <div className="section-block transition-all duration-300 hover:border-[color:var(--border-strong)]">
-                <h3 className="text-[20px] leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[24px]">
-                  {wf.title[locale]}
-                </h3>
-                <p className="mt-3 text-base leading-7 text-[color:var(--text-secondary)]">
-                  {wf.body[locale]}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <SkillOS items={skillItems} stats={skillStats} locale={locale} />
       </section>
     </SiteShell>
   );

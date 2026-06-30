@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { useLanguage } from "@/components/language-provider";
+import { CursorRippleLayer } from "@/components/visual/CursorRippleLayer";
 import { site, type Localized } from "@/data/site";
 
 export function SiteShell({
@@ -27,6 +28,7 @@ export function SiteShell({
   return (
     <div className="relative min-h-screen overflow-x-clip">
       <div className="ambient-layer" />
+      <CursorRippleLayer />
       <main className="relative z-10 mx-auto flex min-h-screen w-full max-w-[var(--max-width)] flex-col px-5 pb-24 pt-5 sm:px-8">
         <header className="sticky top-3 z-40">
           <div className="relative rounded-[var(--radius-xl)] border border-[color:var(--border)] bg-[color:var(--surface)] px-3 py-3 sm:px-5">

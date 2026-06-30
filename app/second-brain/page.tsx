@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { useLanguage } from "@/components/language-provider";
 import { SiteShell } from "@/components/site-shell";
 import { Reveal } from "@/components/animation/Reveal";
@@ -26,8 +28,8 @@ const sections: Section[] = [
       zh: "概览",
     },
     body: {
-      en: "My Obsidian vault is not only for notes. It also keeps rules, scripts, outputs, and skills. So whenever I look something up, write something, or ask AI to help with materials, I don't have to start from scratch.",
-      zh: "我的 Obsidian 不只是放笔记，也放规则、脚本、输出结果和 Skills。这样我以后查资料、写东西，或者让 AI 帮我处理材料时，不用每次从零开始。",
+      en: "My Obsidian vault keeps notes, rules, scripts, outputs, and skills together. That gives research, writing, and AI-assisted processing a reliable starting point.",
+      zh: "我的 Obsidian 放笔记、规则、脚本、输出结果和 Skills。查资料、写东西或让 AI 处理材料时，都有稳定的起点。",
     },
   },
   {
@@ -83,6 +85,18 @@ const closingThought: Localized = {
 
 export default function AiAgentKnowledgeBasePage() {
   const { locale } = useLanguage();
+  const [activeVaultNode, setActiveVaultNode] = useState<string | null>(null);
+  const relatedVaultNodes: Record<string, string[]> = {
+    raw: ["raw", "wiki", "scripts"],
+    wiki: ["raw", "wiki", "config", "skills", "outputs"],
+    config: ["config", "wiki", "skills"],
+    skills: ["skills", "config", "scripts", "wiki"],
+    scripts: ["scripts", "raw", "skills", "outputs"],
+    outputs: ["outputs", "scripts", "wiki"],
+  };
+  const highlightedVaultNodes = activeVaultNode
+    ? new Set(relatedVaultNodes[activeVaultNode])
+    : null;
 
   return (
     <SiteShell title={pageTitle} eyebrow={pageEyebrow}>
@@ -105,7 +119,11 @@ export default function AiAgentKnowledgeBasePage() {
 
           {/* Vault Structure Diagram — based on real vault scan */}
           <Reveal delay={0.25}>
-            <div className="section-block">
+            <div
+              data-ripple-zone
+              className="section-block"
+              onMouseLeave={() => setActiveVaultNode(null)}
+            >
               <h2 className="text-[24px] leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[30px]">
                 {locale === "zh" ? "结构图" : "Vault Diagram"}
               </h2>
@@ -113,41 +131,95 @@ export default function AiAgentKnowledgeBasePage() {
                 {/* Flow diagram */}
                 <div className="flex flex-col items-center gap-3 sm:gap-4">
                   {/* Raw -> Wiki (main flow) */}
-                  <div className="w-full max-w-xs rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4 text-center">
+                  <button
+                    type="button"
+                    onMouseEnter={() => setActiveVaultNode("raw")}
+                    onFocus={() => setActiveVaultNode("raw")}
+                    onBlur={() => setActiveVaultNode(null)}
+                    className={`w-full max-w-xs rounded-xl border p-4 text-center transition-all duration-300 ${
+                      highlightedVaultNodes && !highlightedVaultNodes.has("raw")
+                        ? "border-[color:var(--border)] bg-[color:var(--surface)] opacity-35"
+                        : "border-cyan-300/25 bg-cyan-300/[0.06] shadow-[0_18px_60px_-48px_rgba(34,211,238,0.7)]"
+                    }`}
+                  >
                     <p className="text-sm font-semibold text-[color:var(--cyan)]">raw/</p>
                     <p className="mt-1 text-[11px] text-[color:var(--text-muted)]">
                       {locale === "zh" ? "来自 Douyin、微信、小红书等平台的原始内容" : "Raw captures from Douyin, WeChat, Xiaohongshu, and more"}
                     </p>
-                  </div>
+                  </button>
                   <div className="h-6 w-px bg-gradient-to-b from-[color:var(--border)] to-transparent" />
-                  <div className="w-full max-w-xs rounded-xl border border-[color:var(--border)] bg-[color:var(--surface)] p-4 text-center">
+                  <button
+                    type="button"
+                    onMouseEnter={() => setActiveVaultNode("wiki")}
+                    onFocus={() => setActiveVaultNode("wiki")}
+                    onBlur={() => setActiveVaultNode(null)}
+                    className={`w-full max-w-xs rounded-xl border p-4 text-center transition-all duration-300 ${
+                      highlightedVaultNodes && !highlightedVaultNodes.has("wiki")
+                        ? "border-[color:var(--border)] bg-[color:var(--surface)] opacity-35"
+                        : "border-violet-300/25 bg-violet-300/[0.06] shadow-[0_18px_60px_-48px_rgba(167,139,250,0.7)]"
+                    }`}
+                  >
                     <p className="text-sm font-semibold text-[color:var(--violet)]">wiki/</p>
                     <p className="mt-1 text-[11px] text-[color:var(--text-muted)]">
                       {locale === "zh" ? "按集合、来源、主题整理的策展条目" : "Curated entries in collections, sources, and topics"}
                     </p>
-                  </div>
+                  </button>
                 </div>
 
                 {/* Support layers */}
                 <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-3 text-center">
+                  <button
+                    type="button"
+                    onMouseEnter={() => setActiveVaultNode("config")}
+                    onFocus={() => setActiveVaultNode("config")}
+                    onBlur={() => setActiveVaultNode(null)}
+                    className={`rounded-xl border p-3 text-center transition-all duration-300 ${
+                      highlightedVaultNodes && !highlightedVaultNodes.has("config")
+                        ? "border-[color:var(--border)] bg-[color:var(--surface-soft)] opacity-35"
+                        : "border-blue-300/25 bg-blue-300/[0.06]"
+                    }`}
+                  >
                     <p className="text-xs font-semibold text-[color:var(--blue)]">config/</p>
                     <p className="mt-1 text-[10px] text-[color:var(--text-muted)]">
                       {locale === "zh" ? "规则与分类标准" : "Rules and classification"}
                     </p>
-                  </div>
-                  <div className="rounded-xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-3 text-center">
+                  </button>
+                  <button
+                    type="button"
+                    onMouseEnter={() => setActiveVaultNode("skills")}
+                    onFocus={() => setActiveVaultNode("skills")}
+                    onBlur={() => setActiveVaultNode(null)}
+                    className={`rounded-xl border p-3 text-center transition-all duration-300 ${
+                      highlightedVaultNodes && !highlightedVaultNodes.has("skills")
+                        ? "border-[color:var(--border)] bg-[color:var(--surface-soft)] opacity-35"
+                        : "border-amber-300/25 bg-amber-300/[0.06]"
+                    }`}
+                  >
                     <p className="text-xs font-semibold text-[color:var(--warm)]">skills/</p>
                     <p className="mt-1 text-[10px] text-[color:var(--text-muted)]">
                       {locale === "zh" ? "Workflows · Atomic · Bridge · Orchestrator" : "Workflows · Atomic · Bridge · Orchestrator"}
                     </p>
-                  </div>
-                  <div className="rounded-xl border border-[color:var(--border)] bg-[color:var(--surface-soft)] p-3 text-center">
-                    <p className="text-xs font-semibold text-[color:var(--green)]">scripts/ + outputs/</p>
+                  </button>
+                  <button
+                    type="button"
+                    onMouseEnter={() => setActiveVaultNode("scripts")}
+                    onFocus={() => setActiveVaultNode("scripts")}
+                    onBlur={() => setActiveVaultNode(null)}
+                    className={`rounded-xl border p-3 text-center transition-all duration-300 ${
+                      highlightedVaultNodes &&
+                      !highlightedVaultNodes.has("scripts") &&
+                      !highlightedVaultNodes.has("outputs")
+                        ? "border-[color:var(--border)] bg-[color:var(--surface-soft)] opacity-35"
+                        : "border-emerald-300/25 bg-emerald-300/[0.06]"
+                    }`}
+                  >
+                    <p className="text-xs font-semibold text-[color:var(--green)]">
+                      scripts/ + outputs/
+                    </p>
                     <p className="mt-1 text-[10px] text-[color:var(--text-muted)]">
                       {locale === "zh" ? "自动化脚本与生成结果" : "Automation scripts and generated outputs"}
                     </p>
-                  </div>
+                  </button>
                 </div>
 
                 <p className="mt-6 text-sm leading-relaxed text-[color:var(--text-muted)] text-center max-w-2xl mx-auto">

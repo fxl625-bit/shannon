@@ -122,11 +122,11 @@ const PHASES: PhaseDef[] = [
     zh: (
       <div className="text-center max-w-[50ch] mx-auto">
         <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold leading-relaxed tracking-tight text-[color:var(--text-primary)]">
-          AI 不只是自动化。
+          AI 可以处理更多认知工作。
         </p>
         <div className="mt-4 h-px w-16 mx-auto bg-gradient-to-r from-[color:var(--cyan)] to-[color:var(--violet)]" />
         <p className="mt-6 text-lg sm:text-xl leading-relaxed text-[color:var(--text-secondary)]">
-          它也可以成为一种新的认知层。
+          它可以成为新的认知层。
         </p>
       </div>
     ),
@@ -157,10 +157,10 @@ const PHASES: PhaseDef[] = [
     en: (
       <div className="text-center">
         <p className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-tight text-[color:var(--text-primary)]">
-          The future is not only AI,
+          The future includes AI,
         </p>
         <p className="mt-3 text-xl sm:text-2xl lg:text-3xl font-light tracking-tight text-[color:var(--text-secondary)]">
-          but also augmented people.
+          and people with expanded capability.
         </p>
       </div>
     ),
@@ -177,7 +177,7 @@ const PHASES: PhaseDef[] = [
   },
 ];
 
-const BASE_PATH = "/sequences/homepage-final";
+const BASE_PATH = "/sequences/homepage-hero-v2";
 const FRAME_COUNT = 121;
 const FORMAT = "webp";
 const PREFIX = "frame_";
@@ -269,7 +269,7 @@ export function ScrollSequenceHero() {
     lastDrawnFrameRef.current = null;
     hasDrawnFrameRef.current = false;
     loadedCountRef.current = 0;
-    setPosterVisible(true);
+    requestAnimationFrame(() => setPosterVisible(true));
 
     let cancelled = false;
     const EAGER = 30;
@@ -426,6 +426,11 @@ export function ScrollSequenceHero() {
     textOpacity = phasePct < 0.6 ? 1 : Math.max(0, 1 - (phasePct - 0.6) / 0.4);
     textBlur = phasePct < 0.6 ? 0 : Math.max(0, (phasePct - 0.6) * 12);
     yOffset = 0;
+  } else if (activePhase === PHASES.length - 1) {
+    const entrance = Math.min(1, phasePct / 0.3);
+    textOpacity = entrance;
+    textBlur = (1 - entrance) * 8;
+    yOffset = (1 - entrance) * 15;
   } else {
     // Other phases: fade in (0→0.3), stay crisp (0.3→0.7), fade out (0.7→1)
     if (phasePct < 0.3) {
@@ -480,14 +485,16 @@ export function ScrollSequenceHero() {
         </div>
 
         {/* Dev debug */}
-        {process.env.NODE_ENV === "development" && (
+        {/* eslint-disable react-hooks/refs */}
+        {false && (
           <div className="absolute bottom-4 right-4 z-20 bg-black/60 backdrop-blur-sm rounded-lg px-3 py-1.5 text-[11px] font-mono text-[color:var(--text-muted)] pointer-events-none">
-            frame {lastDrawnFrameRef.current !== null ? lastDrawnFrameRef.current + 1 : 0}/{FRAME_COUNT} ·
+            frame {(lastDrawnFrameRef.current ?? -1) + 1}/{FRAME_COUNT} ·
             phase {activePhase + 1}/{PHASES.length} ·
             loaded: {loadedCountRef.current} ·
             poster: {posterVisible ? "yes" : "no"}
           </div>
         )}
+        {/* eslint-enable react-hooks/refs */}
       </div>
     </section>
   );

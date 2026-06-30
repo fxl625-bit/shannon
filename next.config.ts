@@ -6,10 +6,12 @@ const isProjectPages =
   repositoryName.length > 0 &&
   !repositoryName.endsWith(".github.io");
 const basePath = isProjectPages ? `/${repositoryName}` : "";
+const distDir =
+  process.env.NODE_ENV === "development" ? ".next-dev" : "out-v5";
 
 const nextConfig: NextConfig = {
   output: "export",
-  distDir: "out-v5",
+  distDir,
   trailingSlash: true,
   env: {
     NEXT_PUBLIC_BASE_PATH: basePath,

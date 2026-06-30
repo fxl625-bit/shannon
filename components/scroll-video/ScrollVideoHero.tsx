@@ -49,15 +49,22 @@ export function ScrollVideoHero({
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
 
-  const [isMobile, setIsMobile] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window === 'undefined'
+      ? false
+      : window.matchMedia('(max-width: 768px)').matches
+  );
+  const [reducedMotion, setReducedMotion] = useState(() =>
+    typeof window === 'undefined'
+      ? false
+      : window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
   const [canvasReady, setCanvasReady] = useState(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   // Detect mobile / reduced motion
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 768px)');
-    setIsMobile(mq.matches);
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
@@ -65,7 +72,6 @@ export function ScrollVideoHero({
 
   useEffect(() => {
     const rmq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(rmq.matches);
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
     rmq.addEventListener('change', handler);
     return () => rmq.removeEventListener('change', handler);

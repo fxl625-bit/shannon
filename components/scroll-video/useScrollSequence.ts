@@ -110,14 +110,15 @@ export function useScrollSequence({
 
   useEffect(() => {
     if (reducedMotion) {
-      setState({
+      const nextState = {
         progress: 0,
         frameIndex: 0,
         totalFrames,
         activePhase: phases[0]?.key ?? null,
         phaseProgress: 0,
         gsapProgress: 0,
-      });
+      };
+      requestAnimationFrame(() => setState(nextState));
       return;
     }
 

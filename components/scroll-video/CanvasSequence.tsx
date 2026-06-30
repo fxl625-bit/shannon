@@ -43,7 +43,7 @@ export function CanvasSequence({
     const loaded = imagesRef.current;
     loaded.clear();
     loadedRef.current = false;
-    setReady(false);
+    requestAnimationFrame(() => setReady(false));
 
     let cancelled = false;
     let loadCount = 0;

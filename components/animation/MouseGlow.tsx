@@ -4,16 +4,12 @@ import { useEffect, useState } from "react";
 
 export function MouseGlow() {
   const [pos, setPos] = useState({ x: 0, y: 0 });
-  // Start inactive to avoid SSR/client hydration mismatch.
-  // Activate after mount only when conditions allow.
-  const [active, setActive] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.matchMedia("(max-width: 768px)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    setActive(true);
-  }, []);
+  const [active] = useState(() => {
+    if (typeof window === "undefined") return false;
+    if (window.matchMedia("(max-width: 768px)").matches) return false;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+    return true;
+  });
 
   useEffect(() => {
     if (!active) return;

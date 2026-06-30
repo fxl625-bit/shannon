@@ -10,14 +10,24 @@ export type Skill = {
 };
 
 export type AppTool = {
+  slug: string;
   name: Localized;
   typeLabel: Localized;
   summary: Localized;
   previewLabel: Localized;
   previewImage?: string;
+  previewVideoWebm?: string;
+  previewVideoMp4?: string;
   demoUrl?: string;
   githubUrl?: string;
   status: Localized;
+  statusTone?: "store" | "live" | "internal" | "building";
+  frameStyle?: "browser" | "phone" | "desktop" | "dashboard" | "player";
+  viewportLabel?: Localized;
+  spotlight: Localized;
+  detail: Localized;
+  detailBullets: Localized[];
+  tags: Localized[];
 };
 
 export type ObsidianCard = {
@@ -97,6 +107,14 @@ export const site = {
     cardLabel: { en: "App / Tool", zh: "\u5e94\u7528 / \u5de5\u5177" },
     demoLabel: { en: "Live Demo", zh: "\u5728\u7ebf\u6f14\u793a" },
     githubLabel: { en: "GitHub", zh: "GitHub" },
+    detailLabel: { en: "View details", zh: "\u67e5\u770b\u8be6\u60c5" },
+    detailTitle: { en: "Product notes", zh: "\u4ea7\u54c1\u7b14\u8bb0" },
+    detailClose: { en: "Close", zh: "\u5173\u95ed" },
+    modalStatusLabel: { en: "Current status", zh: "\u5f53\u524d\u72b6\u6001" },
+    modalFocusLabel: { en: "What it is solving", zh: "\u5728\u89e3\u51b3\u4ec0\u4e48" },
+    modalHighlightsLabel: { en: "What is inside", zh: "\u91cc\u9762\u6709\u4ec0\u4e48" },
+    surfaceLabel: { en: "Screenshot", zh: "\u622a\u56fe" },
+    tapHint: { en: "Tap a card to open details.", zh: "\u70b9\u51fb\u5361\u7247\u67e5\u770b\u8be6\u60c5\u3002" },
   },
   skillsPage: {
     title: { en: "Skills Engineering", zh: "Skills \u5de5\u7a0b\u65b9\u6cd5" },
@@ -232,6 +250,7 @@ export const site = {
   },
   apps: [
     {
+      slug: "yishiyuanman",
       name: { en: "\u4e00\u4e16\u5706\u6ee1", zh: "\u4e00\u4e16\u5706\u6ee1" },
       typeLabel: { en: "Health Record App", zh: "\u5065\u5eb7\u8bb0\u5f55 App" },
       summary: {
@@ -247,10 +266,44 @@ export const site = {
         zh: "\u622a\u56fe\u5360\u4f4d",
       },
       previewImage: "/images/apps/yishiyuanman.png",
+      frameStyle: "phone",
+      viewportLabel: {
+        en: "Android app screen",
+        zh: "Android App \u754c\u9762",
+      },
+      spotlight: {
+        en: "A family health log that grew from private necessity into a publishable product.",
+        zh: "\u4ece\u5bb6\u4eba\u81ea\u7528\u9700\u6c42\u51fa\u53d1\uff0c\u6700\u540e\u6253\u78e8\u6210\u53ef\u4e0a\u67b6\u7684\u5065\u5eb7\u8bb0\u5f55\u4ea7\u54c1\u3002",
+      },
+      detail: {
+        en: "The product keeps the interaction simple enough for everyday family use: quick entries, clear readings, and a layout that feels safe instead of clinical.",
+        zh: "\u4ea7\u54c1\u5c3d\u91cf\u628a\u4ea4\u4e92\u505a\u5f97\u8db3\u591f\u76f4\u63a5\uff1a\u8f93\u5165\u5feb\uff0c\u8bfb\u6570\u6e05\u6670\uff0c\u6574\u4f53\u611f\u53d7\u66f4\u50cf\u6bcf\u5929\u53ef\u7528\u7684\u5bb6\u5ead\u5de5\u5177\uff0c\u800c\u4e0d\u662f\u751f\u786c\u7684\u533b\u7597\u7cfb\u7edf\u3002",
+      },
+      detailBullets: [
+        {
+          en: "Tracks blood pressure and blood glucose in one place.",
+          zh: "\u5728\u4e00\u4e2a\u754c\u9762\u91cc\u8bb0\u5f55\u8840\u538b\u548c\u8840\u7cd6\u3002",
+        },
+        {
+          en: "Built around family usage instead of hospital workflow assumptions.",
+          zh: "\u4ee5\u5bb6\u5ead\u65e5\u5e38\u4f7f\u7528\u4e3a\u4e2d\u5fc3\uff0c\u4e0d\u7167\u642c\u533b\u9662\u6d41\u7a0b\u5047\u8bbe\u3002",
+        },
+        {
+          en: "Shipped as a standalone Android app on Google Play.",
+          zh: "\u5df2\u4ee5\u72ec\u7acb Android App \u5f62\u6001\u53d1\u5e03\u5230 Google Play\u3002",
+        },
+      ],
+      tags: [
+        { en: "Mobile-first", zh: "\u79fb\u52a8\u4f18\u5148" },
+        { en: "Family health", zh: "\u5bb6\u5ead\u5065\u5eb7" },
+        { en: "Published", zh: "\u5df2\u53d1\u5e03" },
+      ],
       demoUrl: undefined,
       githubUrl: undefined,
+      statusTone: "store",
     },
     {
+      slug: "math-detective",
       name: { en: "Math Detective", zh: "\u6570\u5b66\u4fa6\u63a2" },
       typeLabel: { en: "Math Practice Tool", zh: "\u6570\u5b66\u7ec3\u4e60\u5de5\u5177" },
       summary: {
@@ -258,18 +311,52 @@ export const site = {
         zh: "\u7ed9\u5b69\u5b50\u7ec3\u6570\u5b66\u8bfb\u9898\u7528\u7684\u5c0f\u5de5\u5177\uff0c\u91cd\u70b9\u653e\u5728\u627e\u6570\u5b57\u548c\u8bfb\u61c2\u9898\u610f\u4e0a\u3002",
       },
       status: {
-        en: "Live on Vercel / Iterating",
-        zh: "\u5df2\u4e0a\u7ebf Vercel / \u6301\u7eed\u8fed\u4ee3\u4e2d",
+        en: "Live on Vercel",
+        zh: "\u5df2\u4e0a\u7ebf Vercel",
       },
       previewLabel: {
         en: "Screenshot placeholder",
         zh: "\u622a\u56fe\u5360\u4f4d",
       },
       previewImage: "/images/apps/math-detective.png",
+      frameStyle: "browser",
+      viewportLabel: {
+        en: "Browser learning view",
+        zh: "\u6d4f\u89c8\u5668\u7ec3\u4e60\u754c\u9762",
+      },
+      spotlight: {
+        en: "A reading aid for math problems, designed to slow children down just enough to really see the question.",
+        zh: "\u8fd9\u662f\u4e00\u4e2a\u5e2e\u52a9\u5b69\u5b50\u300c\u770b\u61c2\u9898\u300d\u7684\u6570\u5b66\u8f85\u52a9\u5de5\u5177\uff0c\u4e0d\u662f\u53ea\u8ffd\u6c42\u505a\u9898\u901f\u5ea6\u3002",
+      },
+      detail: {
+        en: "Instead of drilling answers, it guides attention toward quantities, clues, and the wording of the problem. The product is live and still being tuned through use.",
+        zh: "\u5b83\u4e0d\u662f\u5355\u7eaf\u8bad\u7ec3\u7b54\u6848\uff0c\u800c\u662f\u628a\u6ce8\u610f\u529b\u5f15\u5411\u6570\u91cf\u3001\u7ebf\u7d22\u548c\u9898\u610f\u672c\u8eab\u3002\u73b0\u5728\u5df2\u7ecf\u5728\u7ebf\uff0c\u4e5f\u4ecd\u5728\u8fb9\u7528\u8fb9\u8fed\u4ee3\u3002",
+      },
+      detailBullets: [
+        {
+          en: "Helps children identify numbers, entities, and relationships in text.",
+          zh: "\u5e2e\u52a9\u5b69\u5b50\u5728\u9898\u76ee\u6587\u5b57\u4e2d\u627e\u51fa\u6570\u5b57\u3001\u5bf9\u8c61\u548c\u5173\u7cfb\u3002",
+        },
+        {
+          en: "Keeps the interface light so the exercise stays focused on reading comprehension.",
+          zh: "\u754c\u9762\u5c3d\u91cf\u8f7b\uff0c\u8ba9\u7ec3\u4e60\u91cd\u70b9\u7559\u5728\u8bfb\u9898\u8fc7\u7a0b\u3002",
+        },
+        {
+          en: "Deployed on Vercel and improved through ongoing usage feedback.",
+          zh: "\u5df2\u90e8\u7f72\u5728 Vercel\uff0c\u5e76\u4f9d\u636e\u5b9e\u9645\u4f7f\u7528\u53cd\u9988\u7ee7\u7eed\u4f18\u5316\u3002",
+        },
+      ],
+      tags: [
+        { en: "Web app", zh: "Web App" },
+        { en: "Education", zh: "\u6559\u80b2" },
+        { en: "Iterating", zh: "\u6301\u7eed\u8fed\u4ee3" },
+      ],
       demoUrl: "https://math-detective.vercel.app/",
       githubUrl: undefined,
+      statusTone: "live",
     },
     {
+      slug: "rent-tracker",
       name: { en: "RentTracker", zh: "\u6536\u79df\u8bb0\u5f55\u5668" },
       typeLabel: { en: "Property Management Tool", zh: "\u623f\u4ea7\u7ba1\u7406\u5de5\u5177" },
       summary: {
@@ -285,10 +372,44 @@ export const site = {
         zh: "\u622a\u56fe\u5360\u4f4d",
       },
       previewImage: "/images/apps/rent-tracker-mockup.png",
+      frameStyle: "dashboard",
+      viewportLabel: {
+        en: "Operations dashboard",
+        zh: "\u8fd0\u8425\u9762\u677f",
+      },
+      spotlight: {
+        en: "A practical internal console for keeping rent records, payment timing, and property status from drifting apart.",
+        zh: "\u4e00\u4e2a\u504f\u5b9e\u52a1\u7684\u5185\u90e8\u5de5\u5177\uff0c\u7528\u6765\u628a\u623f\u6e90\u3001\u79df\u91d1\u548c\u6536\u6b3e\u72b6\u6001\u7a33\u7a33\u5730\u5bf9\u9f50\u3002",
+      },
+      detail: {
+        en: "This one is intentionally pragmatic. It is not trying to look like a consumer product; it is trying to reduce missed follow-up and keep the operational picture current.",
+        zh: "\u8fd9\u4e2a\u5de5\u5177\u7684\u51fa\u53d1\u70b9\u5f88\u52a1\u5b9e\uff0c\u4e0d\u662f\u53bb\u8ffd\u6c42\u6d88\u8d39\u7ea7\u4ea7\u54c1\u611f\uff0c\u800c\u662f\u5c3d\u91cf\u51cf\u5c11\u9057\u6f0f\u8ddf\u8fdb\uff0c\u8ba9\u7ba1\u7406\u89c6\u56fe\u4fdd\u6301\u66f4\u65b0\u3002",
+      },
+      detailBullets: [
+        {
+          en: "Tracks properties, rent schedules, and payment completion in one place.",
+          zh: "\u628a\u623f\u6e90\u3001\u79df\u671f\u548c\u6536\u6b3e\u5b8c\u6210\u72b6\u6001\u653e\u5728\u540c\u4e00\u4e2a\u5de5\u4f5c\u9762\u677f\u3002",
+        },
+        {
+          en: "Optimized for internal clarity rather than public polish.",
+          zh: "\u66f4\u91cd\u89c6\u5185\u90e8\u4f7f\u7528\u6e05\u6670\u5ea6\uff0c\u800c\u4e0d\u662f\u5bf9\u5916\u5c55\u793a\u611f\u3002",
+        },
+        {
+          en: "Used in a real workflow today, which shapes what gets improved next.",
+          zh: "\u5df2\u5728\u771f\u5b9e\u573a\u666f\u4e2d\u4f7f\u7528\uff0c\u4e5f\u56e0\u6b64\u51b3\u5b9a\u4e0b\u4e00\u6b65\u4f18\u5316\u4ec0\u4e48\u3002",
+        },
+      ],
+      tags: [
+        { en: "Internal tool", zh: "\u5185\u90e8\u5de5\u5177" },
+        { en: "Dashboard", zh: "\u9762\u677f" },
+        { en: "Operations", zh: "\u8fd0\u8425" },
+      ],
       demoUrl: undefined,
       githubUrl: undefined,
+      statusTone: "internal",
     },
     {
+      slug: "long-fm",
       name: { en: "long-fm", zh: "long-fm" },
       typeLabel: { en: "AI Music Companion", zh: "AI \u97f3\u4e50\u4f34\u4fa3" },
       summary: {
@@ -304,8 +425,41 @@ export const site = {
         zh: "\u622a\u56fe\u5360\u4f4d",
       },
       previewImage: "/images/apps/long-fm.png",
+      frameStyle: "player",
+      viewportLabel: {
+        en: "Browser listening view",
+        zh: "\u6d4f\u89c8\u5668\u64ad\u653e\u89c6\u56fe",
+      },
+      spotlight: {
+        en: "A lightweight AI music companion with a more atmospheric, listening-first interface.",
+        zh: "\u4e00\u4e2a\u66f4\u504f\u6c1b\u56f4\u611f\u7684 AI \u97f3\u4e50\u4f34\u4fa3\uff0c\u754c\u9762\u91cd\u70b9\u653e\u5728\u300c\u542c\u300d\u8fd9\u4ef6\u4e8b\u4e0a\u3002",
+      },
+      detail: {
+        en: "The interface leans into mood and companionship rather than dense controls. It is a small experiment in making an AI music experience feel softer and more personal.",
+        zh: "\u5b83\u7684\u754c\u9762\u66f4\u503e\u5411\u6c14\u6c1b\u548c\u966a\u4f34\uff0c\u800c\u4e0d\u662f\u5806\u53e0\u5bc6\u96c6\u63a7\u4ef6\u3002\u8fd9\u662f\u4e00\u4e2a\u5c0f\u5c1d\u8bd5\uff0c\u770b\u770b AI \u97f3\u4e50\u4ea7\u54c1\u80fd\u4e0d\u80fd\u66f4\u67d4\u548c\u4e00\u70b9\u3002",
+      },
+      detailBullets: [
+        {
+          en: "Explores an AI-assisted listening experience instead of a traditional player UI.",
+          zh: "\u63a2\u7d22 AI \u8f85\u52a9\u7684\u542c\u97f3\u4f53\u9a8c\uff0c\u800c\u4e0d\u662f\u4f20\u7edf\u64ad\u653e\u5668\u754c\u9762\u3002",
+        },
+        {
+          en: "Uses a calmer visual rhythm to support music discovery and companionship.",
+          zh: "\u7528\u66f4\u5e73\u7f13\u7684\u89c6\u89c9\u8282\u594f\u6765\u627f\u6258\u97f3\u4e50\u53d1\u73b0\u4e0e\u966a\u4f34\u611f\u3002",
+        },
+        {
+          en: "Already live on Vercel as an openly accessible experiment.",
+          zh: "\u5df2\u5728 Vercel \u4e0a\u7ebf\uff0c\u4f5c\u4e3a\u4e00\u4e2a\u53ef\u4ee5\u76f4\u63a5\u8bbf\u95ee\u7684\u5b9e\u9a8c\u6027\u4ea7\u54c1\u3002",
+        },
+      ],
+      tags: [
+        { en: "AI companion", zh: "AI \u4f34\u4fa3" },
+        { en: "Music", zh: "\u97f3\u4e50" },
+        { en: "Live", zh: "\u5df2\u4e0a\u7ebf" },
+      ],
       demoUrl: "https://long-fm.vercel.app/",
       githubUrl: undefined,
+      statusTone: "live",
     },
   ] satisfies AppTool[],
   obsidianSources: [

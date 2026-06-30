@@ -1,309 +1,274 @@
-/**
- * BrandCapabilitySection — 品牌能力升级
- *
- * Three-layer structure: Input → Expression → System
- * Intelligence + Knowledge → Narrative + Visual + Prototype → Operating System
- */
-
 "use client";
+
+import { useEffect, useRef, useState } from "react";
+import { useInView } from "framer-motion";
 
 import { Reveal } from "@/components/animation/Reveal";
 import { useLanguage } from "@/components/language-provider";
 
-// ── Types ──────────────────────────────────────────────
-
-type CapabilityKey =
+type NodeId =
   | "intelligence"
   | "knowledge"
   | "narrative"
   | "visual"
   | "prototype"
-  | "os";
+  | "system";
 
-type CapabilityDef = {
-  key: CapabilityKey;
-  icon: string;
-  color: string;
+type CapabilityNode = {
+  id: NodeId;
   label: { en: string; zh: string };
-  desc: { en: string; zh: string };
+  description: { en: string; zh: string };
+  stage: 0 | 1 | 2;
 };
 
-// ── Data ──────────────────────────────────────────────
-
-const CAPABILITIES: CapabilityDef[] = [
+const capabilityNodes: CapabilityNode[] = [
   {
-    key: "intelligence",
-    icon: "◉",
-    color: "var(--cyan)",
+    id: "intelligence",
     label: { en: "Intelligence", zh: "情报能力" },
-    desc: {
-      en: "Tracking public information, industry changes, media topics, and opinion signals.",
+    description: {
+      en: "Track public information, industry shifts, media topics, and sentiment.",
       zh: "追踪公开信息、行业变化、媒体议题和舆情线索。",
     },
+    stage: 0,
   },
   {
-    key: "knowledge",
-    icon: "◎",
-    color: "var(--green)",
+    id: "knowledge",
     label: { en: "Knowledge", zh: "知识能力" },
-    desc: {
-      en: "Turning scattered materials into reusable references, Q&A, cases, and talking points.",
-      zh: "把分散资料整理成可引用的口径、问答、案例和参考资料。",
+    description: {
+      en: "Organize scattered material into references, answers, and cases.",
+      zh: "把分散资料整理成口径、问答、案例和参考。",
     },
+    stage: 0,
   },
   {
-    key: "narrative",
-    icon: "◈",
-    color: "var(--warm)",
+    id: "narrative",
     label: { en: "Narrative", zh: "叙事能力" },
-    desc: {
-      en: "Building consistent messages for media, investors, social platforms, and internal communication.",
-      zh: "面向媒体、投资者、社交平台和内部沟通，组织一致的表达。",
+    description: {
+      en: "Shape communication for media, investors, social channels, and teams.",
+      zh: "组织对媒体、投资者、社交平台和内部沟通的表达。",
     },
+    stage: 1,
   },
   {
-    key: "visual",
-    icon: "◇",
-    color: "var(--violet)",
-    label: { en: "Visuals", zh: "视觉能力" },
-    desc: {
-      en: "Turning articles, diagrams, long-form graphics, pages, and video scripts into formats that travel better.",
+    id: "visual",
+    label: { en: "Visual", zh: "视觉能力" },
+    description: {
+      en: "Turn ideas into articles, diagrams, pages, and video scripts.",
       zh: "把文章、图解、长图、页面和视频脚本做成更容易传播的形式。",
     },
+    stage: 1,
   },
   {
-    key: "prototype",
-    icon: "◆",
-    color: "var(--blue)",
-    label: { en: "Prototypes", zh: "原型能力" },
-    desc: {
-      en: "Moving ideas quickly into websites, dashboards, internal tools, publishing assistants, and product demos.",
-      zh: "把想法快速推进成网站、仪表盘、内部工具、发稿助手和产品 Demo。",
+    id: "prototype",
+    label: { en: "Prototype", zh: "原型能力" },
+    description: {
+      en: "Move ideas into websites, dashboards, internal tools, and demos.",
+      zh: "把想法推进成网站、仪表盘、内部工具和产品 Demo。",
     },
+    stage: 1,
   },
   {
-    key: "os",
-    icon: "○",
-    color: "var(--text-primary)",
+    id: "system",
     label: { en: "System", zh: "系统能力" },
-    desc: {
-      en: "Connecting monitoring, knowledge, content, publishing, and review into a repeatable way of working.",
-      zh: "把监测、知识、内容、发布和复盘串起来，形成可以持续运行的工作方法。",
+    description: {
+      en: "Connect monitoring, knowledge, content, publishing, and review.",
+      zh: "把监测、知识、内容、发布和复盘串起来。",
     },
+    stage: 2,
   },
 ];
 
-// Helper to get a capability by key
-function cap(key: CapabilityKey): CapabilityDef {
-  return CAPABILITIES.find((c) => c.key === key)!;
-}
-
-// ── Sub-components ────────────────────────────────────
-
-function LayerLabel({
-  label,
-  delay,
-}: {
-  label: { en: string; zh: string };
-  delay: number;
-}) {
-  const { locale } = useLanguage();
-  return (
-    <Reveal delay={delay}>
-      <div className="flex items-center gap-3 pb-3">
-        <span className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]">
-          {label[locale]}
-        </span>
-        <div className="h-px flex-1 bg-gradient-to-r from-[color:var(--border)] to-transparent" />
-      </div>
-    </Reveal>
-  );
-}
-
-function CapabilityCard({
-  item,
-  delay,
-  wide = false,
-}: {
-  item: CapabilityDef;
-  delay: number;
-  wide?: boolean;
-}) {
-  const { locale } = useLanguage();
-
-  return (
-    <Reveal delay={delay}>
-      <div
-        className={`group relative rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] transition-all duration-300 hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-hover)] ${
-          wide
-            ? "flex flex-col p-6 sm:flex-row sm:items-center sm:gap-6 sm:p-7"
-            : "flex h-full min-h-[180px] flex-col p-6 sm:p-7"
-        }`}
-      >
-        {/* Glow */}
-        <div
-          className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          style={{ boxShadow: `0 0 40px -15px ${item.color}30` }}
-        />
-
-        {/* Icon */}
-        <div
-          className={`flex items-center justify-center rounded-xl border border-[color:var(--border)] transition-colors group-hover:border-[color:var(--border-strong)] ${
-            wide
-              ? "mb-4 h-14 w-14 shrink-0 text-xl sm:mb-0"
-              : "mb-4 h-11 w-11 shrink-0 text-lg"
-          }`}
-          style={{ color: item.color }}
-        >
-          {item.icon}
-        </div>
-
-        {/* Text area */}
-        <div className={wide ? "flex-1" : "flex flex-1 flex-col"}>
-          <h3
-            className={`font-semibold text-[color:var(--text-primary)] transition-colors group-hover:text-[color:var(--text-secondary)] ${
-              wide ? "text-lg" : "text-base"
-            }`}
-          >
-            {item.label[locale]}
-          </h3>
-          <p
-            className={`mt-2 leading-relaxed text-[color:var(--text-muted)] transition-colors group-hover:text-[color:var(--text-secondary)] ${
-              wide ? "text-sm" : "text-sm"
-            }`}
-          >
-            {item.desc[locale]}
-          </p>
-        </div>
-      </div>
-    </Reveal>
-  );
-}
-
-function ArrowDown() {
-  return (
-    <div className="flex justify-center py-3">
-      <div className="flex flex-col items-center gap-1">
-        <div className="h-5 w-px bg-gradient-to-b from-[color:var(--border)] to-[color:var(--text-muted)]" />
-        <svg
-          width="10"
-          height="10"
-          viewBox="0 0 10 10"
-          fill="none"
-          className="text-[color:var(--text-muted)]"
-        >
-          <path
-            d="M5 0L5 8M5 8L1 4.5M5 8L9 4.5"
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-// ── Main Section ───────────────────────────────────────
+const pathsByNode: Record<NodeId, NodeId[]> = {
+  intelligence: ["intelligence", "narrative", "visual", "prototype", "system"],
+  knowledge: ["knowledge", "narrative", "visual", "prototype", "system"],
+  narrative: ["intelligence", "knowledge", "narrative", "system"],
+  visual: ["intelligence", "knowledge", "visual", "system"],
+  prototype: ["intelligence", "knowledge", "prototype", "system"],
+  system: capabilityNodes.map((node) => node.id),
+};
 
 export function BrandCapabilitySection() {
   const { locale } = useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-18% 0px -18% 0px" });
+  const [activeId, setActiveId] = useState<NodeId | null>(null);
+  const [revealedCount, setRevealedCount] = useState(0);
 
-  const COPY = {
-    en: {
-      title: "Brand Capability Upgrade",
-      subtitle:
-        "From content production to intelligence, knowledge, narrative, visuals, prototypes, and publishing coordination.",
-      lead: [
-        "These capabilities come from real work, not a list of tools. Combined, they form a brand workflow that can be used again and again.",
-      ],
-      layerInput: "Input",
-      layerExpression: "Expression",
-      layerSystem: "System",
-    },
-    zh: {
-      title: "品牌能力升级",
-      subtitle: "从内容生产，到舆情、知识、叙事、视觉和发布协同。",
-      lead: [
-        "这些能力来自真实工作，组合在一起后，形成了一套可以反复使用的品牌工作方法。",
-      ],
-      layerInput: "输入",
-      layerExpression: "表达",
-      layerSystem: "沉淀",
-    },
-  };
+  useEffect(() => {
+    if (!isInView) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      const timer = window.setTimeout(
+        () => setRevealedCount(capabilityNodes.length),
+        0,
+      );
+      return () => window.clearTimeout(timer);
+    }
 
-  const copy = locale === "zh" ? COPY.zh : COPY.en;
+    const timers = capabilityNodes.map((_, index) =>
+      window.setTimeout(() => setRevealedCount(index + 1), 140 + index * 150),
+    );
+    return () => timers.forEach(window.clearTimeout);
+  }, [isInView]);
+
+  const highlighted = activeId ? new Set(pathsByNode[activeId]) : null;
+  const stages = [
+    {
+      label: { en: "Input", zh: "输入" },
+      nodes: capabilityNodes.filter((node) => node.stage === 0),
+    },
+    {
+      label: { en: "Expression", zh: "表达" },
+      nodes: capabilityNodes.filter((node) => node.stage === 1),
+    },
+    {
+      label: { en: "Deposit", zh: "沉淀" },
+      nodes: capabilityNodes.filter((node) => node.stage === 2),
+    },
+  ];
 
   return (
-    <section className="relative py-24 sm:py-32">
-      {/* Subtle gradient background */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-[color:var(--bg-alt)] to-transparent opacity-40" />
-
+    <section
+      ref={sectionRef}
+      data-ripple-zone
+      className="relative overflow-hidden py-24 sm:py-32"
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(34,211,238,0.08),transparent_38%)]" />
       <div className="relative mx-auto max-w-[var(--max-width)] px-5 sm:px-8">
-        {/* ════════════ Title area ════════════ */}
         <Reveal>
-          <div className="mb-5 text-center">
-            <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]">
-              {locale === "zh" ? "能力" : "Capability"}
-            </span>
-            <h2 className="mt-4 text-[32px] font-semibold leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[42px]">
-              {copy.title}
-            </h2>
-          </div>
-        </Reveal>
-
-        {/* Subtitle */}
-        <Reveal delay={0.1}>
-          <p className="mx-auto mb-6 max-w-[60ch] text-center text-sm leading-relaxed text-[color:var(--text-muted)] sm:text-base">
-            {copy.subtitle}
+          <p className="text-[11px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]">
+            {locale === "zh" ? "品牌能力" : "Brand Capability"}
           </p>
+          <h2 className="mt-4 text-[32px] font-semibold tracking-tight text-[color:var(--text-primary)] sm:text-[42px]">
+            {locale === "zh" ? "输入 → 表达 → 沉淀" : "Input → Expression → Deposit"}
+          </h2>
         </Reveal>
 
-        {/* Lead */}
-        <Reveal delay={0.15}>
-          <div className="mx-auto mb-16 max-w-[55ch] space-y-3 text-center text-sm leading-relaxed text-[color:var(--text-secondary)] sm:text-[15px]">
-            {copy.lead.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-        </Reveal>
+        <Reveal delay={0.08}>
+          <div className="relative mt-12 rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.016))] p-5 sm:p-8">
+            <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[34px] opacity-35">
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(103,232,249,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,0.045)_1px,transparent_1px)] bg-[size:36px_36px]" />
+            </div>
 
-        {/* ════════════ Layer 1: Input ════════════ */}
-        <LayerLabel label={{ en: "Input", zh: "输入" }} delay={0.2} />
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              className="pointer-events-none absolute inset-x-8 bottom-8 top-24 z-[1] hidden overflow-visible lg:block"
+            >
+              <defs>
+                <marker
+                  id="capability-arrow"
+                  markerWidth="5"
+                  markerHeight="5"
+                  refX="4"
+                  refY="2.5"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M 0 0 L 5 2.5 L 0 5 z" fill="rgba(165,243,252,0.62)" />
+                </marker>
+              </defs>
+              {[
+                "M 26 25 C 31 25 33 20 38 20",
+                "M 26 25 C 31 25 33 47 38 50",
+                "M 26 25 C 31 25 33 74 38 80",
+                "M 26 75 C 31 75 33 26 38 20",
+                "M 26 75 C 31 75 33 53 38 50",
+                "M 26 75 C 31 75 33 80 38 80",
+                "M 62 20 C 66 20 67 44 71 50",
+                "M 62 50 C 66 50 67 50 71 50",
+                "M 62 80 C 66 80 67 56 71 50",
+              ].map((path, index) => (
+                <path
+                  key={path}
+                  d={path}
+                  pathLength={1}
+                  strokeDasharray={1}
+                  strokeDashoffset={revealedCount > (index < 6 ? 2 : 5) ? 0 : 1}
+                  markerEnd="url(#capability-arrow)"
+                  vectorEffect="non-scaling-stroke"
+                  className="fill-none stroke-cyan-100/45 transition-[stroke-dashoffset,opacity] duration-700"
+                  strokeWidth="0.38"
+                  style={{
+                    opacity: activeId ? 0.42 : 0.62,
+                    transitionDelay: `${index * 45}ms`,
+                  }}
+                />
+              ))}
+            </svg>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          <CapabilityCard item={cap("intelligence")} delay={0.25} />
-          <CapabilityCard item={cap("knowledge")} delay={0.3} />
-        </div>
+            <div className="relative z-10 grid gap-5 lg:grid-cols-[0.8fr_1.2fr_0.8fr] lg:items-stretch lg:gap-16 xl:gap-20">
+              {stages.map((stage, stageIndex) => (
+                <div key={stage.label.en} className="relative flex min-w-0 flex-col">
+                  <div className="mb-4 flex items-center gap-3">
+                    <span className="text-[10px] font-medium tracking-[0.2em] text-cyan-100/70">
+                      0{stageIndex + 1}
+                    </span>
+                    <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
+                      {stage.label[locale]}
+                    </p>
+                    <div className="h-px flex-1 bg-white/8" />
+                  </div>
 
-        {/* Connector */}
-        <ArrowDown />
+                  <div
+                    className={`grid flex-1 gap-3 ${
+                      stageIndex === 1 ? "sm:grid-cols-3 lg:grid-cols-1" : ""
+                    }`}
+                  >
+                    {stage.nodes.map((node) => {
+                      const index = capabilityNodes.findIndex((item) => item.id === node.id);
+                      const visible = index < revealedCount;
+                      const isHighlighted = !highlighted || highlighted.has(node.id);
+                      const isActive = activeId === node.id;
 
-        {/* ════════════ Layer 2: Expression ════════════ */}
-        <LayerLabel label={{ en: "Expression", zh: "表达" }} delay={0.35} />
+                      return (
+                        <button
+                          key={node.id}
+                          type="button"
+                          onMouseEnter={() => setActiveId(node.id)}
+                          onFocus={() => setActiveId(node.id)}
+                          onMouseLeave={() => setActiveId(null)}
+                          onBlur={() => setActiveId(null)}
+                          className={`group relative min-h-36 overflow-hidden rounded-[24px] border p-4 text-left transition-all duration-500 ${
+                            node.id === "system"
+                              ? "border-cyan-200/22 bg-cyan-200/[0.075]"
+                              : "border-white/9 bg-[#07101d]/70"
+                          } ${visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"} ${
+                            isHighlighted ? "" : "opacity-35"
+                          } ${isActive ? "-translate-y-1 border-cyan-200/35 shadow-[0_22px_70px_-45px_rgba(34,211,238,0.7)]" : ""}`}
+                        >
+                          <div className="flex items-center justify-between gap-4">
+                            <span className="text-base font-medium text-[color:var(--text-primary)]">
+                              {node.label[locale]}
+                            </span>
+                            <span
+                              className={`h-2.5 w-2.5 rounded-full bg-cyan-200 transition-shadow duration-500 ${
+                                visible ? "shadow-[0_0_18px_rgba(103,232,249,0.8)]" : ""
+                              }`}
+                            />
+                          </div>
+                          <p className="mt-4 text-sm leading-6 text-[color:var(--text-secondary)]">
+                            {node.description[locale]}
+                          </p>
+                          <div className="absolute inset-x-4 bottom-0 h-px origin-left scale-x-0 bg-gradient-to-r from-cyan-200/70 to-blue-400/20 transition-transform duration-500 group-hover:scale-x-100" />
+                        </button>
+                      );
+                    })}
+                  </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
-          <CapabilityCard item={cap("narrative")} delay={0.4} />
-          <CapabilityCard item={cap("visual")} delay={0.45} />
-          <CapabilityCard item={cap("prototype")} delay={0.5} />
-        </div>
-
-        {/* Connector */}
-        <ArrowDown />
-
-        {/* ════════════ Layer 3: System ════════════ */}
-        <LayerLabel label={{ en: "System", zh: "沉淀" }} delay={0.55} />
-
-        <CapabilityCard item={cap("os")} delay={0.6} wide />
-
-        {/* ════════════ Decorative divider ════════════ */}
-        <Reveal delay={0.7}>
-          <div className="mt-14 flex items-center justify-center gap-3">
-            <div className="h-px w-8 bg-gradient-to-r from-transparent to-[color:var(--violet)]" />
-            <div className="h-1.5 w-1.5 rotate-45 border border-[color:var(--violet)]" />
-            <div className="h-px w-8 bg-gradient-to-l from-transparent to-[color:var(--cyan)]" />
+                  {stageIndex < stages.length - 1 ? (
+                    <div
+                      className={`mx-auto my-2 h-8 w-px origin-top bg-gradient-to-b from-cyan-200/70 to-cyan-200/10 transition-transform duration-700 lg:hidden ${
+                        revealedCount > (stageIndex === 0 ? 1 : 4) ? "scale-100" : "scale-0"
+                      }`}
+                    >
+                      <span className="absolute -right-0.5 bottom-0 h-1.5 w-1.5 rotate-45 border-r border-t border-cyan-100/60" />
+                    </div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
           </div>
         </Reveal>
       </div>
