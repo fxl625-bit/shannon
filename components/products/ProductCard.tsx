@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 import type { AppTool, Locale } from "@/data/site";
 
@@ -92,8 +93,23 @@ export function ProductCard({
           >
             {locale === "zh" ? "\u67e5\u770b\u9884\u89c8" : "Open preview"}
           </button>
-          <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
-            {app.viewportLabel?.[locale]}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+            {app.storeUrl ? (
+              <>
+                <a href={app.storeUrl} target="_blank" rel="noreferrer" className="editorial-link">Google Play ↗</a>
+                <a href="#locallog" className="editorial-link">{locale === "zh" ? "截图与演示 ↓" : "Screens & demo ↓"}</a>
+              </>
+            ) : null}
+            {app.demoUrl ? (
+              <a href={app.demoUrl} target="_blank" rel="noreferrer" className="editorial-link">
+                {locale === "zh" ? "在线体验 ↗" : "Open app ↗"}
+              </a>
+            ) : null}
+            {app.slug === "math-detective" ? (
+              <Link href="/cases/math-detective-iteration" className="editorial-link">
+                {locale === "zh" ? "迭代案例 →" : "Read the case →"}
+              </Link>
+            ) : null}
           </div>
         </div>
       </div>

@@ -28,6 +28,7 @@ export function Navigation() {
     { href: "/apps", label: site.nav.apps[locale] },
     { href: "/second-brain", label: locale === "zh" ? "AI-Agent 知识库" : "AI-Agent Knowledge Base" },
     { href: "/skills", label: locale === "zh" ? "工作流" : "Workflows" },
+    { href: "/explorations", label: site.nav.explorations[locale] },
   ];
 
   return (
@@ -80,6 +81,9 @@ export function Navigation() {
 
         {/* Language Toggle */}
         <div className="flex items-center gap-3">
+          <Link href="/explorations" className="text-sm text-white/75 hover:text-white md:hidden">
+            {site.nav.explorations[locale]}
+          </Link>
           <div className="hidden rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] p-1 sm:inline-flex">
             <button
               type="button"

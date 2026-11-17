@@ -1,5 +1,120 @@
 @import "tailwindcss";
 
+.editorial-intro {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(151, 183, 231, 0.21);
+  border-radius: 26px;
+  background:
+    radial-gradient(ellipse at 92% 0%, rgba(93, 98, 214, 0.23), transparent 58%),
+    linear-gradient(116deg, #10192b, #09111e 76%);
+}
+
+.editorial-intro::before,
+.editorial-intro::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 78%;
+  aspect-ratio: 2;
+  inset: 3% -12% auto auto;
+  border: 1px solid rgba(139, 205, 255, 0.19);
+  border-radius: 50%;
+  transform: rotate(-21deg);
+  pointer-events: none;
+}
+
+.editorial-intro::after {
+  inset: 17% -17% auto auto;
+  border-color: rgba(152, 134, 229, 0.16);
+}
+
+.editorial-panel {
+  border: 1px solid rgba(151, 183, 231, 0.17);
+  border-radius: 22px;
+  background: linear-gradient(142deg, rgba(23, 34, 56, 0.78), rgba(9, 15, 28, 0.82));
+}
+
+.editorial-link {
+  color: #adf1fa;
+  font-size: 0.875rem;
+  font-weight: 550;
+  text-underline-offset: 4px;
+}
+
+.editorial-link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.editorial-link:focus-visible,
+.process-step:focus-visible {
+  outline: 2px solid #adecf7;
+  outline-offset: 4px;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 0.5rem;
+}
+
+.process-step {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 3.25rem;
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid rgba(165, 188, 226, 0.16);
+  border-radius: 11px;
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.16);
+  text-align: left;
+  font-size: 0.815rem;
+  line-height: 1.28;
+  transition: border-color 180ms, background-color 180ms, color 180ms;
+}
+
+.process-step:hover,
+.process-step[aria-pressed="true"] {
+  border-color: rgba(131, 230, 249, 0.48);
+  background: rgba(131, 230, 249, 0.095);
+  color: #e1fcff;
+}
+
+.process-index {
+  display: grid;
+  place-items: center;
+  flex: 0 0 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: rgba(131, 230, 249, 0.12);
+  color: #adecf7;
+  font-size: 0.69rem;
+}
+
+.vault-connector {
+  width: 2px;
+  height: 1.75rem;
+  background: linear-gradient(rgba(137, 181, 236, 0.16), rgba(183, 164, 255, 0.15));
+  transition: background-color 180ms, box-shadow 180ms;
+}
+
+.vault-connector[data-active="true"] {
+  background: linear-gradient(#7deaff, #a99af5);
+  box-shadow: 0 0 12px rgba(125, 234, 255, 0.53);
+}
+
+@media (min-width: 1024px) {
+  .process-steps { grid-template-columns: repeat(4, minmax(0,1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-step, .vault-connector { transition: none; }
+}
+
 /* ═══════════════════════════════════════════════════════════
    AI x Human Potential — Design System
    Soft Futurism · Humanistic AI · Knowledge Garden

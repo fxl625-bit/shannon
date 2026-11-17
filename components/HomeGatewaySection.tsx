@@ -7,8 +7,7 @@
 
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
 import { Reveal } from "@/components/animation/Reveal";
 import { useLanguage } from "@/components/language-provider";
 
@@ -26,15 +25,15 @@ const COPY = {
     subtitle: "Projects, knowledge, and ways of working I keep coming back to.",
     apps: {
       name: "Apps",
-      desc: "Small tools and personal projects I built and use, including a health app published on Google Play.",
+      desc: "Tools I made for math practice, health logging, and listening to music.",
     },
     "ai-agent-knowledge-base": {
       name: "AI-Agent Knowledge Base",
-      desc: "An Obsidian-based knowledge base organized so I — and AI agents — can find and reuse information easily.",
+      desc: "Project notes, version history, and verification records organized in Obsidian.",
     },
     workflows: {
       name: "Workflows",
-      desc: "How I use AI in real work: research, writing, coding, tracking public opinion, and making decisions.",
+      desc: "Repeatable ways I use AI for research, writing, and software development.",
     },
   },
   zh: {
@@ -42,38 +41,27 @@ const COPY = {
     subtitle: "项目、知识库，以及我经常使用的工作方式。",
     apps: {
       name: "应用",
-      desc: "自己做来自己用的小工具和个人项目，包括已上架 Google Play 的健康记录 App。",
+      desc: "自己做来自己用的小工具，用来练数学推理、记健康数据、听音乐。",
     },
     "ai-agent-knowledge-base": {
       name: "AI-Agent 知识库",
-      desc: "以 Obsidian 整理的知识库，方便自己和 AI 快速找到和复用信息。",
+      desc: "用 Obsidian 整理项目笔记、版本和验证记录，方便回溯与接手。",
     },
     workflows: {
       name: "工作流",
-      desc: "我在真实工作中使用 AI 的方式：研究、写作、编程、舆情追踪与决策辅助。",
+      desc: "把日常研究、写作和开发中反复做的事，整理成可复用的 AI 工作流。",
     },
   },
 };
 
 export function HomeGatewaySection() {
   const { locale } = useLanguage();
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.2], [40, 0]);
-
   const copy = locale === "zh" ? COPY.zh : COPY.en;
 
   return (
-    <motion.section
-      ref={sectionRef}
-      className="relative z-10 px-6 py-24 md:py-28 overflow-hidden"
-      style={{ opacity, y }}
+    <section
+      id="home-work"
+      className="relative z-10 scroll-mt-20 px-6 py-24 md:py-28 overflow-hidden"
     >
       {/* Ambient glow */}
       <div className="pointer-events-none absolute -right-1/4 top-1/2 h-[500px] w-[500px] rounded-full bg-[color:var(--violet)] opacity-[0.03] blur-[120px]" />
@@ -99,10 +87,10 @@ export function HomeGatewaySection() {
           {ENTRIES.map((entry, i) => {
             const item = copy[entry.key] as { name: string; desc: string };
             return (
-              <Reveal key={entry.key} delay={i * 0.08}>
-                <a
+            <Reveal key={entry.key} delay={i * 0.14} className="h-full">
+              <Link
                   href={entry.href}
-                  className="group block rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-5 transition-all duration-300 hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-hover)] hover:-translate-y-0.5"
+                className="group block h-full rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-5 motion-safe:transition motion-safe:duration-300 hover:border-cyan-200/35 hover:bg-[color:var(--surface-hover)] motion-safe:hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-200"
                 >
                   <div
                     className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[color:var(--border)] text-lg transition-colors group-hover:border-[color:var(--cyan)] group-hover:text-[color:var(--cyan)]"
@@ -116,7 +104,7 @@ export function HomeGatewaySection() {
                   <p className="mt-2 text-sm leading-relaxed text-[color:var(--text-muted)] group-hover:text-[color:var(--text-secondary)] transition-colors">
                     {item.desc}
                   </p>
-                </a>
+              </Link>
               </Reveal>
             );
           })}
@@ -130,6 +118,6 @@ export function HomeGatewaySection() {
           </div>
         </Reveal>
       </div>
-    </motion.section>
+    </section>
   );
 }

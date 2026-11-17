@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 import { useLanguage } from "@/components/language-provider";
@@ -102,30 +103,14 @@ export default function AiAgentKnowledgeBasePage() {
     <SiteShell title={pageTitle} eyebrow={pageEyebrow}>
       <section className="py-12 sm:py-16">
         <div className="space-y-12">
-          {sections.map((section, index) => (
-            <Reveal key={section.key} delay={index * 0.06}>
-              <div className="section-block transition-all duration-300 hover:border-[color:var(--border-strong)]">
-                <h2 className="text-[24px] leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[30px]">
-                  {section.title[locale]}
-                </h2>
-                <div className="mt-4 max-w-3xl">
-                  <p className="text-base leading-8 text-[color:var(--text-secondary)] sm:text-lg">
-                    {section.body[locale]}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-
-          {/* Vault Structure Diagram — based on real vault scan */}
-          <Reveal delay={0.25}>
+          <Reveal>
             <div
               data-ripple-zone
-              className="section-block"
+              className="editorial-panel p-5 sm:p-8"
               onMouseLeave={() => setActiveVaultNode(null)}
             >
               <h2 className="text-[24px] leading-tight tracking-tight text-[color:var(--text-primary)] sm:text-[30px]">
-                {locale === "zh" ? "结构图" : "Vault Diagram"}
+                {locale === "zh" ? "AI-Agent 知识库结构图" : "AI-Agent Knowledge Base Diagram"}
               </h2>
               <div className="mt-6">
                 {/* Flow diagram */}
@@ -135,6 +120,7 @@ export default function AiAgentKnowledgeBasePage() {
                     type="button"
                     onMouseEnter={() => setActiveVaultNode("raw")}
                     onFocus={() => setActiveVaultNode("raw")}
+                    onClick={() => setActiveVaultNode("raw")}
                     onBlur={() => setActiveVaultNode(null)}
                     className={`w-full max-w-xs rounded-xl border p-4 text-center transition-all duration-300 ${
                       highlightedVaultNodes && !highlightedVaultNodes.has("raw")
@@ -147,11 +133,12 @@ export default function AiAgentKnowledgeBasePage() {
                       {locale === "zh" ? "来自 Douyin、微信、小红书等平台的原始内容" : "Raw captures from Douyin, WeChat, Xiaohongshu, and more"}
                     </p>
                   </button>
-                  <div className="h-6 w-px bg-gradient-to-b from-[color:var(--border)] to-transparent" />
+                  <div className="vault-connector" data-active={Boolean(activeVaultNode)} aria-hidden />
                   <button
                     type="button"
                     onMouseEnter={() => setActiveVaultNode("wiki")}
                     onFocus={() => setActiveVaultNode("wiki")}
+                    onClick={() => setActiveVaultNode("wiki")}
                     onBlur={() => setActiveVaultNode(null)}
                     className={`w-full max-w-xs rounded-xl border p-4 text-center transition-all duration-300 ${
                       highlightedVaultNodes && !highlightedVaultNodes.has("wiki")
@@ -172,6 +159,7 @@ export default function AiAgentKnowledgeBasePage() {
                     type="button"
                     onMouseEnter={() => setActiveVaultNode("config")}
                     onFocus={() => setActiveVaultNode("config")}
+                    onClick={() => setActiveVaultNode("config")}
                     onBlur={() => setActiveVaultNode(null)}
                     className={`rounded-xl border p-3 text-center transition-all duration-300 ${
                       highlightedVaultNodes && !highlightedVaultNodes.has("config")
@@ -188,6 +176,7 @@ export default function AiAgentKnowledgeBasePage() {
                     type="button"
                     onMouseEnter={() => setActiveVaultNode("skills")}
                     onFocus={() => setActiveVaultNode("skills")}
+                    onClick={() => setActiveVaultNode("skills")}
                     onBlur={() => setActiveVaultNode(null)}
                     className={`rounded-xl border p-3 text-center transition-all duration-300 ${
                       highlightedVaultNodes && !highlightedVaultNodes.has("skills")
@@ -204,6 +193,7 @@ export default function AiAgentKnowledgeBasePage() {
                     type="button"
                     onMouseEnter={() => setActiveVaultNode("scripts")}
                     onFocus={() => setActiveVaultNode("scripts")}
+                    onClick={() => setActiveVaultNode("scripts")}
                     onBlur={() => setActiveVaultNode(null)}
                     className={`rounded-xl border p-3 text-center transition-all duration-300 ${
                       highlightedVaultNodes &&
@@ -230,6 +220,30 @@ export default function AiAgentKnowledgeBasePage() {
               </div>
             </div>
           </Reveal>
+
+          <Reveal>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Link href="/explorations#brand-knowledge-base" className="editorial-panel p-5 hover:border-cyan-200/40">
+                <h2 className="font-semibold">{locale === "zh" ? "品牌知识库探索" : "Brand knowledge base exploration"}</h2>
+                <p className="mt-2 text-sm leading-6 text-[color:var(--text-secondary)]">{locale === "zh" ? "把来源、版本和出处关联起来。" : "Connect material to its source and version."}</p>
+              </Link>
+              <Link href="/cases/math-detective-iteration" className="editorial-panel p-5 hover:border-cyan-200/40">
+                <h2 className="font-semibold">{locale === "zh" ? "从归档看一次真实迭代" : "A real iteration from the archive"}</h2>
+                <p className="mt-2 text-sm leading-6 text-[color:var(--text-secondary)]">{locale === "zh" ? "数学侦探的需求、题库核验和发布证据。" : "The requirements, problem checks, and release evidence for Math Detective."}</p>
+              </Link>
+            </div>
+          </Reveal>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {sections.map((section, index) => (
+              <Reveal key={section.key} delay={(index % 2) * 0.08} className="h-full">
+                <section className="editorial-panel h-full p-5 sm:p-7">
+                  <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">{section.title[locale]}</h2>
+                  <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">{section.body[locale]}</p>
+                </section>
+              </Reveal>
+            ))}
+          </div>
 
           <Reveal delay={0.4}>
             <div className="glass-surface-strong px-6 py-8 text-center sm:px-10 sm:py-10">

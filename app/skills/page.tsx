@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Reveal } from "@/components/animation/Reveal";
 import { useLanguage } from "@/components/language-provider";
 import { SiteShell } from "@/components/site-shell";
@@ -254,27 +255,18 @@ export default function WorkflowsPage() {
   const { locale } = useLanguage();
 
   return (
-    <SiteShell title={pageTitle} eyebrow={pageEyebrow}>
+    <SiteShell title={pageTitle} eyebrow={pageEyebrow} lead={pageIntro}>
       <section className="py-12 sm:py-16">
         <Reveal>
-          <div className="max-w-3xl">
-            <p className="text-base leading-8 text-[color:var(--text-secondary)] sm:text-lg">
-              {pageIntro[locale]}
+          <section className="editorial-panel mb-10 p-6 sm:p-8">
+            <h2 className="text-2xl font-semibold tracking-tight">{locale === "zh" ? "把一次迭代跑到上线" : "Taking an iteration to release"}</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-[color:var(--text-secondary)]">
+              {locale === "zh" ? "用数学侦探的一次上线，看看任务定义、逐题核验和正式站复测是怎么衔接的。" : "One Math Detective release traces the work from a precise task to individual checks and a live-site retest."}
             </p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.08}>
-          <div className="mt-12 max-w-3xl rounded-[28px] border border-[color:var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02))] p-5 sm:p-6">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
-              {locale === "zh" ? "\u9875\u9762\u89c6\u89d2" : "Viewpoint"}
-            </p>
-            <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
-              {locale === "zh"
-                ? "\u8fd9\u4e2a\u9875\u9762\u60f3\u8868\u8fbe\u7684\u4e0d\u662f\u201c\u6211\u4f1a\u5f88\u591a\u5de5\u5177\u201d\uff0c\u800c\u662f\u201c\u6211\u5df2\u7ecf\u628a\u5de5\u4f5c\u65b9\u6cd5\u6c89\u6dc0\u6210\u4e86\u4e00\u5957\u53ef\u590d\u7528\u7684\u4e2a\u4eba Skill OS\u201d\u3002"
-                : "The point of this page is not \"I know many tools.\" It is \"I have turned recurring work into a reusable personal Skill OS.\""}
-            </p>
-          </div>
+            <Link href="/cases/math-detective-iteration" className="editorial-link mt-4 inline-flex">
+              {locale === "zh" ? "阅读数学侦探迭代案例 →" : "Read the Math Detective case →"}
+            </Link>
+          </section>
         </Reveal>
 
         <SkillOS items={skillItems} stats={skillStats} locale={locale} />

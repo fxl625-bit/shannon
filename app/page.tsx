@@ -27,9 +27,7 @@ export default function HomePage() {
       <Navigation />
 
       <main className="relative z-10">
-        <div data-ripple-zone>
-          <ScrollSequenceHero />
-        </div>
+        <ScrollSequenceHero />
         <HomeGatewaySection />
         <BrandCapabilitySection />
         <WorkflowSection />

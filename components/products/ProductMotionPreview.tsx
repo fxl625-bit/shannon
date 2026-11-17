@@ -41,7 +41,8 @@ export function ProductMotionPreview({
 }: ProductMotionPreviewProps) {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const prefersReducedMotion = usePrefersReducedMotion();
-  const mediaSrc = app.previewImage ? `${basePath}${app.previewImage}` : undefined;
+  const imagePath = app.previewImages?.[locale] ?? app.previewImage;
+  const mediaSrc = imagePath ? `${basePath}${imagePath}` : undefined;
   const videoWebm = app.previewVideoWebm ? `${basePath}${app.previewVideoWebm}` : undefined;
   const videoMp4 = app.previewVideoMp4 ? `${basePath}${app.previewVideoMp4}` : undefined;
   const hasVideo = Boolean(videoWebm || videoMp4);

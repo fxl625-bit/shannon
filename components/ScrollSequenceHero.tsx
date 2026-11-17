@@ -10,10 +10,11 @@
 
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, useSyncExternalStore } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLanguage } from "@/components/language-provider";
+import { CursorParticleField } from "@/components/visual/CursorParticleField";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,13 +43,6 @@ const PHASES: PhaseDef[] = [
         <p className="mt-6 text-base leading-relaxed text-[color:var(--text-secondary)] sm:text-lg max-w-[48ch] mx-auto">
           Tools, knowledge, and a few AI-assisted ways of working.
         </p>
-        <div className="mt-10 flex items-center justify-center gap-3">
-          <div className="h-px w-8 bg-[color:var(--text-muted)]/40" />
-          <span className="text-[10px] tracking-[0.25em] text-[color:var(--text-muted)]/50">
-            SCROLL TO EXPLORE
-          </span>
-          <div className="h-px flex-1 bg-[color:var(--text-muted)]/20" />
-        </div>
       </div>
     ),
     zh: (
@@ -177,22 +171,33 @@ const PHASES: PhaseDef[] = [
   },
 ];
 
-const BASE_PATH = "/sequences/homepage-hero-v2";
+const SITE_BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const BASE_PATH = `${SITE_BASE_PATH}/sequences/homepage-hero-v2`;
 const FRAME_COUNT = 121;
 const FORMAT = "webp";
 const PREFIX = "frame_";
+const MOTION_QUERY = "(min-width: 768px) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
 
-function makeFrameUrls(): string[] {
-  return Array.from({ length: FRAME_COUNT }, (_, i) =>
-    `${BASE_PATH}/${PREFIX}${String(i + 1).padStart(4, "0")}.${FORMAT}`
-  );
+function subscribeToMotion(onChange: () => void) {
+  const media = window.matchMedia(MOTION_QUERY);
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
 }
+
+const readMotion = () => window.matchMedia(MOTION_QUERY).matches;
+const readStaticMotion = () => false;
+
+const FRAME_URLS = Array.from({ length: FRAME_COUNT }, (_, i) =>
+  `${BASE_PATH}/${PREFIX}${String(i + 1).padStart(4, "0")}.${FORMAT}`,
+);
 
 export function ScrollSequenceHero() {
   const { locale } = useLanguage();
+  const scrollMotion = useSyncExternalStore(subscribeToMotion, readMotion, readStaticMotion);
   const sectionRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLSpanElement>(null);
   const imagesRef = useRef<Map<number, HTMLImageElement>>(new Map());
   const lastDrawnFrameRef = useRef<number | null>(null);
   const hasDrawnFrameRef = useRef(false);
@@ -206,8 +211,6 @@ export function ScrollSequenceHero() {
   // Refs for ScrollTrigger lifecycle — avoids state-driven re-init
   const ctxRef = useRef<gsap.Context | null>(null);
   const triggerInitRef = useRef(false);
-
-  const frameUrls = makeFrameUrls();
 
   // ── Draw function with last-drawn-frame fallback ──
   const drawImageCover = useCallback((
@@ -264,15 +267,18 @@ export function ScrollSequenceHero() {
 
   // ── Preload frames ──
   useEffect(() => {
+    if (!scrollMotion) return;
     const loaded = imagesRef.current;
     loaded.clear();
     lastDrawnFrameRef.current = null;
     hasDrawnFrameRef.current = false;
     loadedCountRef.current = 0;
-    requestAnimationFrame(() => setPosterVisible(true));
-
     let cancelled = false;
-    const EAGER = 30;
+    const showPoster = requestAnimationFrame(() => {
+      if (!hasDrawnFrameRef.current) setPosterVisible(true);
+    });
+    const timers: number[] = [];
+    const EAGER = 18;
 
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
@@ -289,28 +295,28 @@ export function ScrollSequenceHero() {
         loadedCountRef.current++;
       };
       if (i < EAGER) {
-        img.src = frameUrls[i];
+        img.src = FRAME_URLS[i];
         loaded.set(i, img);
       } else {
-        const timer = setTimeout(() => {
-          if (!cancelled) { img.src = frameUrls[i]; loaded.set(i, img); }
-        }, 1500 + i * 40);
-        (img as any)._timer = timer;
+        timers.push(window.setTimeout(() => {
+          if (!cancelled && !loaded.has(i)) { img.src = FRAME_URLS[i]; loaded.set(i, img); }
+        }, 1000 + i * 27));
       }
     }
 
     return () => {
       cancelled = true;
-      loaded.forEach((img) => { if ((img as any)._timer) clearTimeout((img as any)._timer); });
+      cancelAnimationFrame(showPoster);
+      timers.forEach(timer => clearTimeout(timer));
       loaded.clear();
     };
-  }, []);
+  }, [draw, scrollMotion]);
 
   // ── Resize ──
   useEffect(() => {
     const container = containerRef.current;
     const canvas = canvasRef.current;
-    if (!container || !canvas) return;
+    if (!scrollMotion || !container || !canvas) return;
     const ro = new ResizeObserver(() => {
       const rect = container.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
@@ -329,17 +335,22 @@ export function ScrollSequenceHero() {
     });
     ro.observe(container);
     return () => ro.disconnect();
-  }, [draw]);
+  }, [draw, scrollMotion]);
 
   // ── GSAP ScrollTrigger (single init, gsap.context lifecycle) ──
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section || triggerInitRef.current) return;
+    if (!scrollMotion || !section || triggerInitRef.current) return;
     triggerInitRef.current = true;
 
     // Set initial phase state: phase 0, progress=0
-    setActivePhase(0);
-    setPhasePct(0);
+    activePhaseRef.current = 0;
+    const resetCopy = requestAnimationFrame(() => {
+      if (activePhaseRef.current === 0 && window.scrollY < 1) {
+        setActivePhase(0);
+        setPhasePct(0);
+      }
+    });
 
     // Initial draw: try frame 0
     draw(0);
@@ -348,13 +359,14 @@ export function ScrollSequenceHero() {
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
-        end: "+=600%",
+        end: "+=320%",
         scrub: 1.0,
         pin: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const p = self.progress;
+          if (progressRef.current) progressRef.current.style.transform = `scaleX(${p})`;
           const target = Math.round(p * (FRAME_COUNT - 1));
           const clamped = Math.min(Math.max(0, target), FRAME_COUNT - 1);
 
@@ -369,7 +381,11 @@ export function ScrollSequenceHero() {
                 for (let i = Math.max(0, clamped - 10); i <= Math.min(FRAME_COUNT - 1, clamped + 10); i++) {
                   if (!loaded.has(i)) {
                     const img = new Image();
-                    img.src = frameUrls[i];
+                    img.onload = () => {
+                      if (imagesRef.current.get(i) === img
+                        && Math.round(self.progress * (FRAME_COUNT - 1)) === i) draw(i);
+                    };
+                    img.src = FRAME_URLS[i];
                     loaded.set(i, img);
                   }
                 }
@@ -407,59 +423,55 @@ export function ScrollSequenceHero() {
 
     return () => {
       triggerInitRef.current = false;
+      cancelAnimationFrame(resetCopy);
       ctx.revert();
       ctxRef.current = null;
       if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = 0; }
     };
-  }, []); // Intentionally empty — runs once
+  }, [draw, scrollMotion]);
 
   // ── Render ──
-  // Phase 0 (hero): starts perfectly crisp (opacity=1, blur=0, y=0)
-  // Stays crisp through most of the phase, only blurs/fades when exiting
-  // Other phases: fade in at entrance, stay crisp in middle, fade out at exit
+  // Keep scroll-driven text readable when a visitor stops during a transition.
   let textOpacity: number;
-  let textBlur: number;
   let yOffset: number;
 
-  if (activePhase === 0) {
+  if (!scrollMotion) {
+    textOpacity = 1;
+    yOffset = 0;
+  } else if (activePhase === 0) {
     // Hero phase: stays perfectly crisp from start, only fades at very end
     textOpacity = phasePct < 0.6 ? 1 : Math.max(0, 1 - (phasePct - 0.6) / 0.4);
-    textBlur = phasePct < 0.6 ? 0 : Math.max(0, (phasePct - 0.6) * 12);
     yOffset = 0;
   } else if (activePhase === PHASES.length - 1) {
     const entrance = Math.min(1, phasePct / 0.3);
     textOpacity = entrance;
-    textBlur = (1 - entrance) * 8;
     yOffset = (1 - entrance) * 15;
   } else {
     // Other phases: fade in (0→0.3), stay crisp (0.3→0.7), fade out (0.7→1)
     if (phasePct < 0.3) {
       textOpacity = phasePct / 0.3;
-      textBlur = (1 - phasePct / 0.3) * 8;
       yOffset = (1 - phasePct / 0.3) * 15;
     } else if (phasePct > 0.7) {
       const t = (phasePct - 0.7) / 0.3;
       textOpacity = 1 - t;
-      textBlur = t * 8;
       yOffset = t * 15;
     } else {
       textOpacity = 1;
-      textBlur = 0;
       yOffset = 0;
     }
   }
 
   return (
-    <section ref={sectionRef} className="relative w-full h-screen overflow-hidden">
-      <div ref={containerRef} className="sticky top-0 left-0 w-full h-screen overflow-hidden bg-[#02060f]">
+    <section ref={sectionRef} className="relative w-full h-svh overflow-hidden">
+      <div ref={containerRef} className="sticky top-0 left-0 w-full h-svh overflow-hidden bg-[#02060f]">
         {/* Canvas — always present, always with dark fill */}
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block" />
+        <canvas ref={canvasRef} aria-hidden className="absolute inset-0 w-full h-full block" />
 
         {/* Poster — only shown until first frame is successfully drawn on canvas */}
-        {posterVisible && (
+        {(!scrollMotion || posterVisible) && (
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/images/homepage-bg.png')" }}
+            style={{ backgroundImage: `url('${SITE_BASE_PATH}/images/homepage-bg.png')` }}
             aria-hidden
           />
         )}
@@ -472,16 +484,37 @@ export function ScrollSequenceHero() {
           background: "linear-gradient(0deg, rgba(2,6,15,0.6) 0%, transparent 100%)",
         }} />
 
+        {scrollMotion && (
+          <CursorParticleField shape={activePhase === 0 ? "orbit" : activePhase === PHASES.length - 1 ? "horizon" : "ribbon"} />
+        )}
+
         {/* Text overlay — z-index 10, visible at progress=0 */}
         <div className="absolute inset-0 z-10 flex items-center justify-center px-6 pointer-events-none">
           <div style={{
             opacity: textOpacity,
-            filter: `blur(${textBlur}px)`,
             transform: `translateY(${yOffset}px)`,
-            transition: "opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease",
+            transition: "opacity 0.5s ease, transform 0.5s ease",
           }}>
-            {PHASES[activePhase][locale as "en" | "zh"]}
+            {PHASES[scrollMotion ? activePhase : 0][locale]}
           </div>
+        </div>
+
+        <div className="absolute inset-x-0 bottom-8 z-20 flex flex-col items-center gap-4 sm:bottom-10">
+          {scrollMotion && (
+            <div aria-hidden className="h-px w-32 overflow-hidden bg-white/15">
+              <span
+                ref={progressRef}
+                className="block h-full w-full origin-left bg-gradient-to-r from-cyan-200 to-violet-300"
+                style={{ transform: "scaleX(0)" }}
+              />
+            </div>
+          )}
+          <a
+            href="#home-work"
+            className="rounded-full border border-white/20 bg-black/20 px-4 py-2 text-sm text-white/80 transition-colors hover:border-white/45 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-200"
+          >
+            {locale === "zh" ? "浏览内容 ↓" : "Explore my work ↓"}
+          </a>
         </div>
 
         {/* Dev debug */}

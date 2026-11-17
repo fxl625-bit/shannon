@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef, type ReactNode } from "react";
 
 type RevealProps = {
@@ -22,19 +22,20 @@ export function Reveal({
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, margin: "-60px" });
+  const reduceMotion = useReducedMotion();
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y, filter: "blur(4px)" }}
+      initial={reduceMotion ? false : { opacity: 0, y, filter: "blur(4px)" }}
       animate={
-        isInView
+        reduceMotion || isInView
           ? { opacity: 1, y: 0, filter: "blur(0px)" }
           : { opacity: 0, y, filter: "blur(4px)" }
       }
       transition={{
-        duration,
-        delay,
+        duration: reduceMotion ? 0 : duration,
+        delay: reduceMotion ? 0 : delay,
         ease: [0.22, 1, 0.36, 1],
       }}
       className={className}

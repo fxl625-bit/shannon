@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["gh-pages"]
   workflow_dispatch:
 
 permissions:
@@ -38,12 +38,12 @@ jobs:
         run: npm run build
 
       - name: Add .nojekyll
-        run: touch out/.nojekyll
+        run: touch out-v5/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: ./out
+          path: ./out-v5
 
   deploy:
     environment:

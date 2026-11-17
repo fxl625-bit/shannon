@@ -16,9 +16,11 @@ export type AppTool = {
   summary: Localized;
   previewLabel: Localized;
   previewImage?: string;
+  previewImages?: Localized;
   previewVideoWebm?: string;
   previewVideoMp4?: string;
   demoUrl?: string;
+  storeUrl?: string;
   githubUrl?: string;
   status: Localized;
   statusTone?: "store" | "live" | "internal" | "building";
@@ -47,6 +49,7 @@ export const site = {
     cases: { en: "Cases", zh: "\u6848\u4f8b" },
     skills: { en: "Workflows", zh: "\u5de5\u4f5c\u6d41" },
     apps: { en: "Apps", zh: "\u5e94\u7528" },
+    explorations: { en: "Explorations", zh: "探索" },
     "ai-agent-knowledge-base": { en: "AI-Agent Knowledge Base", zh: "AI-Agent \u77e5\u8bc6\u5e93" },
   },
   languageSwitch: {
@@ -251,7 +254,7 @@ export const site = {
   apps: [
     {
       slug: "yishiyuanman",
-      name: { en: "\u4e00\u4e16\u5706\u6ee1", zh: "\u4e00\u4e16\u5706\u6ee1" },
+      name: { en: "LocalLog", zh: "一世圆满" },
       typeLabel: { en: "Health Record App", zh: "\u5065\u5eb7\u8bb0\u5f55 App" },
       summary: {
         en: "It started as a simple way to track blood pressure and blood glucose for my family, and later became a standalone app published on Google Play.",
@@ -262,10 +265,14 @@ export const site = {
         zh: "\u5df2\u4e0a\u67b6 Google Play",
       },
       previewLabel: {
-        en: "Screenshot placeholder",
-        zh: "\u622a\u56fe\u5360\u4f4d",
+        en: "LocalLog measurement entry screen",
+        zh: "一世圆满测量记录界面",
       },
-      previewImage: "/images/apps/yishiyuanman.png",
+      previewImages: {
+        en: "/media/locallog/en-US-01-record.png",
+        zh: "/media/locallog/zh-CN-01-record.png",
+      },
+      storeUrl: "https://play.google.com/store/apps/details?id=com.yishiyuanman.health",
       frameStyle: "phone",
       viewportLabel: {
         en: "Android app screen",
