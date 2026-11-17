@@ -70,15 +70,15 @@ const projects: AgentProject[] = [
       en: "The current checks cover draft preparation and approval and receipt handling within the tested stages.",
       zh: "当前验证覆盖草稿准备、审批状态和回执处理等环节。",
     },
-    link: { href: "/explorations#agent-delivery", label: { en: "Explore the delivery design →", zh: "查看交付可靠性探索 →" } },
+    link: { href: "/explorations#agent-delivery", label: { en: "Read the Digital Twin iteration →", zh: "查看数字分身迭代 →" } },
   },
 ];
 
-const runtimeSteps: ProcessStep[] = [
-  { title: { en: "Submit", zh: "接收任务" }, detail: { en: "Record who requested the work, the requested result, and the limits of the action.", zh: "记录由谁发起、要交付什么，以及任务可以做到哪一步。" } },
-  { title: { en: "Track", zh: "追踪进度" }, detail: { en: "Keep the task ID and its current state available while the work runs.", zh: "保留任务编号和当前进度，执行期间也能查询。" } },
-  { title: { en: "Resume", zh: "沿原任务续办" }, detail: { en: "Resume the existing task with its evidence when a dependency becomes available.", zh: "依赖恢复后，沿原任务和已有证据继续处理。" } },
-  { title: { en: "Review", zh: "复核交付" }, detail: { en: "Attach the outcome and review record so the next person can see what was verified.", zh: "把结果和审核记录附到一起，交接时能看到实际核验过的范围。" } },
+const digitalTwinSteps: ProcessStep[] = [
+  { title: { en: "Delegate", zh: "对话里交办" }, detail: { en: "Describe what you want done and what you expect back in the conversation.", zh: "在对话里说清要做什么、最后想拿到什么。" } },
+  { title: { en: "Run", zh: "按工作流处理" }, detail: { en: "The twin uses relevant knowledge and workflows, and asks you when a decision needs your approval.", zh: "分身调用相关知识和工作流，遇到需要本人批准的决定，再把问题带回来。" } },
+  { title: { en: "Resume", zh: "回来接着做" }, detail: { en: "Check where the work stands and pick up the same task with the context it already has.", zh: "回来可以先看进度，再带着已有上下文继续同一件事。" } },
+  { title: { en: "Review", zh: "收回结果" }, detail: { en: "Review the result and the record of what was checked.", zh: "收回任务结果，也能查看哪些环节已经核验。" } },
 ];
 
 export default function AgentsPage() {
@@ -88,17 +88,21 @@ export default function AgentsPage() {
   return (
     <SiteShell
       title={{ en: "Agents", zh: "Agent 项目" }}
-      lead={{ en: "Projects that connect AI to development, content production, research, and publishing. Each project shows its current verification stage.", zh: "把 AI 接进开发、内容制作、舆情研判和发布。每个项目都标明已经验证到哪一步。" }}
+      lead={{ en: "My Digital Twin and agent projects for development, content production, research, and publishing.", zh: "我做的数字分身，以及用于开发、内容制作、舆情研判和发布的 Agent 项目。" }}
     >
       <div className="space-y-8 py-10">
         <Reveal>
           <section id="agent-runtime" data-ripple-zone className="editorial-panel scroll-mt-36 p-5 sm:p-8">
             <p className="text-xs font-medium text-cyan-200/85">{zh ? "工程验证与内部试点" : "Engineering validation and internal pilots"}</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight">{zh ? "Agent 运行时" : "Agent Runtime"}</h2>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight">{zh ? "数字分身" : "Digital Twin"}</h2>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
-              {zh ? "让长任务能查询、能续办、能交接。已在部分内部场景验证任务提交、状态回读和分阶段审核。" : "Long-running tasks can be tracked, resumed, and handed off. Selected internal scenarios have validated submission, status readback, and staged review."}
+              {zh ? "我在做一个可以交办工作的数字分身。交互思路类似 Grok Bot 和 Dots：在对话里交代任务，分身用我平时积累的知识、Skill 和工作流去处理。我可以回来问进度、接着交代，也能收回结果。" : "I’m building a digital twin I can delegate work to. The interaction is similar to Grok Bot and Dots: I hand off a task in a conversation, and the twin uses the knowledge, skills, and workflows I’ve built up. I can check back, give further instructions, and get the result."}
             </p>
-            <ProcessStory steps={runtimeSteps} locale={locale} />
+            <ProcessStory steps={digitalTwinSteps} locale={locale} />
+            <p className="mt-4 max-w-3xl text-sm leading-6 text-[color:var(--text-secondary)]">
+              {zh ? "Runtime 是数字分身的执行底座。目前在部分内部场景验证了任务提交、进度查询和分阶段审核。" : "Runtime is the execution layer behind the twin. Selected internal pilots have validated task submission, status checks, and staged review."}
+            </p>
+            <Link href="/explorations#agent-delivery" className="editorial-link mt-4 inline-flex">{zh ? "看数字分身怎么迭代 →" : "Follow the Digital Twin iteration →"}</Link>
           </section>
         </Reveal>
         <div className="grid gap-5 md:grid-cols-2">

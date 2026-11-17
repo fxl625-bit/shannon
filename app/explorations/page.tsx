@@ -62,7 +62,7 @@ export default function ExplorationsPage() {
   return (
     <SiteShell
       title={{ en: "Explorations", zh: "最近的探索" }}
-      lead={{ en: "Current directions in brand visibility, source-backed knowledge, agent delivery, and product iteration.", zh: "最近在探索四件事：如何测品牌可见度、让知识有出处、让 Agent 能交接，以及把应用迭代跑到上线。" }}
+      lead={{ en: "Experiments in brand visibility and source-backed knowledge, plus what I’m learning by iterating on the Digital Twin and everyday apps.", zh: "最近在试怎么测品牌可见度、让知识查得到出处，也在记录数字分身和日常应用每一轮解决了什么问题。" }}
     >
       <section className="grid gap-6 py-10 lg:grid-cols-2">
         {explorations.map((item, index) => (
@@ -82,18 +82,21 @@ export default function ExplorationsPage() {
       <section className="mb-9 grid gap-5 md:grid-cols-2">
         <Reveal>
           <article id="agent-delivery" className="editorial-panel scroll-mt-36 p-5 sm:p-7">
-            <h2 className="text-2xl font-semibold tracking-tight">{locale === "zh" ? "让 Agent 交付可追踪" : "Traceable agent delivery"}</h2>
+            <h2 className="text-2xl font-semibold tracking-tight">{locale === "zh" ? "数字分身的迭代" : "Iterating on the Digital Twin"}</h2>
             <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)]">
-              {locale === "zh" ? "把任务进度、人工批准和回执放在同一条记录里，观察中断续办时哪些信息容易丢失。" : "Keep progress, human approval, and receipts together to see which information is lost when work is interrupted and resumed."}
+              {locale === "zh" ? "先把任务接进来，再试着让人离开对话之后，回来还能找到那件事。内部试点已跑过任务提交、进度回读和分阶段审核。" : "I started by getting tasks into the system, then explored how to let someone leave a conversation and return to the same task. Internal pilots have covered task submission, status readback, and staged review."}
             </p>
-            <Link href="/agents#agent-runtime" className="editorial-link mt-4 inline-flex">{locale === "zh" ? "查看 Agent 运行时 →" : "Explore Agent Runtime →"}</Link>
+            <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)]">
+              {locale === "zh" ? "下一轮想验证，换一个对话入口接着做时，能不能找回原任务、已有结果和待本人决定的事。" : "Next I want to test whether switching conversation entry points preserves the original task, partial results, and decisions still waiting for me."}
+            </p>
+            <Link href="/agents#agent-runtime" className="editorial-link mt-4 inline-flex">{locale === "zh" ? "查看数字分身 →" : "Explore the Digital Twin →"}</Link>
           </article>
         </Reveal>
         <Reveal delay={0.1}>
           <article id="product-iteration" className="editorial-panel scroll-mt-36 p-5 sm:p-7">
             <h2 className="text-2xl font-semibold tracking-tight">{locale === "zh" ? "从日常需求迭代应用" : "Iterating on everyday apps"}</h2>
             <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)]">
-              {locale === "zh" ? "从一件反复遇到的小事出发，做出能用的版本，再用实际操作和发布证据检查改动。" : "Start with a recurring problem, build something usable, and verify each change through real interactions and release evidence."}
+              {locale === "zh" ? "数学侦探这一轮想弄清，孩子看完讲解后能不能用同样的方法解一道新题。我加了同构变式，把题目、答案和判题结果逐项核对后再发布。" : "In this Math Detective iteration, I wanted to know whether a learner could use the same reasoning on a new problem after reading the explanation. I added follow-up variants and checked the problems, answers, and grading before release."}
             </p>
             <Link href="/cases/math-detective-iteration" className="editorial-link mt-4 inline-flex">{locale === "zh" ? "查看数学侦探迭代 →" : "Read the Math Detective iteration →"}</Link>
           </article>
