@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useLanguage } from "@/components/language-provider";
-import { site } from "@/data/site";
+import { publicNav } from "@/data/site";
 import { useState } from "react";
 
 export function Navigation() {
@@ -22,14 +22,6 @@ export function Navigation() {
     setHeaderBg(`rgba(5, 7, 13, ${opacity * 0.85})`);
     setHeaderBorder(`rgba(255, 255, 255, ${opacity * 0.1})`);
   });
-
-  const navItems = [
-    { href: "/", label: site.nav.home[locale] },
-    { href: "/apps", label: site.nav.apps[locale] },
-    { href: "/second-brain", label: locale === "zh" ? "AI-Agent 知识库" : "AI-Agent Knowledge Base" },
-    { href: "/skills", label: locale === "zh" ? "工作流" : "Workflows" },
-    { href: "/explorations", label: site.nav.explorations[locale] },
-  ];
 
   return (
     <motion.header
@@ -54,7 +46,7 @@ export function Navigation() {
 
         {/* Nav Links */}
         <nav className="hidden items-center gap-6 md:flex">
-          {navItems.map((item) => {
+          {publicNav.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
@@ -66,7 +58,7 @@ export function Navigation() {
                     : "text-[color:var(--text-muted)] hover:text-[color:var(--text-secondary)]"
                 }`}
               >
-                {item.label}
+                {item.label[locale]}
                 {isActive && (
                   <motion.div
                     layoutId="nav-indicator"
@@ -81,9 +73,11 @@ export function Navigation() {
 
         {/* Language Toggle */}
         <div className="flex items-center gap-3">
-          <Link href="/explorations" className="text-sm text-white/75 hover:text-white md:hidden">
-            {site.nav.explorations[locale]}
-          </Link>
+          {publicNav.filter(item => item.href === "/agents" || item.href === "/explorations").map(item => (
+            <Link key={item.href} href={item.href} className="text-sm text-white/75 hover:text-white md:hidden">
+              {item.label[locale]}
+            </Link>
+          ))}
           <div className="hidden rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] p-1 sm:inline-flex">
             <button
               type="button"

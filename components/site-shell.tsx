@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 
 import { useLanguage } from "@/components/language-provider";
 import { CursorRippleLayer } from "@/components/visual/CursorRippleLayer";
-import { site, type Localized } from "@/data/site";
+import { publicNav, site, type Localized } from "@/data/site";
 
 export function SiteShell({
   children,
@@ -24,14 +24,6 @@ export function SiteShell({
   const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   const pathname = (base && path.startsWith(base + "/") ? path.slice(base.length) : path).replace(/\/$/, "") || "/";
 
-  const navItems = [
-    { href: "/", label: site.nav.home[locale] },
-    { href: "/apps", label: site.nav.apps[locale] },
-    { href: "/second-brain", label: locale === "zh" ? "AI-Agent 知识库" : "AI-Agent Knowledge Base" },
-    { href: "/skills", label: locale === "zh" ? "工作流" : "Workflows" },
-    { href: "/explorations", label: site.nav.explorations[locale] },
-  ];
-
   return (
     <div className="relative min-h-screen overflow-x-clip">
       <div className="ambient-layer" />
@@ -48,14 +40,14 @@ export function SiteShell({
               </Link>
 
               <nav aria-label={locale === "zh" ? "主导航" : "Main navigation"} className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-[color:var(--text-secondary)] sm:gap-x-5 sm:text-sm">
-                {navItems.map((item) => (
+                {publicNav.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     aria-current={pathname === item.href ? "page" : undefined}
                     className={pathname === item.href ? "font-semibold text-cyan-200" : "transition-colors duration-150 hover:text-white"}
                   >
-                    {item.label}
+                    {item.label[locale]}
                   </Link>
                 ))}
               </nav>

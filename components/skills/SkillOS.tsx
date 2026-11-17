@@ -9,12 +9,11 @@ export type SkillOsItem = {
   name: { en: string; zh: string };
   category: Exclude<SkillOsCategory, "all">;
   description: { en: string; zh: string };
-  status?: "active" | "experimental" | "local";
   outputs?: { en: string[]; zh: string[] };
 };
 
 export type SkillOsStat = {
-  count: string;
+  count: number;
   label: { en: string; zh: string };
   description: { en: string; zh: string };
   category: Exclude<SkillOsCategory, "all">;
@@ -31,10 +30,12 @@ const categoryLabels: Record<SkillOsCategory, { en: string; zh: string }> = {
 export function SkillOS({
   items,
   stats,
+  inventoryDate,
   locale,
 }: {
   items: SkillOsItem[];
   stats: SkillOsStat[];
+  inventoryDate: string;
   locale: "en" | "zh";
 }) {
   const [activeCategory, setActiveCategory] = useState<SkillOsCategory>("all");
@@ -55,13 +56,21 @@ export function SkillOS({
     activeCategory === "all"
       ? stats
       : stats.filter((item) => item.category === activeCategory);
+  const packageTotal = stats.reduce((sum, item) => sum + item.count, 0);
 
   return (
-    <section className="mt-14 grid gap-6 xl:grid-cols-[0.42fr_0.58fr]">
+    <section className="grid gap-6 xl:grid-cols-[0.42fr_0.58fr]">
       <div className="space-y-5">
         <div className="rounded-[30px] border border-[color:var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-5 sm:p-6">
-          <p className="text-[11px] uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
-            Skill OS
+          <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">
+            {locale === "zh" ? "技能库" : "Skill Library"}
+          </h2>
+          <p className="mt-3 text-sm text-[color:var(--text-secondary)]">
+            <strong className="mr-1 text-2xl text-cyan-100">{packageTotal}</strong>
+            {locale === "zh" ? "个规范 Skill 包" : " canonical Skill packages"}
+          </p>
+          <p className="mt-1 text-xs leading-5 text-[color:var(--text-muted)]">
+            {locale === "zh" ? "按 Obsidian 的技能包目录去重统计" : "Deduplicated across the canonical Obsidian package folders"} · <time dateTime={inventoryDate}>{inventoryDate}</time>
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             {(Object.keys(categoryLabels) as SkillOsCategory[]).map((category) => {
@@ -70,6 +79,7 @@ export function SkillOS({
                 <button
                   key={category}
                   type="button"
+                  aria-pressed={active}
                   onClick={() => {
                     setActiveCategory(category);
                     const nextItem =
@@ -123,11 +133,6 @@ export function SkillOS({
               <span className="rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-cyan-100">
                 {categoryLabels[selectedSkill.category][locale]}
               </span>
-              {selectedSkill.status ? (
-                <span className="rounded-full border border-white/8 bg-white/[0.03] px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
-                  {selectedSkill.status}
-                </span>
-              ) : null}
             </div>
             {selectedSkill.outputs?.[locale].length ? (
               <div className="mt-5">
@@ -151,9 +156,9 @@ export function SkillOS({
       </div>
 
       <div className="rounded-[30px] border border-[color:var(--border)] bg-[radial-gradient(circle_at_top,rgba(103,232,249,0.08),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015))] p-5 sm:p-6">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
-          {locale === "zh" ? "\u8fd0\u884c\u8282\u70b9" : "Runtime Nodes"}
-        </p>
+        <h2 className="text-xl font-semibold text-[color:var(--text-primary)]">
+          {locale === "zh" ? "精选示例" : "Selected examples"} · {filteredItems.length}
+        </h2>
         <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {filteredItems.map((item) => {
             const active = item.id === selectedSkill?.id;

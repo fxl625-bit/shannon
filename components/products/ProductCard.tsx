@@ -43,10 +43,13 @@ export function ProductCard({
         type="button"
         onClick={() => onOpen(app)}
         className="text-left"
-        aria-label={`Open preview for ${app.name[locale]}`}
+        aria-label={locale === "zh" ? "预览" + app.name.zh : "Open preview for " + app.name.en}
       >
         <ProductMotionPreview app={app} locale={locale} active={active} priority={priority} />
       </button>
+      {app.statusTone === "internal" ? (
+        <p className="mt-2 text-xs text-[color:var(--text-muted)]">{app.previewLabel[locale]}</p>
+      ) : null}
 
       <div className="mt-5 flex flex-1 flex-col gap-4">
         <div className="flex flex-wrap items-start justify-between gap-3">

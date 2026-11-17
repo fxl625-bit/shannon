@@ -49,6 +49,7 @@ export const site = {
     cases: { en: "Cases", zh: "\u6848\u4f8b" },
     skills: { en: "Workflows", zh: "\u5de5\u4f5c\u6d41" },
     apps: { en: "Apps", zh: "\u5e94\u7528" },
+    agents: { en: "Agents", zh: "Agent" },
     explorations: { en: "Explorations", zh: "探索" },
     "ai-agent-knowledge-base": { en: "AI-Agent Knowledge Base", zh: "AI-Agent \u77e5\u8bc6\u5e93" },
   },
@@ -322,8 +323,8 @@ export const site = {
         zh: "\u5df2\u4e0a\u7ebf Vercel",
       },
       previewLabel: {
-        en: "Screenshot placeholder",
-        zh: "\u622a\u56fe\u5360\u4f4d",
+        en: "Math Detective exercise screen",
+        zh: "数学侦探练习界面",
       },
       previewImage: "/images/apps/math-detective.png",
       frameStyle: "browser",
@@ -359,7 +360,7 @@ export const site = {
         { en: "Iterating", zh: "\u6301\u7eed\u8fed\u4ee3" },
       ],
       demoUrl: "https://math-detective.vercel.app/",
-      githubUrl: undefined,
+      githubUrl: "https://github.com/fxl625-bit/math-detective",
       statusTone: "live",
     },
     {
@@ -371,12 +372,12 @@ export const site = {
         zh: "\u7528\u6765\u8bb0\u5f55\u623f\u6e90\u3001\u79df\u91d1\u548c\u6536\u6b3e\u72b6\u6001\u7684\u5c0f\u5de5\u5177\uff0c\u76ee\u524d\u5728\u5185\u90e8\u4f7f\u7528\u3002",
       },
       status: {
-        en: "In internal use",
-        zh: "\u5185\u90e8\u4f7f\u7528\u4e2d",
+        en: "Internal tool",
+        zh: "内部工具",
       },
       previewLabel: {
-        en: "Screenshot placeholder",
-        zh: "\u622a\u56fe\u5360\u4f4d",
+        en: "RentTracker dashboard mockup",
+        zh: "收租记录器界面示意",
       },
       previewImage: "/images/apps/rent-tracker-mockup.png",
       frameStyle: "dashboard",
@@ -420,16 +421,16 @@ export const site = {
       name: { en: "long-fm", zh: "long-fm" },
       typeLabel: { en: "AI Music Companion", zh: "AI \u97f3\u4e50\u4f34\u4fa3" },
       summary: {
-        en: "An AI music companion, live on Vercel.",
-        zh: "\u4e00\u4e2a AI \u97f3\u4e50\u966a\u4f34\u5de5\u5177\uff0c\u5df2\u4e0a\u7ebf Vercel\u3002",
+        en: "A browser-based AI radio that uses your NetEase Cloud Music playlists. Connect a NetEase account to listen.",
+        zh: "把网易云音乐歌单整理成个人 AI 电台。进入网页版后，连接网易云账号即可收听。",
       },
       status: {
-        en: "Live on Vercel",
-        zh: "\u5df2\u4e0a\u7ebf Vercel",
+        en: "Web app · sign-in required",
+        zh: "网页版 · 收听需登录",
       },
       previewLabel: {
-        en: "Screenshot placeholder",
-        zh: "\u622a\u56fe\u5360\u4f4d",
+        en: "long-fm radio screen",
+        zh: "long-fm 电台界面",
       },
       previewImage: "/images/apps/long-fm.png",
       frameStyle: "player",
@@ -465,7 +466,7 @@ export const site = {
         { en: "Live", zh: "\u5df2\u4e0a\u7ebf" },
       ],
       demoUrl: "https://long-fm.vercel.app/",
-      githubUrl: undefined,
+      githubUrl: "https://github.com/fxl625-bit/long-fm",
       statusTone: "live",
     },
   ] satisfies AppTool[],
@@ -493,3 +494,12 @@ export const site = {
     },
   ] satisfies ObsidianSource[],
 };
+
+export const publicNav = [
+  { href: "/", label: site.nav.home },
+  { href: "/apps", label: site.nav.apps },
+  { href: "/agents", label: site.nav.agents },
+  { href: "/explorations", label: site.nav.explorations },
+  { href: "/second-brain", label: { en: "Knowledge Base", zh: "知识库" } },
+  { href: "/skills", label: site.nav.skills },
+] as const;

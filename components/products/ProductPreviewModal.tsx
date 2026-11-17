@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import type { AppTool, Locale } from "@/data/site";
 
@@ -18,42 +17,46 @@ export function ProductPreviewModal({
   locale,
   onClose,
 }: ProductPreviewModalProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-    if (!app) return;
+    const dialog = dialogRef.current;
+    if (!app || !dialog) return;
 
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-    };
-
+    const trigger = document.activeElement;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", onKeyDown);
+    if (!dialog.open) dialog.showModal();
 
     return () => {
+      if (dialog.open) dialog.close();
       document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", onKeyDown);
+      if (trigger instanceof HTMLElement && trigger.isConnected) trigger.focus({ preventScroll: true });
     };
-  }, [app, onClose]);
+  }, [app]);
 
   if (!app) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-[70] flex items-end justify-center bg-black/72 px-4 py-4 backdrop-blur md:items-center md:px-6"
-      role="dialog"
-      aria-modal="true"
+    <dialog
+      ref={dialogRef}
+      className="fixed inset-0 m-auto h-fit w-[calc(100%_-_2rem)] max-w-5xl overflow-hidden rounded-[28px] border border-white/10 bg-[#060a12] text-[color:var(--text-primary)] shadow-[0_30px_120px_-60px_rgba(96,165,250,0.45)] backdrop:bg-black/75 backdrop:backdrop-blur"
       aria-labelledby={`product-modal-${app.slug}`}
-      onClick={onClose}
+      onCancel={event => {
+        event.preventDefault();
+        onClose();
+      }}
+      onClick={event => {
+        if (event.target === event.currentTarget) onClose();
+      }}
     >
       <div
-        className="relative w-full max-w-5xl overflow-hidden rounded-[28px] border border-white/10 bg-[#060a12] shadow-[0_30px_120px_-60px_rgba(96,165,250,0.45)]"
-        onClick={(event) => event.stopPropagation()}
+        className="max-h-[calc(100dvh_-_2rem)] overflow-y-auto"
       >
         <button
           type="button"
           onClick={onClose}
           className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/35 text-sm text-white/80 transition-colors hover:text-white"
-          aria-label="Close preview"
+          aria-label={locale === "zh" ? "关闭预览" : "Close preview"}
         >
           ×
         </button>
@@ -95,7 +98,7 @@ export function ProductPreviewModal({
 
             <div className="rounded-[22px] border border-white/8 bg-white/[0.03] p-4">
               <p className="text-[11px] uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
-                {locale === "zh" ? "Built from real problems." : "Built from real problems."}
+                {locale === "zh" ? "主要功能" : "Features"}
               </p>
               <ul className="mt-4 space-y-3 text-sm leading-6 text-[color:var(--text-secondary)]">
                 {app.detailBullets.map((bullet) => (
@@ -108,30 +111,33 @@ export function ProductPreviewModal({
             </div>
 
             <div className="flex flex-wrap gap-3">
+              {app.storeUrl ? (
+                <a href={app.storeUrl} target="_blank" rel="noreferrer" className="editorial-link px-3 py-2.5">Google Play ↗</a>
+              ) : null}
               {app.demoUrl ? (
-                <Link
+                <a
                   href={app.demoUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center rounded-full border border-[color:var(--border)] bg-[color:var(--text-primary)] px-5 py-2.5 text-sm text-black transition-transform hover:-translate-y-0.5"
                 >
-                  {locale === "zh" ? "\u5728\u7ebf\u6f14\u793a" : "Live Demo"}
-                </Link>
+                  {locale === "zh" ? "打开应用" : "Open app"}
+                </a>
               ) : null}
               {app.githubUrl ? (
-                <Link
+                <a
                   href={app.githubUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center rounded-full border border-[color:var(--border)] bg-white/[0.03] px-5 py-2.5 text-sm text-[color:var(--text-primary)] transition-colors hover:border-[color:var(--border-strong)]"
                 >
                   GitHub
-                </Link>
+                </a>
               ) : null}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 }
