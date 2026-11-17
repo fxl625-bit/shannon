@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { useLanguage } from "@/components/language-provider";
 import { SiteShell } from "@/components/site-shell";
+import { CursorParticleField } from "@/components/visual/CursorParticleField";
 import { site, type AppTool, type Locale } from "@/data/site";
 import { cases } from "@/data/cases";
 
@@ -33,7 +34,8 @@ export default function HomePage() {
 
   return (
     <SiteShell>
-      <section className="grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
+      <section className="relative isolate grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
+        <CursorParticleField />
         <div className="hero-enter">
           <p className="text-sm font-medium text-[color:var(--text-primary)] sm:text-base">{site.name}</p>
           <p className="mt-5 text-xs uppercase tracking-[0.22em] text-[color:var(--text-secondary)]">
