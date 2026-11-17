@@ -59,6 +59,7 @@ const explorations: Exploration[] = [
 
 export default function ExplorationsPage() {
   const { locale } = useLanguage();
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   return (
     <SiteShell
       title={{ en: "Explorations", zh: "最近的探索" }}
@@ -89,7 +90,7 @@ export default function ExplorationsPage() {
             <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)]">
               {locale === "zh" ? "下一轮想验证，换一个对话入口接着做时，能不能找回原任务、已有结果和待本人决定的事。" : "Next I want to test whether switching conversation entry points preserves the original task, partial results, and decisions still waiting for me."}
             </p>
-            <Link href="/agents#agent-runtime" className="editorial-link mt-4 inline-flex">{locale === "zh" ? "查看数字分身 →" : "Explore the Digital Twin →"}</Link>
+            <a href={`${basePath}/agents/#agent-runtime`} className="editorial-link mt-4 inline-flex">{locale === "zh" ? "查看数字分身 →" : "Explore the Digital Twin →"}</a>
           </article>
         </Reveal>
         <Reveal delay={0.1}>

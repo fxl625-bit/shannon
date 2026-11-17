@@ -84,6 +84,7 @@ const digitalTwinSteps: ProcessStep[] = [
 export default function AgentsPage() {
   const { locale } = useLanguage();
   const zh = locale === "zh";
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
   return (
     <SiteShell
@@ -102,7 +103,7 @@ export default function AgentsPage() {
             <p className="mt-4 max-w-3xl text-sm leading-6 text-[color:var(--text-secondary)]">
               {zh ? "Runtime 是数字分身的执行底座。目前在部分内部场景验证了任务提交、进度查询和分阶段审核。" : "Runtime is the execution layer behind the twin. Selected internal pilots have validated task submission, status checks, and staged review."}
             </p>
-            <Link href="/explorations#agent-delivery" className="editorial-link mt-4 inline-flex">{zh ? "看数字分身怎么迭代 →" : "Follow the Digital Twin iteration →"}</Link>
+            <a href={`${basePath}/explorations/#agent-delivery`} className="editorial-link mt-4 inline-flex">{zh ? "看数字分身怎么迭代 →" : "Follow the Digital Twin iteration →"}</a>
           </section>
         </Reveal>
         <div className="grid gap-5 md:grid-cols-2">
