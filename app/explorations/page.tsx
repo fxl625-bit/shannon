@@ -1,111 +1,106 @@
 "use client";
 
-import Link from "next/link";
 import { Reveal } from "@/components/animation/Reveal";
 import { useLanguage } from "@/components/language-provider";
-import { ProcessStory, type ProcessStep } from "@/components/ProcessStory";
 import { SiteShell } from "@/components/site-shell";
 import type { Localized } from "@/data/site";
 
 type Exploration = {
   id: string;
   title: Localized;
-  status: Localized;
-  intro: Localized;
-  next: Localized;
-  steps: ProcessStep[];
+  question: Localized;
+  idea: Localized;
+  possibility: Localized;
 };
 
 const explorations: Exploration[] = [
   {
     id: "geo-workbench",
     title: { en: "GEO Workbench", zh: "GEO 工作台" },
-    status: { en: "Local evaluation tool", zh: "本地评测工具" },
-    intro: {
-      en: "I use a repeatable set of questions to see where a brand appears in AI answers and inspect the responses behind each count.",
-      zh: "用一组可复测的问题观察品牌在 AI 回答里的出现情况，并保留每次统计对应的原始回答。",
+    question: {
+      en: "When AI helps people choose, how does a brand become part of the answer?",
+      zh: "当大家开始向 AI 寻找答案，品牌怎样被理解和选择？",
     },
-    next: {
-      en: "Compare repeat runs with the same inputs, and show which responses were excluded from the count.",
-      zh: "重点看同口径复测的变化，同时列清哪些回答被排除在统计之外。",
+    idea: {
+      en: "I want to understand the questions, contexts, and sources behind a brand’s appearance in AI answers. Can those answers reveal what people still need to know about a brand?",
+      zh: "我想把用户会问的问题、AI 给出的答案和它引用的内容放在一起看。品牌在哪些场景出现，被怎样描述，还有哪些问题没有得到好好回答，都可能成为新的内容线索。",
     },
-    steps: [
-      { title: { en: "Define", zh: "固定题集" }, detail: { en: "Set the question set, model, and response mode for each run.", zh: "先确定题集、模型和回答模式，让每轮结果都有明确口径。" } },
-      { title: { en: "Sample", zh: "采集回答" }, detail: { en: "Keep the original responses and mark timeouts and unusable responses separately.", zh: "保留原答，单列超时和无效回答，方便逐题复核。" } },
-      { title: { en: "Review", zh: "复核提及" }, detail: { en: "Check mentions in the answer text and use valid responses as the denominator.", zh: "核对正文里的品牌提及，以有效回答数作分母。" } },
-      { title: { en: "Compare", zh: "同口径复测" }, detail: { en: "Compare runs with matching questions, models, and settings.", zh: "只对比题集、模型和回答设置一致的轮次。" } },
-    ],
+    possibility: {
+      en: "I’m interested in connecting question discovery, content ideas, and repeat observations in one workbench, so that each informs the next.",
+      zh: "想尝试把问题发现、内容构思和持续观察接到一个工作台里，让对 AI 回答的观察参与下一次内容创作。",
+    },
   },
   {
     id: "brand-knowledge-base",
     title: { en: "Brand Knowledge Base", zh: "品牌知识库" },
-    status: { en: "Engineering prototype", zh: "工程原型验证中" },
-    intro: {
-      en: "I’m exploring how brand documents and case materials can become a searchable reference with traceable sources and versions.",
-      zh: "探索怎样把分散的品牌资料和案例整理成可检索的参考库，让使用者能找到原文、版本和出处。",
+    question: {
+      en: "Could accumulated brand knowledge become something people and AI can work with together?",
+      zh: "品牌多年积累的资料，能不能变成人和 AI 都用得上的知识？",
     },
-    next: {
-      en: "Test which source is shown when a document changes or two sources disagree.",
-      zh: "接下来重点验证文档换版、同一主题出现冲突来源时，检索会引用哪一份。",
+    idea: {
+      en: "Brand knowledge lives across documents, cases, and the people who know their context. I want to connect those pieces so a question can bring back useful material, its source, and the situation it applies to.",
+      zh: "品牌知识分散在文档、案例和人的经验里。我想把这些内容之间的联系整理出来，让一个问题能带回相关材料，也带回它的出处和适用场景。",
     },
-    steps: [
-      { title: { en: "Collect", zh: "归整来源" }, detail: { en: "Organize source documents by topic and record where each one came from.", zh: "按主题整理原始资料，记录来源和适用场景。" } },
-      { title: { en: "Version", zh: "记录版本" }, detail: { en: "Keep version and review records so that similar documents can be distinguished.", zh: "保存版本和审核记录，方便区分相近的材料。" } },
-      { title: { en: "Retrieve", zh: "带出处检索" }, detail: { en: "Test whether a query surfaces relevant passages with a link back to the source.", zh: "验证检索能否返回相关段落，并把出处一起带回来。" } },
-      { title: { en: "Verify", zh: "检查结果" }, detail: { en: "Use fixture data to check retrieval, source display, and evidence gaps.", zh: "用样例数据检查检索、出处展示和证据缺口。" } },
-    ],
+    possibility: {
+      en: "I’d like to explore how this knowledge could support writing and answering questions, while keeping its sources and versions available during creation.",
+      zh: "进一步想试的是，让这份积累参与写作和问答，创作过程中随时能找到原文、版本和依据。",
+    },
+  },
+  {
+    id: "agent-delivery",
+    title: { en: "Digital Twin", zh: "数字分身" },
+    question: {
+      en: "What would it take to delegate work to a digital version of myself?",
+      zh: "如果把一件事交给另一个自己，他需要了解什么？",
+    },
+    idea: {
+      en: "I’m exploring a digital twin I can hand work to in a conversation, with an interaction similar to Grok Bot and Dots. I want it to draw on my knowledge, skills, and workflows, and to carry the context of the work over time.",
+      zh: "我想做一个可以在对话里交办工作的数字分身，交互思路类似 Grok Bot 和 Dots。它能用上我积累的知识、Skill 和工作流，也能带着一件事的上下文继续做下去。",
+    },
+    possibility: {
+      en: "I’m interested in how it could learn my working preferences, ask me at the right moments, and let me return through another conversation entry point to continue the same task.",
+      zh: "我关心它怎样逐渐了解我的做事习惯，什么时候该回来问我，以及我换一个对话入口时，怎样自然接上之前的事。",
+    },
+  },
+  {
+    id: "product-iteration",
+    title: { en: "AI in Everyday Life", zh: "AI 与日常生活" },
+    question: {
+      en: "Which small moments in everyday life could become better with AI?",
+      zh: "生活里反复遇到的小事，哪些值得用 AI 重新做一遍？",
+    },
+    idea: {
+      en: "Learning, keeping personal records, and listening to music are all places to explore. I’m interested in small apps that fit a specific moment, from helping someone understand a problem to making a record easier to revisit or a radio session more personal.",
+      zh: "学习、记录和听音乐都是很具体的切口。我想探索适合这些时刻的小应用，比如帮助孩子理解一道题，让日常记录更容易回看，或者让一段电台节目更贴近自己的兴趣。",
+    },
+    possibility: {
+      en: "I want to explore when an app should offer a suggestion, when it should wait for input, and how it could fit naturally into an existing habit.",
+      zh: "想继续琢磨的是，应用什么时候适合主动给建议，什么时候应该等人操作，以及怎样融入本来就有的生活习惯。",
+    },
   },
 ];
 
 export default function ExplorationsPage() {
   const { locale } = useLanguage();
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
   return (
     <SiteShell
-      title={{ en: "Explorations", zh: "最近的探索" }}
-      lead={{ en: "Experiments in brand visibility and source-backed knowledge, plus what I’m learning by iterating on the Digital Twin and everyday apps.", zh: "最近在试怎么测品牌可见度、让知识查得到出处，也在记录数字分身和日常应用每一轮解决了什么问题。" }}
+      title={{ en: "Explorations", zh: "探索与想法" }}
+      lead={{ en: "Questions I want to pursue about AI, knowledge, work, and everyday life, and ideas for what I’d like to try.", zh: "关于 AI、知识、工作和日常生活，一些我想继续追问的问题，以及值得动手试试的想法。" }}
     >
       <section className="grid gap-6 py-10 lg:grid-cols-2">
         {explorations.map((item, index) => (
-          <Reveal key={item.id} delay={index * 0.1} className="h-full">
-            <article id={item.id} data-ripple-zone className="editorial-panel flex h-full scroll-mt-36 flex-col p-5 sm:p-7">
-              <p className="text-xs font-medium text-cyan-200/85">{item.status[locale]}</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight">{item.title[locale]}</h2>
-              <p className="mt-4 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">{item.intro[locale]}</p>
-              <div className="mt-auto pt-2">
-                <ProcessStory steps={item.steps} locale={locale} />
-                <p className="mt-4 border-t border-white/8 pt-4 text-sm leading-6 text-[color:var(--text-secondary)]">{item.next[locale]}</p>
+          <Reveal key={item.id} delay={(index % 2) * 0.1} className="h-full">
+            <article id={item.id} data-ripple-zone className="editorial-panel flex h-full scroll-mt-36 flex-col p-5 sm:p-8">
+              <h2 className="text-2xl font-semibold tracking-tight text-cyan-100 sm:text-3xl">{item.title[locale]}</h2>
+              <p className="mt-5 text-xl font-medium leading-relaxed text-[color:var(--text-primary)] sm:text-2xl">{item.question[locale]}</p>
+              <p className="mt-4 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">{item.idea[locale]}</p>
+              <div className="mt-auto pt-5">
+                <p className="border-t border-white/8 pt-5 text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">{item.possibility[locale]}</p>
               </div>
             </article>
           </Reveal>
         ))}
       </section>
-      <section className="mb-9 grid gap-5 md:grid-cols-2">
-        <Reveal>
-          <article id="agent-delivery" className="editorial-panel scroll-mt-36 p-5 sm:p-7">
-            <h2 className="text-2xl font-semibold tracking-tight">{locale === "zh" ? "数字分身的迭代" : "Iterating on the Digital Twin"}</h2>
-            <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)]">
-              {locale === "zh" ? "先把任务接进来，再试着让人离开对话之后，回来还能找到那件事。内部试点已跑过任务提交、进度回读和分阶段审核。" : "I started by getting tasks into the system, then explored how to let someone leave a conversation and return to the same task. Internal pilots have covered task submission, status readback, and staged review."}
-            </p>
-            <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)]">
-              {locale === "zh" ? "下一轮想验证，换一个对话入口接着做时，能不能找回原任务、已有结果和待本人决定的事。" : "Next I want to test whether switching conversation entry points preserves the original task, partial results, and decisions still waiting for me."}
-            </p>
-            <a href={`${basePath}/agents/#agent-runtime`} className="editorial-link mt-4 inline-flex">{locale === "zh" ? "查看数字分身 →" : "Explore the Digital Twin →"}</a>
-          </article>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <article id="product-iteration" className="editorial-panel scroll-mt-36 p-5 sm:p-7">
-            <h2 className="text-2xl font-semibold tracking-tight">{locale === "zh" ? "从日常需求迭代应用" : "Iterating on everyday apps"}</h2>
-            <p className="mt-3 text-sm leading-7 text-[color:var(--text-secondary)]">
-              {locale === "zh" ? "数学侦探这一轮想弄清，孩子看完讲解后能不能用同样的方法解一道新题。我加了同构变式，把题目、答案和判题结果逐项核对后再发布。" : "In this Math Detective iteration, I wanted to know whether a learner could use the same reasoning on a new problem after reading the explanation. I added follow-up variants and checked the problems, answers, and grading before release."}
-            </p>
-            <Link href="/cases/math-detective-iteration" className="editorial-link mt-4 inline-flex">{locale === "zh" ? "查看数学侦探迭代 →" : "Read the Math Detective iteration →"}</Link>
-          </article>
-        </Reveal>
-      </section>
-      <Link href="/second-brain" className="editorial-link self-start">
-        {locale === "zh" ? "查看 AI-Agent 知识库结构 →" : "Explore the AI-Agent knowledge base →"}
-      </Link>
     </SiteShell>
   );
 }
