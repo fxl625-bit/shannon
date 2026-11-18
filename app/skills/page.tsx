@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { Reveal } from "@/components/animation/Reveal";
 import { useLanguage } from "@/components/language-provider";
 import { SiteShell } from "@/components/site-shell";
 import { SkillOS, type SkillOsItem, type SkillOsStat } from "@/components/skills/SkillOS";
@@ -270,18 +268,6 @@ export default function WorkflowsPage() {
     <SiteShell title={pageTitle} eyebrow={pageEyebrow} lead={pageIntro}>
       <section className="py-8 sm:py-10">
         <SkillOS items={skillItems} stats={skillStats} inventoryDate={inventoryDate} locale={locale} />
-        <Reveal>
-          <section className="editorial-panel mt-10 p-6 sm:p-8">
-            <h2 className="text-2xl font-semibold tracking-tight">{locale === "zh" ? "把一次迭代跑到上线" : "Taking an iteration to release"}</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-[color:var(--text-secondary)]">
-              {locale === "zh" ? "用数学侦探的一次上线，看看任务定义、逐题核验和正式站复测是怎么衔接的。" : "One Math Detective release traces the work from a precise task to individual checks and a live-site retest."}
-            </p>
-            <Link href="/cases/math-detective-iteration" className="editorial-link mt-4 inline-flex">
-              {locale === "zh" ? "阅读数学侦探迭代案例 →" : "Read the Math Detective case →"}
-            </Link>
-          </section>
-        </Reveal>
-
       </section>
     </SiteShell>
   );

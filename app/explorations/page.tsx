@@ -48,34 +48,34 @@ const explorations: Exploration[] = [
   },
   {
     id: "agent-delivery",
-    title: { en: "Digital Twin", zh: "数字分身" },
+    title: { en: "Long-Term Human–AI Collaboration", zh: "长期的人机协作" },
     question: {
-      en: "What would it take to delegate work to a digital version of myself?",
-      zh: "如果把一件事交给另一个自己，他需要了解什么？",
+      en: "How could AI learn a person’s working habits over time?",
+      zh: "AI 怎样在长期合作里了解一个人？",
     },
     idea: {
-      en: "I’m exploring a digital twin I can hand work to in a conversation, with an interaction similar to Grok Bot and Dots. I want it to draw on my knowledge, skills, and workflows, and to carry the context of the work over time.",
-      zh: "我想做一个可以在对话里交办工作的数字分身，交互思路类似 Grok Bot 和 Dots。它能用上我积累的知识、Skill 和工作流，也能带着一件事的上下文继续做下去。",
+      en: "A preference expressed during one task may only apply to that moment. I’m interested in how AI could distinguish a temporary instruction from a lasting habit, and let a person inspect and correct what it remembers.",
+      zh: "一次任务里的偏好，可能只适合当时的情况。我想探索 AI 怎样区分临时要求与长期习惯，以及人能不能方便地查看、修正它记住的内容。",
     },
     possibility: {
-      en: "I’m interested in how it could learn my working preferences, ask me at the right moments, and let me return through another conversation entry point to continue the same task.",
-      zh: "我关心它怎样逐渐了解我的做事习惯，什么时候该回来问我，以及我换一个对话入口时，怎样自然接上之前的事。",
+      en: "One idea is to let people confirm which feedback should become lasting memory, and choose what context to carry when they switch tools or devices.",
+      zh: "一个想法是，让人确认哪些反馈值得长期记住，再自主选择换工具、换设备时应该带上哪些上下文。",
     },
   },
   {
     id: "product-iteration",
-    title: { en: "AI in Everyday Life", zh: "AI 与日常生活" },
+    title: { en: "When AI Should Step In", zh: "AI 介入日常的时机" },
     question: {
-      en: "Which small moments in everyday life could become better with AI?",
-      zh: "生活里反复遇到的小事，哪些值得用 AI 重新做一遍？",
+      en: "When is an AI suggestion welcome?",
+      zh: "AI 什么时候出现，才会让人觉得刚好？",
     },
     idea: {
-      en: "Learning, keeping personal records, and listening to music are all places to explore. I’m interested in small apps that fit a specific moment, from helping someone understand a problem to making a record easier to revisit or a radio session more personal.",
-      zh: "学习、记录和听音乐都是很具体的切口。我想探索适合这些时刻的小应用，比如帮助孩子理解一道题，让日常记录更容易回看，或者让一段电台节目更贴近自己的兴趣。",
+      en: "The same suggestion can help at one moment and interrupt at another. I want to explore how context, timing, and the amount of explanation change whether people find AI assistance welcome.",
+      zh: "同一个建议，在一个时刻能帮上忙，换个时刻却可能打断人。我想探索使用场景、出现时机和解释多少，会怎样影响人接受 AI 帮助的意愿。",
     },
     possibility: {
-      en: "I want to explore when an app should offer a suggestion, when it should wait for input, and how it could fit naturally into an existing habit.",
-      zh: "想继续琢磨的是，应用什么时候适合主动给建议，什么时候应该等人操作，以及怎样融入本来就有的生活习惯。",
+      en: "I’d like to try assistance that is easy to dismiss, easy to ask for again, and lets people decide when to invite it into an activity.",
+      zh: "想试试让 AI 的帮助可以轻松收起，也能随时叫回来，由使用者决定什么时候让它参与。",
     },
   },
 ];

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 
 import { useLanguage } from "@/components/language-provider";
@@ -23,25 +22,11 @@ type Section = {
 
 const sections: Section[] = [
   {
-    key: "overview",
-    title: {
-      en: "Overview",
-      zh: "概览",
-    },
+    key: "sources",
+    title: { en: "Keep the Source", zh: "保留来源" },
     body: {
-      en: "My Obsidian vault keeps notes, rules, scripts, outputs, and skills together. That gives research, writing, and AI-assisted processing a reliable starting point.",
-      zh: "我的 Obsidian 放笔记、规则、脚本、输出结果和 Skills。查资料、写东西或让 AI 处理材料时，都有稳定的起点。",
-    },
-  },
-  {
-    key: "vault-structure",
-    title: {
-      en: "How It's Organized",
-      zh: "目录说明",
-    },
-    body: {
-      en: "raw/ keeps raw captures as they come in. wiki/ holds organized entries that have been reviewed and linked. config/ stores rule files — classification standards, conflict resolution, query conventions. skills/ holds reusable capabilities. scripts/ and outputs/ handle automation and generated results.",
-      zh: "raw/ 放原始内容，wiki/ 放整理过的条目，config/ 放规则，skills/ 放可复用能力，scripts/ 和 outputs/ 分别放脚本和输出结果。",
+      en: "Original captures stay available alongside their summaries. Topic notes connect related sources so I can return to the original context when I need to check a detail.",
+      zh: "原始资料和摘要一起保留。主题笔记把相关来源连起来，需要确认细节时，可以回到原文和当时的上下文。",
     },
   },
   {
@@ -78,11 +63,6 @@ const sections: Section[] = [
     },
   },
 ];
-
-const closingThought: Localized = {
-  en: "A knowledge base that works is one you keep coming back to.",
-  zh: "好的知识库是你愿意反复回来用的那个。",
-};
 
 export default function AiAgentKnowledgeBasePage() {
   const { locale } = useLanguage();
@@ -221,19 +201,6 @@ export default function AiAgentKnowledgeBasePage() {
             </div>
           </Reveal>
 
-          <Reveal>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Link href="/explorations#brand-knowledge-base" className="editorial-panel p-5 hover:border-cyan-200/40">
-                <h2 className="font-semibold">{locale === "zh" ? "品牌知识库探索" : "Brand knowledge base exploration"}</h2>
-                <p className="mt-2 text-sm leading-6 text-[color:var(--text-secondary)]">{locale === "zh" ? "把来源、版本和出处关联起来。" : "Connect material to its source and version."}</p>
-              </Link>
-              <Link href="/cases/math-detective-iteration" className="editorial-panel p-5 hover:border-cyan-200/40">
-                <h2 className="font-semibold">{locale === "zh" ? "从归档看一次真实迭代" : "A real iteration from the archive"}</h2>
-                <p className="mt-2 text-sm leading-6 text-[color:var(--text-secondary)]">{locale === "zh" ? "数学侦探的需求、题库核验和发布证据。" : "The requirements, problem checks, and release evidence for Math Detective."}</p>
-              </Link>
-            </div>
-          </Reveal>
-
           <div className="grid gap-4 sm:grid-cols-2">
             {sections.map((section, index) => (
               <Reveal key={section.key} delay={(index % 2) * 0.08} className="h-full">
@@ -245,13 +212,6 @@ export default function AiAgentKnowledgeBasePage() {
             ))}
           </div>
 
-          <Reveal delay={0.4}>
-            <div className="glass-surface-strong px-6 py-8 text-center sm:px-10 sm:py-10">
-              <p className="text-lg leading-relaxed text-[color:var(--text-primary)] italic sm:text-xl">
-                &ldquo;{closingThought[locale]}&rdquo;
-              </p>
-            </div>
-          </Reveal>
         </div>
       </section>
     </SiteShell>

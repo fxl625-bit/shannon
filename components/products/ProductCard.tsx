@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 import type { AppTool, Locale } from "@/data/site";
 
@@ -39,14 +38,7 @@ export function ProductCard({
     >
       <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent)] opacity-60" />
 
-      <button
-        type="button"
-        onClick={() => onOpen(app)}
-        className="text-left"
-        aria-label={locale === "zh" ? "预览" + app.name.zh : "Open preview for " + app.name.en}
-      >
-        <ProductMotionPreview app={app} locale={locale} active={active} priority={priority} />
-      </button>
+      <ProductMotionPreview app={app} locale={locale} active={active} priority={priority} />
       {app.statusTone === "internal" ? (
         <p className="mt-2 text-xs text-[color:var(--text-muted)]">{app.previewLabel[locale]}</p>
       ) : null}
@@ -57,12 +49,9 @@ export function ProductCard({
             <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
               {app.typeLabel[locale]}
             </p>
-            <h2 className="mt-2 text-2xl leading-tight text-[color:var(--text-primary)]">
+            <h3 className="mt-2 text-2xl leading-tight text-[color:var(--text-primary)]">
               {app.name[locale]}
-            </h2>
-            <p className="mt-2 max-w-[36ch] text-sm leading-6 text-[color:var(--text-secondary)]">
-              {app.spotlight[locale]}
-            </p>
+            </h3>
           </div>
           <span
             className={`rounded-full border px-3 py-1 text-[11px] uppercase tracking-[0.14em] ${
@@ -77,41 +66,23 @@ export function ProductCard({
           {app.summary[locale]}
         </p>
 
-        <div className="mt-auto flex flex-wrap gap-2">
-          {app.tags.map((tag) => (
-            <span
-              key={tag.en}
-              className="rounded-full border border-white/8 bg-white/[0.03] px-2.5 py-1 text-[11px] text-[color:var(--text-muted)]"
-            >
-              {tag[locale]}
-            </span>
-          ))}
-        </div>
-
-        <div className="flex items-center justify-between gap-3 border-t border-white/8 pt-4">
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/8 pt-4">
           <button
             type="button"
             onClick={() => onOpen(app)}
             className="inline-flex items-center rounded-full border border-[color:var(--border)] bg-white/[0.03] px-4 py-2 text-sm text-[color:var(--text-primary)] transition-colors hover:border-[color:var(--border-strong)]"
+            aria-label={locale === "zh" ? "查看" + app.name.zh + "详情" : "View details for " + app.name.en}
           >
-            {locale === "zh" ? "\u67e5\u770b\u9884\u89c8" : "Open preview"}
+            {locale === "zh" ? "查看详情" : "View details"}
           </button>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
             {app.storeUrl ? (
-              <>
-                <a href={app.storeUrl} target="_blank" rel="noreferrer" className="editorial-link">Google Play ↗</a>
-                <a href="#locallog" className="editorial-link">{locale === "zh" ? "截图与演示 ↓" : "Screens & demo ↓"}</a>
-              </>
+              <a href={app.storeUrl} target="_blank" rel="noreferrer" className="editorial-link">Google Play ↗</a>
             ) : null}
             {app.demoUrl ? (
               <a href={app.demoUrl} target="_blank" rel="noreferrer" className="editorial-link">
                 {locale === "zh" ? "在线体验 ↗" : "Open app ↗"}
               </a>
-            ) : null}
-            {app.slug === "math-detective" ? (
-              <Link href="/cases/math-detective-iteration" className="editorial-link">
-                {locale === "zh" ? "迭代案例 →" : "Read the case →"}
-              </Link>
             ) : null}
           </div>
         </div>

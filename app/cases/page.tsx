@@ -13,15 +13,7 @@ export default function CasesPage() {
   return (
     <SiteShell title={site.casesPage.title} eyebrow={site.casesPage.eyebrow} lead={site.casesPage.intro}>
       <section className="py-12 sm:py-16">
-        <Link href="/cases/math-detective-iteration" className="editorial-panel flex flex-wrap items-center justify-between gap-4 p-5 hover:border-cyan-200/40 sm:p-7">
-          <div>
-            <h2 className="text-2xl font-semibold">{locale === "zh" ? "数学侦探 v2.15.0" : "Math Detective v2.15.0"}</h2>
-            <p className="mt-2 text-sm text-[color:var(--text-secondary)]">{locale === "zh" ? "从 20 到 595 道经核验的同构变式。" : "From 20 to 595 verified follow-up exercises."}</p>
-          </div>
-          <span className="editorial-link">{locale === "zh" ? "阅读迭代案例 →" : "Read the release case →"}</span>
-        </Link>
-
-        <div className="case-wall mt-10">
+        <div className="case-wall">
           {cases.map((c) => (
             <Link key={c.slug} href={`/cases/${c.slug}`} className="case-wall-card">
               <span className="num">{c.number}</span>

@@ -101,18 +101,6 @@ export function ProductMotionPreview({
               active ? "translate-x-[340%]" : "translate-x-0"
             }`}
           />
-          <div className="pointer-events-none absolute inset-x-4 bottom-4 flex justify-end">
-            <div className="flex gap-1.5">
-              {app.tags.slice(0, 2).map((tag) => (
-                <span
-                  key={tag.en}
-                  className="rounded-full border border-white/10 bg-black/30 px-2 py-1 text-[10px] text-white/60 backdrop-blur"
-                >
-                  {tag[locale]}
-                </span>
-              ))}
-            </div>
-          </div>
         </div>
       </ScreenshotFrame>
     </div>

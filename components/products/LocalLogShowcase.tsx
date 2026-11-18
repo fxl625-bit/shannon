@@ -23,16 +23,14 @@ export function LocalLogShowcase() {
 
   return (
     <Reveal>
-      <section id="locallog" aria-labelledby="locallog-title" data-ripple-zone className="editorial-panel scroll-mt-32 p-5 sm:p-8">
+      <article id="locallog" aria-labelledby="locallog-title" data-ripple-zone className="editorial-panel scroll-mt-32 p-5 sm:p-8">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_226px] lg:items-start">
           <div className="min-w-0">
-            <h2 id="locallog-title" className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              {zh ? "一世圆满" : "LocalLog"}
-            </h2>
+            <h3 id="locallog-title" className="text-3xl font-semibold tracking-tight sm:text-4xl">
+              {app.name[locale]}
+            </h3>
             <p className="mt-4 max-w-xl text-sm leading-7 text-[color:var(--text-secondary)] sm:text-base">
-              {zh
-                ? "集中记录血压和血糖，补录实际测量时间，并从记录回看历史与基础趋势。"
-                : "Log blood pressure and glucose, edit the actual measurement time, and review history and basic trends."}
+              {app.summary[locale]}
             </p>
             <a href={app.storeUrl} target="_blank" rel="noreferrer" className="editorial-link mt-4 inline-flex">
               {zh ? "前往 Google Play ↗" : "Get it on Google Play ↗"}
@@ -54,9 +52,9 @@ export function LocalLogShowcase() {
             </div>
           </div>
           <div className="mx-auto w-full max-w-[226px]">
-            <h3 id="locallog-demo" className="mb-3 text-sm font-medium text-white/85">
+            <h4 id="locallog-demo" className="mb-3 text-sm font-medium text-white/85">
               {zh ? "15 秒操作演示" : "15-second walkthrough"}
-            </h3>
+            </h4>
             <video aria-labelledby="locallog-demo" className="aspect-[9/16] w-full rounded-xl border border-white/10 bg-black" poster={poster} controls playsInline preload="metadata">
               <source src={media + "demo.mp4"} type="video/mp4" />
               <a href={media + "demo.mp4"}>{zh ? "打开演示视频" : "Open the walkthrough"}</a>
@@ -66,7 +64,7 @@ export function LocalLogShowcase() {
             </p>
           </div>
         </div>
-      </section>
+      </article>
     </Reveal>
   );
 }

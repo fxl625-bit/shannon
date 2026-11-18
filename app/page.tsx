@@ -3,12 +3,10 @@
 import { useEffect } from "react";
 
 import { AmbientBackground } from "@/components/AmbientBackground";
-import { BrandCapabilitySection } from "@/components/BrandCapabilitySection";
 import { HomeGatewaySection } from "@/components/HomeGatewaySection";
 import { Navigation } from "@/components/Navigation";
 import { ScrollSequenceHero } from "@/components/ScrollSequenceHero";
 import { CursorRippleLayer } from "@/components/visual/CursorRippleLayer";
-import { WorkflowSection } from "@/components/WorkflowSection";
 
 export default function HomePage() {
   useEffect(() => {
@@ -29,8 +27,6 @@ export default function HomePage() {
       <main className="relative z-10">
         <ScrollSequenceHero />
         <HomeGatewaySection />
-        <BrandCapabilitySection />
-        <WorkflowSection />
 
         <footer className="border-t border-[color:var(--border)] py-10">
           <div className="mx-auto flex max-w-[var(--max-width)] flex-col items-center justify-between gap-5 px-5 text-sm text-[color:var(--text-muted)] sm:flex-row sm:px-8">

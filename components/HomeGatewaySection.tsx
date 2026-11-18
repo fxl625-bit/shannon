@@ -1,8 +1,7 @@
 /**
  * HomeGatewaySection — 滚动动画结束后展示的个人工作台入口区。
  *
- * 三个入口：Apps / AI-Agent Knowledge Base / Workflows
- * 无 Experiments，无 Notes，无 Cases。
+ * 应用、Agent 和探索为主入口，知识库与工作流为补充入口。
  */
 
 "use client";
@@ -11,45 +10,45 @@ import Link from "next/link";
 import { Reveal } from "@/components/animation/Reveal";
 import { useLanguage } from "@/components/language-provider";
 
-type EntryKey = "apps" | "ai-agent-knowledge-base" | "workflows";
+type EntryKey = "apps" | "agents" | "explorations";
 
 const ENTRIES: { href: string; icon: string; key: EntryKey }[] = [
   { href: "/apps", icon: "◈", key: "apps" },
-  { href: "/second-brain", icon: "◎", key: "ai-agent-knowledge-base" },
-  { href: "/skills", icon: "○", key: "workflows" },
+  { href: "/agents", icon: "◎", key: "agents" },
+  { href: "/explorations", icon: "○", key: "explorations" },
 ];
 
 const COPY = {
   en: {
     title: "Things I work on",
-    subtitle: "Projects, knowledge, and ways of working I keep coming back to.",
+    subtitle: "What I build, what I delegate, and what I want to explore next.",
     apps: {
       name: "Apps",
       desc: "Tools I made for math practice, health logging, and listening to music.",
     },
-    "ai-agent-knowledge-base": {
-      name: "AI-Agent Knowledge Base",
-      desc: "Project notes, version history, and verification records organized in Obsidian.",
+    agents: {
+      name: "Agents",
+      desc: "My digital twin and agents that help carry work through to a result.",
     },
-    workflows: {
-      name: "Workflows",
-      desc: "Repeatable ways I use AI for research, writing, and software development.",
+    explorations: {
+      name: "Explorations",
+      desc: "Questions and ideas about AI, knowledge, and how we work and live.",
     },
   },
   zh: {
     title: "我在做的事",
-    subtitle: "项目、知识库，以及我经常使用的工作方式。",
+    subtitle: "做出的应用、交给 Agent 的工作，以及还想继续探索的问题。",
     apps: {
       name: "应用",
       desc: "自己做来自己用的小工具，用来练数学推理、记健康数据、听音乐。",
     },
-    "ai-agent-knowledge-base": {
-      name: "AI-Agent 知识库",
-      desc: "用 Obsidian 整理项目笔记、版本和验证记录，方便回溯与接手。",
+    agents: {
+      name: "Agent",
+      desc: "我做的数字分身，以及能承接具体工作的 Agent。",
     },
-    workflows: {
-      name: "工作流",
-      desc: "把日常研究、写作和开发中反复做的事，整理成可复用的 AI 工作流。",
+    explorations: {
+      name: "探索",
+      desc: "关于 AI、知识和日常生活，值得继续追问和动手尝试的想法。",
     },
   },
 };
@@ -111,10 +110,9 @@ export function HomeGatewaySection() {
         </div>
 
         <Reveal delay={0.4}>
-          <div className="mt-14 flex items-center justify-center gap-3">
-            <div className="h-px w-8 bg-gradient-to-r from-transparent to-[color:var(--cyan)]" />
-            <div className="h-1.5 w-1.5 rotate-45 border border-[color:var(--cyan)]" />
-            <div className="h-px w-8 bg-gradient-to-l from-transparent to-[color:var(--violet)]" />
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[color:var(--text-secondary)]">
+            <Link href="/second-brain" className="editorial-link">{locale === "zh" ? "我的知识库 →" : "My knowledge base →"}</Link>
+            <Link href="/skills" className="editorial-link">{locale === "zh" ? "Skill 与工作流 →" : "Skills & workflows →"}</Link>
           </div>
         </Reveal>
       </div>
